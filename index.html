@@ -905,6 +905,143 @@ input,select,textarea{font-family:inherit;font-size:16px}
 <script>
 (function(){
   'use strict';
+    /* ===== AUTO MIGRATION FROM OLD VERSION ===== */
+  (function migrate(){
+    try {
+      const MIGRATED_KEY = 'bm_migrated_v2';
+      if (localStorage.getItem(MIGRATED_KEY) === 'done') return;
+
+      const oldBills = JSON.parse(localStorage.getItem('bm_bills_cloud_v1') || '[]');
+      const oldKhaatas = JSON.parse(localStorage.getItem('bm_khaatas_v1') || '[]');
+      const oldSettings = JSON.parse(localStorage.getItem('bm_settings_cloud_v1') || '{}');
+      const oldSec = JSON.parse(localStorage.getItem('bm_security_v3') || '{}');
+
+      if (!oldBills.length && !oldKhaatas.length){
+        localStorage.setItem(MIGRATED_KEY, 'done');
+        return;
+      }
+
+      function uid(p){ return p + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,7); }
+      const suppliersMap = {};
+
+      function ensureSupplier(name, phone, address, createdAt){
+        if (!name) return null;
+        const key = String(name).toLowerCase().trim();
+        if (!key) return null;
+        if (!suppliersMap[key]){
+          suppliersMap[key] = {
+            id: uid('sup'),
+            name: String(name).trim(),
+            phone: phone || '',
+            address: address || '',
+            notes: 'Migrated from old version',
+            createdAt: createdAt || Date.now(),
+            updatedAt: Date.now()
+          };
+        }
+        return suppliersMap[key];
+      }
+
+      // Convert old bills
+      const newBills = oldBills.map(b => {
+        const sup = ensureSupplier(b.agencyName, b.phone, b.address, b.createdAt);
+        return {
+          id: b.id || uid('bill'),
+          supplierId: sup ? sup.id : null,
+          supplierName: b.agencyName || 'Unknown',
+          billNumber: '',
+          billDate: b.supplyDate || b.bookingDate || new Date(b.createdAt || Date.now()).toISOString().split('T')[0],
+          dueDate: '',
+          amount: Number(b.amount) || 0,
+          tax: (Number(b.advanceTax)||0) + (Number(b.withholdingTax)||0),
+          paymentType: b.payment === 'cash' ? 'cash' : 'credit',
+          category: '',
+          phone: b.phone || '',
+          bookedBy: b.bookedBy || '',
+          notes: b.notes || '',
+          imageUrl: b.imageUrl || null,
+          payments: [],
+          createdAt: b.createdAt || Date.now(),
+          updatedAt: Date.now()
+        };
+      });
+
+      // Convert old khaata entries
+      oldKhaatas.forEach(k => {
+        const sup = ensureSupplier(k.agencyName, k.phone, k.address, k.createdAt);
+        if (!sup) return;
+        (k.entries || []).forEach(e => {
+          if (e.type === 'purchase'){
+            newBills.push({
+              id: uid('bill'),
+              supplierId: sup.id,
+              supplierName: sup.name,
+              billNumber: '',
+              billDate: e.date || new Date().toISOString().split('T')[0],
+              dueDate: '',
+              amount: Number(e.amount) || 0,
+              tax: 0,
+              paymentType: 'credit',
+              category: '',
+              phone: '',
+              bookedBy: '',
+              notes: e.notes || (e.items && e.items.length ? e.items.map(it => it.name).filter(Boolean).join(', ') : ''),
+              imageUrl: null,
+              payments: [],
+              createdAt: e.createdAt || Date.now(),
+              updatedAt: Date.now()
+            });
+          } else if (e.type === 'payment'){
+            const supBills = newBills.filter(x => x.supplierId === sup.id);
+            if (supBills.length){
+              supBills[supBills.length - 1].payments.push({
+                id: uid('pay'),
+                date: e.date || new Date().toISOString().split('T')[0],
+                amount: Number(e.amount) || 0,
+                method: e.method || 'cash',
+                reference: '',
+                notes: e.notes || '',
+                createdAt: e.createdAt || Date.now()
+              });
+            }
+          }
+        });
+      });
+
+      const newSuppliers = Object.values(suppliersMap);
+
+      localStorage.setItem('bm_bills_v2', JSON.stringify(newBills));
+      localStorage.setItem('bm_suppliers_v2', JSON.stringify(newSuppliers));
+      localStorage.setItem('bm_settings_v2', JSON.stringify({
+        shopName: oldSettings.shopName || '',
+        shopAddress: oldSettings.shopAddress || '',
+        shopPhone: oldSettings.shopPhone || '',
+        cloudName: oldSettings.cloudName || 'qohsict0',
+        cloudPreset: oldSettings.cloudPreset || 'bills_upload',
+        hideAmounts: false
+      }));
+
+      if (oldSec && oldSec.pinHash){
+        localStorage.setItem('bm_security_v4', JSON.stringify({
+          pinHash: oldSec.pinHash,
+          secQ1: oldSec.secQ1 || '',
+          secA1Hash: oldSec.secA1Hash || '',
+          secQ2: oldSec.secQ2 || '',
+          secA2Hash: oldSec.secA2Hash || '',
+          fingerprintEnabled: oldSec.fingerprintEnabled || false,
+          credentialId: oldSec.credentialId || null,
+          failedAttempts: 0,
+          lockUntil: 0,
+          verifyAttempts: 0,
+          verifyLockUntil: 0
+        }));
+      }
+
+      localStorage.setItem(MIGRATED_KEY, 'done');
+    } catch(e){ console.warn('Migration failed:', e); }
+  })();
+  /* ===== END MIGRATION ===== */
+
 
   /* ============================================================
      APKI CLOUDINARY DETAILS
