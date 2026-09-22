@@ -8,13 +8,15 @@
 <meta name="apple-mobile-web-app-title" content="Bills">
 <link rel="manifest" href="manifest.json">
 <title>Bills Manager</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'; this.onload=null;">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 <style>
 :root{
   --primary:#0f5132; --accent:#198754;
   --bg:#f5f7f5; --card:#fff; --text:#1a2e22; --muted:#6c7d72;
   --border:#e0e8dc; --danger:#c23b3b; --warning:#cc8800;
-  --shadow:0 2px 12px rgba(15,81,50,.06);
+  --shadow:0 2px 10px rgba(15,81,50,.06);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{overscroll-behavior-y:none}
@@ -22,7 +24,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 button{font-family:inherit;cursor:pointer}
 input,select,textarea{font-family:inherit;font-size:16px}
 
-.app-header{background:var(--primary);color:#fff;padding:calc(env(safe-area-inset-top) + 14px) 18px 14px;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.app-header{background:var(--primary);color:#fff;padding:calc(env(safe-area-inset-top) + 14px) 18px 14px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .app-header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .app-title{font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:8px}
 .app-title i{color:#7ee0a5}
@@ -32,12 +34,13 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .install-btn{background:#fff;color:var(--primary);border:none;padding:.5rem .9rem;border-radius:40px;font-weight:700;font-size:.78rem;display:none;align-items:center;gap:6px;white-space:nowrap}
 .install-btn.show{display:inline-flex}
 
-.view{display:none;padding:16px}
-.view.active{display:block}
+.view{display:none;padding:16px;contain:layout style}
+.view.active{display:block;contain:layout style paint}
 .section-title{font-size:1rem;font-weight:700;color:var(--primary);margin:4px 0 12px;display:flex;align-items:center;gap:8px}
 .section-title i{color:var(--accent)}
 
-.summary-card{background:linear-gradient(135deg,#0f5132 0%,#198754 100%);color:#fff;border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 8px 24px rgba(15,81,50,.18)}
+.summary-card{background:linear-gradient(135deg,#0f5132 0%,#198754 100%);color:#fff;border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 4px 12px rgba(15,81,50,.15)}
+.summary-card.orange{background:linear-gradient(135deg,#b45309 0%,#d97706 100%)}
 .summary-card .label{font-size:.72rem;text-transform:uppercase;letter-spacing:.6px;opacity:.85;font-weight:600}
 .summary-card .amount{font-size:1.9rem;font-weight:800;margin:4px 0 12px;letter-spacing:-.5px}
 .summary-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;border-top:1px solid rgba(255,255,255,.2);padding-top:12px}
@@ -45,19 +48,24 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .summary-grid .item .v{font-weight:700;font-size:.95rem}
 .summary-grid .item .l{font-size:.68rem;opacity:.85;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
 
-.bill-list{display:flex;flex-direction:column;gap:10px}
-.bill-card{background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--shadow);border:1px solid var(--border);display:flex;gap:12px;align-items:center;transition:.15s;cursor:pointer}
-.bill-card:active{transform:scale(.99);background:#fafcf9}
-.bill-thumb{width:56px;height:56px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,#e8f3ea,#d1e7dd);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.5rem;overflow:hidden;position:relative}
-.bill-thumb img{width:100%;height:100%;object-fit:cover}
-.bill-thumb .loading{position:absolute;inset:0;background:#e8f3ea;display:flex;align-items:center;justify-content:center;color:#7a9a85;font-size:1rem}
+.bill-list{display:flex;flex-direction:column;gap:10px;contain:layout style}
+.bill-card{background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--shadow);border:1px solid var(--border);display:flex;gap:12px;align-items:center;cursor:pointer;will-change:transform}
+.bill-card:active{transform:scale(.985);background:#fafcf9}
+.bill-thumb{width:56px;height:56px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,#e8f3ea,#d1e7dd);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.5rem;overflow:hidden;position:relative;contain:strict}
+.bill-thumb.khaata{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e}
+.bill-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .bill-info{flex:1;min-width:0}
 .bill-info .agency{font-weight:700;font-size:.95rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bill-info .meta{font-size:.75rem;color:var(--muted);display:flex;gap:8px;margin-top:3px;flex-wrap:wrap}
 .bill-info .meta .badge{padding:1px 7px;border-radius:20px;font-weight:600;font-size:.68rem;text-transform:uppercase}
 .badge.cash{background:#d1e7dd;color:#0f5132}
 .badge.credit{background:#fff3cd;color:#856404}
+.badge.due{background:#fee2e2;color:#991b1b}
+.badge.advance{background:#d1e7dd;color:#0f5132}
+.badge.settled{background:#e5e7eb;color:#374151}
 .bill-amount{font-weight:800;color:var(--primary);font-size:1rem;text-align:right;flex-shrink:0}
+.bill-amount.owe{color:#dc2626}
+.bill-amount.adv{color:#059669}
 .bill-amount .sub{font-size:.68rem;color:var(--muted);font-weight:500;display:block;margin-top:2px}
 
 .empty{text-align:center;padding:48px 20px;color:var(--muted);background:var(--card);border-radius:16px;border:2px dashed var(--border)}
@@ -66,12 +74,13 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .empty p{font-size:.85rem}
 
 .add-options{display:flex;flex-direction:column;gap:12px;margin-top:8px}
-.opt-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:.15s;box-shadow:var(--shadow);text-align:left;width:100%}
-.opt-card:active{transform:scale(.99);background:#fafcf9}
+.opt-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;box-shadow:var(--shadow);text-align:left;width:100%}
+.opt-card:active{transform:scale(.985);background:#fafcf9}
 .opt-icon{width:52px;height:52px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff}
 .opt-icon.cam{background:linear-gradient(135deg,#0f5132,#198754)}
 .opt-icon.gal{background:linear-gradient(135deg,#7c3aed,#a855f7)}
 .opt-icon.man{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.opt-icon.khaata{background:linear-gradient(135deg,#0891b2,#0e7490)}
 .opt-text h4{font-size:1rem;color:var(--text);font-weight:700;margin-bottom:2px}
 .opt-text p{font-size:.82rem;color:var(--muted)}
 
@@ -84,10 +93,10 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .stat-card.total .lbl i{color:#7ee0a5}
 .stat-card.total .val{color:#fff;font-size:1.4rem}
 
-.overlay{position:fixed;inset:0;background:rgba(15,30,20,.55);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;z-index:10000;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay{position:fixed;inset:0;background:rgba(15,30,20,.62);display:flex;align-items:flex-end;justify-content:center;z-index:10000;opacity:0;pointer-events:none;transition:opacity .15s;contain:layout style}
 .overlay.active{opacity:1;pointer-events:auto}
 .overlay.center{align-items:center;padding:20px}
-.sheet{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;max-height:92vh;overflow-y:auto;padding:20px 18px calc(20px + env(safe-area-inset-bottom));transform:translateY(20px);transition:transform .22s;-webkit-overflow-scrolling:touch}
+.sheet{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;max-height:92vh;overflow-y:auto;padding:20px 18px calc(20px + env(safe-area-inset-bottom));transform:translateY(20px);transition:transform .18s cubic-bezier(.2,.8,.3,1);-webkit-overflow-scrolling:touch;will-change:transform}
 .overlay.active .sheet{transform:translateY(0)}
 .overlay.center .sheet{border-radius:22px}
 .sheet-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;position:sticky;top:-20px;background:#fff;padding:6px 0 12px;z-index:5;border-bottom:1px solid var(--border)}
@@ -112,8 +121,8 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .capture:active{transform:scale(.94)}
 .capture:disabled{background:#b8cdb1;box-shadow:none}
 
-.btn{border:none;padding:.75rem 1.1rem;border-radius:12px;font-weight:700;font-size:.92rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s;min-height:48px;white-space:nowrap}
-.btn:active{transform:scale(.98)}
+.btn{border:none;padding:.75rem 1.1rem;border-radius:12px;font-weight:700;font-size:.92rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;white-space:nowrap;transition:transform .1s,background .1s}
+.btn:active{transform:scale(.97)}
 .btn-primary{background:var(--primary);color:#fff}
 .btn-accent{background:var(--accent);color:#fff}
 .btn-outline{background:#fff;border:1.5px solid var(--border);color:var(--text)}
@@ -124,7 +133,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .btn-sm{padding:.5rem .85rem;font-size:.82rem;min-height:40px}
 
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:10px 0 calc(10px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.06);z-index:40;border-top:1px solid var(--border)}
-.nav-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);font-size:.7rem;font-weight:600;padding:6px 16px;transition:.15s;position:relative}
+.nav-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);font-size:.68rem;font-weight:600;padding:6px 8px;transition:color .15s;position:relative;flex:1}
 .nav-btn i{font-size:1.15rem}
 .nav-btn.active{color:var(--primary)}
 .nav-btn.active::after{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:24px;height:3px;background:var(--accent);border-radius:3px}
@@ -136,7 +145,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .detail-row .v{color:var(--text);font-weight:600;text-align:right;word-break:break-word}
 .detail-img{width:100%;border-radius:12px;margin:12px 0;border:1px solid var(--border);background:#f0f5f1}
 
-.toast{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:#1a2e22;color:#fff;padding:12px 22px;border-radius:60px;font-weight:600;font-size:.88rem;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:10002;opacity:0;transition:.25s;pointer-events:none;display:flex;align-items:center;gap:10px;max-width:90vw;text-align:center}
+.toast{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:#1a2e22;color:#fff;padding:12px 22px;border-radius:60px;font-weight:600;font-size:.88rem;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:10002;opacity:0;transition:opacity .25s;pointer-events:none;display:flex;align-items:center;gap:10px;max-width:90vw;text-align:center;will-change:transform}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast i{color:#7ee0a5}
 
@@ -145,19 +154,14 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .confirm-title{text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:8px;color:var(--text)}
 .confirm-msg{text-align:center;font-size:.9rem;color:var(--muted);margin-bottom:18px}
 
-.upload-progress{position:fixed;inset:0;background:rgba(15,30,20,.7);display:none;align-items:center;justify-content:center;z-index:999;padding:20px}
+.upload-progress{position:fixed;inset:0;background:rgba(15,30,20,.7);display:none;align-items:center;justify-content:center;z-index:10001;padding:20px}
 .upload-progress.show{display:flex}
 .upload-box{background:#fff;border-radius:16px;padding:28px;text-align:center;max-width:280px;width:100%}
 .upload-box i{font-size:2.4rem;color:var(--accent);display:block;margin-bottom:12px}
 .upload-box p{font-weight:600;color:var(--text);margin-bottom:4px}
 .upload-box small{color:var(--muted);font-size:.8rem}
 
-/* LOCK SCREEN */
-#lockScreen{
-  position:fixed;inset:0;background:linear-gradient(160deg,#0f5132 0%,#0a3b24 100%);
-  z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:30px 24px;color:#fff;text-align:center;overflow-y:auto;
-}
+#lockScreen{position:fixed;inset:0;background:linear-gradient(160deg,#0f5132 0%,#0a3b24 100%);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;color:#fff;text-align:center;overflow-y:auto}
 #lockScreen.hidden{display:none}
 .lock-logo{font-size:3rem;margin-bottom:14px;color:#7ee0a5}
 .lock-title{font-size:1.4rem;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
@@ -166,40 +170,83 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .lock-dot{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.35);transition:background .08s,transform .08s,border-color .08s}
 .lock-dot.filled{background:#7ee0a5;border-color:#7ee0a5;transform:scale(1.1)}
 .lock-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:300px;width:100%}
-.key-btn{
-  background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;
-  font-size:1.5rem;font-weight:600;padding:16px 0;border-radius:50%;cursor:pointer;
-  transition:.15s;user-select:none;aspect-ratio:1;display:flex;align-items:center;justify-content:center;
-}
+.key-btn{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-size:1.5rem;font-weight:600;padding:16px 0;border-radius:50%;cursor:pointer;transition:.15s;user-select:none;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
 .key-btn:hover{background:rgba(255,255,255,.18)}
 .key-btn:active{transform:scale(.93);background:rgba(255,255,255,.35);transition:none}
 .key-btn.action{font-size:1.2rem}
 .key-btn.empty{visibility:hidden;pointer-events:none}
 .lock-error{color:#ff9b9b;font-size:.85rem;min-height:20px;margin-top:16px;font-weight:500}
-.lock-fingerprint{
-  background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);color:#fff;
-  width:64px;height:64px;border-radius:50%;font-size:1.6rem;display:none;
-  align-items:center;justify-content:center;cursor:pointer;margin-top:16px;transition:.15s;
-}
+.lock-fingerprint{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);color:#fff;width:64px;height:64px;border-radius:50%;font-size:1.6rem;display:none;align-items:center;justify-content:center;cursor:pointer;margin-top:16px;transition:.15s}
 .lock-fingerprint:hover{background:rgba(255,255,255,.22);transform:scale(1.05)}
 .lock-fingerprint.show{display:flex}
 .lock-fingerprint:active{transform:scale(.95)}
 #fingerprintHint{display:none;color:#b1e6b1;font-size:.82rem;margin-top:10px;max-width:280px;line-height:1.5}
-.lock-link{
-  background:none;border:none;color:#b1e6b1;font-size:.85rem;margin-top:14px;
-  text-decoration:underline;cursor:pointer;padding:8px;
-}
+.lock-link{background:none;border:none;color:#b1e6b1;font-size:.85rem;margin-top:14px;text-decoration:underline;cursor:pointer;padding:8px}
 .lock-link:hover{color:#7ee0a5}
 .lock-shake{animation:shake .4s}
-@keyframes shake{
-  0%,100%{transform:translateX(0)}
-  20%{transform:translateX(-10px)}
-  40%{transform:translateX(10px)}
-  60%{transform:translateX(-6px)}
-  80%{transform:translateX(6px)}
-}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 .fa-beat{animation:fa-beat 1s ease-in-out infinite}
 @keyframes fa-beat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+
+.tab-switch{display:flex;gap:6px;background:#f0f5f1;padding:4px;border-radius:12px;margin-bottom:14px}
+.tab-switch .tab-btn{flex:1;background:none;border:none;padding:.7rem .5rem;border-radius:9px;font-weight:700;font-size:.85rem;color:var(--muted);transition:background .12s,color .12s;cursor:pointer}
+.tab-switch .tab-btn.active{background:#fff;color:var(--primary);box-shadow:0 2px 6px rgba(0,0,0,.06)}
+
+.items-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.item-row{background:#f9fbf8;border:1.5px solid var(--border);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.item-row-top{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.item-row-mid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.item-row input{width:100%;padding:.5rem .65rem;border:1px solid var(--border);border-radius:8px;font-size:.85rem;background:#fff}
+.item-row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(25,135,84,.12)}
+.item-row input.item-amount{background:#e8f3ea;font-weight:700;color:var(--primary);text-align:right}
+.remove-item-row{background:#fee2e2;border:none;color:#991b1b;width:32px;height:32px;border-radius:8px;font-size:.85rem;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.remove-item-row:active{transform:scale(.92)}
+.add-item-btn{background:#f0f5f1;border:1.5px dashed var(--accent);color:var(--accent);padding:.7rem;border-radius:12px;font-weight:700;font-size:.85rem;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
+.add-item-btn:hover{background:#e8f3ea}
+.add-item-btn:active{transform:scale(.98)}
+
+.total-display{background:linear-gradient(135deg,#0f5132,#198754);color:#fff;padding:.9rem 1.1rem;border-radius:12px;display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:12px}
+.total-display .lbl{font-size:.78rem;opacity:.85;text-transform:uppercase;letter-spacing:.5px}
+.total-display .val{font-size:1.25rem}
+
+.khaata-header-card{background:linear-gradient(135deg,#0f5132,#198754);color:#fff;border-radius:16px;padding:16px;margin-bottom:14px}
+.khaata-header-card .agency{font-size:1.15rem;font-weight:800;margin-bottom:4px}
+.khaata-header-card .meta{font-size:.82rem;opacity:.9;display:flex;flex-wrap:wrap;gap:10px}
+.khaata-header-card .meta i{margin-right:4px}
+.khaata-balance-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.2)}
+.khaata-balance-row .b-item{text-align:center}
+.khaata-balance-row .b-item .v{font-weight:800;font-size:1rem}
+.khaata-balance-row .b-item .l{font-size:.7rem;opacity:.85;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+
+.ledger-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;contain:layout style}
+.ledger-entry{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:12px;position:relative}
+.ledger-entry.purchase{border-left:4px solid #dc2626}
+.ledger-entry.payment{border-left:4px solid #059669}
+.ledger-entry-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.ledger-date{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.ledger-type-tag{font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px}
+.ledger-type-tag.purchase{background:#fee2e2;color:#991b1b}
+.ledger-type-tag.payment{background:#d1e7dd;color:#0f5132}
+.ledger-amount{font-size:1.1rem;font-weight:800}
+.ledger-amount.purchase{color:#dc2626}
+.ledger-amount.payment{color:#059669}
+.ledger-balance{font-size:.75rem;color:var(--muted);font-weight:600;margin-top:4px}
+.ledger-balance strong{color:var(--primary)}
+.ledger-items{font-size:.8rem;color:var(--text);margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);line-height:1.6}
+.ledger-items .li{display:flex;justify-content:space-between;gap:8px}
+.ledger-items .li .n{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ledger-items .li .a{font-weight:600;color:var(--primary);flex-shrink:0}
+.ledger-notes{font-size:.78rem;color:var(--muted);font-style:italic;margin-top:6px}
+.ledger-actions{position:absolute;top:8px;right:8px;display:flex;gap:4px}
+.ledger-actions button{background:#f0f5f1;border:none;width:26px;height:26px;border-radius:6px;color:var(--muted);cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:background .12s,color .12s}
+.ledger-actions button:hover{background:#fee2e2;color:#dc2626}
+
+.balance-summary{background:#f9fbf8;border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px}
+.balance-summary .row{display:flex;justify-content:space-between;padding:6px 0;font-size:.9rem}
+.balance-summary .row.total{border-top:2px solid var(--border);margin-top:6px;padding-top:10px;font-size:1.1rem;font-weight:800}
+.balance-summary .row.total .v.owe{color:#dc2626}
+.balance-summary .row.total .v.adv{color:#059669}
+.balance-summary .row.total .v.settled{color:#6c7d72}
 
 @media print{
   body>*:not(#print-area){display:none!important}
@@ -228,24 +275,22 @@ input,select,textarea{font-family:inherit;font-size:16px}
   .print-doc .p-footer{margin-top:24px;padding-top:12px;border-top:1px solid #ccc;font-size:8.5pt;color:#666;text-align:center}
   .print-doc .p-sign{margin-top:20mm;display:flex;justify-content:space-between;font-size:9pt}
   .print-doc .p-sign .box{border-top:1px solid #333;width:60mm;text-align:center;padding-top:4px;color:#333}
+  .print-doc .ledger-table{font-size:9.5pt}
+  .print-doc .ledger-table th{font-size:9.5pt}
+  .print-doc .ledger-table td{font-size:9.5pt;padding:6px 10px}
 }
 </style>
 </head>
 <body>
 
-<!-- ============ LOCK SCREEN (visible by default) ============ -->
+<!-- LOCK SCREEN -->
 <div id="lockScreen">
   <div class="lock-logo"><i class="fas fa-lock"></i></div>
   <div class="lock-title" id="lockTitle">Enter PIN</div>
   <div class="lock-subtitle" id="lockSubtitle">Apna 4-digit PIN daalein</div>
-
   <div class="lock-dots" id="lockDots">
-    <div class="lock-dot"></div>
-    <div class="lock-dot"></div>
-    <div class="lock-dot"></div>
-    <div class="lock-dot"></div>
+    <div class="lock-dot"></div><div class="lock-dot"></div><div class="lock-dot"></div><div class="lock-dot"></div>
   </div>
-
   <div class="lock-keys" id="lockKeys">
     <button class="key-btn" data-key="1">1</button>
     <button class="key-btn" data-key="2">2</button>
@@ -260,20 +305,13 @@ input,select,textarea{font-family:inherit;font-size:16px}
     <button class="key-btn" data-key="0">0</button>
     <button class="key-btn action" data-key="back"><i class="fas fa-delete-left"></i></button>
   </div>
-
-  <button class="lock-fingerprint" id="lockFingerprintBtn" title="Fingerprint se unlock">
-    <i class="fas fa-fingerprint"></i>
-  </button>
-
+  <button class="lock-fingerprint" id="lockFingerprintBtn" title="Fingerprint se unlock"><i class="fas fa-fingerprint"></i></button>
   <div id="fingerprintHint"></div>
-
   <div class="lock-error" id="lockError"></div>
-
   <button class="lock-link" id="lockForgotBtn" style="display:none">PIN bhool gaye?</button>
   <button class="lock-link" id="lockCancelBtn" style="display:none">Cancel</button>
 </div>
 
-<!-- ============ INSTANT HIDE (runs before rest of page) ============ -->
 <script>
 (function(){
   try {
@@ -281,23 +319,16 @@ input,select,textarea{font-family:inherit;font-size:16px}
     var secRaw = localStorage.getItem('bm_security_v3');
     var hasPin = false;
     if (secRaw){
-      try {
-        var sec = JSON.parse(secRaw);
-        hasPin = !!(sec && sec.pinHash);
-      } catch(e){ hasPin = false; }
+      try { var sec = JSON.parse(secRaw); hasPin = !!(sec && sec.pinHash); } catch(e){ hasPin = false; }
     }
-    // Hide lock screen instantly if already unlocked OR no PIN is set
     if (unlocked || !hasPin){
       var ls = document.getElementById('lockScreen');
       if (ls) ls.classList.add('hidden');
     }
-  } catch(e){
-    // On any error, keep lock screen visible (safer default)
-  }
+  } catch(e){}
 })();
 </script>
 
-<!-- ============ HEADER ============ -->
 <header class="app-header">
   <div class="app-header-row">
     <div class="app-title"><i class="fas fa-file-invoice-dollar"></i> <span>Bills Manager</span></div>
@@ -309,7 +340,6 @@ input,select,textarea{font-family:inherit;font-size:16px}
   </div>
 </header>
 
-<!-- ============ MAIN ============ -->
 <main>
   <section class="view active" id="view-bills">
     <div class="summary-card">
@@ -325,20 +355,43 @@ input,select,textarea{font-family:inherit;font-size:16px}
     <div class="bill-list" id="billList"></div>
   </section>
 
+  <section class="view" id="view-khaata">
+    <div class="summary-card orange">
+      <div class="label">Total Baqaya (You Owe)</div>
+      <div class="amount" id="khaataTotalOutstanding">Rs. 0.00</div>
+      <div class="summary-grid">
+        <div class="item"><div class="v" id="khaataCount">0</div><div class="l">Khaatas</div></div>
+        <div class="item"><div class="v" id="khaataYouOwe">Rs. 0</div><div class="l">Owe</div></div>
+        <div class="item"><div class="v" id="khaataAdvance">Rs. 0</div><div class="l">Advance</div></div>
+      </div>
+    </div>
+    <div class="section-title">
+      <i class="fas fa-book"></i> Vendor Khaatas
+      <button class="btn btn-primary btn-sm" id="newKhaataBtn" style="margin-left:auto;min-height:34px;padding:.4rem .85rem;font-size:.78rem">
+        <i class="fas fa-plus"></i> New Khaata
+      </button>
+    </div>
+    <div class="bill-list" id="khaataList"></div>
+  </section>
+
   <section class="view" id="view-add">
-    <div class="section-title"><i class="fas fa-plus-circle"></i> Add New Bill</div>
+    <div class="section-title"><i class="fas fa-plus-circle"></i> Add New</div>
     <div class="add-options">
       <button class="opt-card" id="optCamera">
         <div class="opt-icon cam"><i class="fas fa-camera"></i></div>
-        <div class="opt-text"><h4>Camera se photo</h4><p>Bill ki live photo click karein</p></div>
+        <div class="opt-text"><h4>Camera se bill</h4><p>Bill ki live photo click karein</p></div>
       </button>
       <button class="opt-card" id="optGallery">
         <div class="opt-icon gal"><i class="fas fa-image"></i></div>
-        <div class="opt-text"><h4>Gallery se upload</h4><p>Maujood bill image chunein</p></div>
+        <div class="opt-text"><h4>Gallery se bill</h4><p>Maujood bill image chunein</p></div>
       </button>
       <button class="opt-card" id="optManual">
         <div class="opt-icon man"><i class="fas fa-pen-to-square"></i></div>
         <div class="opt-text"><h4>Custom bill (bina photo)</h4><p>Sirf details fill karein</p></div>
+      </button>
+      <button class="opt-card" id="optNewKhaata">
+        <div class="opt-icon khaata"><i class="fas fa-book"></i></div>
+        <div class="opt-text"><h4>Naya Khaata (Vendor Ledger)</h4><p>Roz ka hisaab — purchase + payment</p></div>
       </button>
     </div>
   </section>
@@ -349,14 +402,14 @@ input,select,textarea{font-family:inherit;font-size:16px}
   </section>
 </main>
 
-<!-- ============ BOTTOM NAV ============ -->
 <nav class="bottom-nav">
-  <button class="nav-btn active" data-view="bills"><i class="fas fa-receipt"></i> Bills <span class="nav-badge" id="navCount" style="display:none">0</span></button>
-  <button class="nav-btn" data-view="add"><i class="fas fa-circle-plus"></i> Add</button>
-  <button class="nav-btn" data-view="summary"><i class="fas fa-chart-simple"></i> Summary</button>
+  <button class="nav-btn active" data-view="bills"><i class="fas fa-receipt"></i><span>Bills</span><span class="nav-badge" id="navCount" style="display:none">0</span></button>
+  <button class="nav-btn" data-view="khaata"><i class="fas fa-book"></i><span>Khaata</span><span class="nav-badge" id="navKhaataCount" style="display:none">0</span></button>
+  <button class="nav-btn" data-view="add"><i class="fas fa-circle-plus"></i><span>Add</span></button>
+  <button class="nav-btn" data-view="summary"><i class="fas fa-chart-simple"></i><span>Summary</span></button>
 </nav>
 
-<!-- ============ CAMERA OVERLAY ============ -->
+<!-- CAMERA OVERLAY -->
 <div class="overlay" id="cameraOverlay">
   <div class="sheet">
     <div class="sheet-header">
@@ -380,7 +433,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
   </div>
 </div>
 
-<!-- ============ FORM OVERLAY ============ -->
+<!-- BILL FORM OVERLAY -->
 <div class="overlay" id="formOverlay">
   <div class="sheet">
     <div class="sheet-header">
@@ -422,7 +475,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
   </div>
 </div>
 
-<!-- ============ DETAIL OVERLAY ============ -->
+<!-- BILL DETAIL OVERLAY -->
 <div class="overlay" id="detailOverlay">
   <div class="sheet">
     <div class="sheet-header">
@@ -442,7 +495,87 @@ input,select,textarea{font-family:inherit;font-size:16px}
   </div>
 </div>
 
-<!-- ============ CONFIRM OVERLAY ============ -->
+<!-- NEW KHAATA OVERLAY -->
+<div class="overlay center" id="addKhaataOverlay">
+  <div class="sheet" style="max-width:440px">
+    <div class="sheet-header">
+      <h2><i class="fas fa-book"></i> Naya Khaata</h2>
+      <button class="close-btn" data-close="addKhaataOverlay"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="fg"><label><i class="fas fa-building"></i> Agency / Vendor Name *</label><input type="text" id="nkAgency" placeholder="e.g. Ali Traders"></div>
+    <div class="fg"><label><i class="fas fa-phone"></i> Phone</label><input type="tel" id="nkPhone" placeholder="0300-1234567"></div>
+    <div class="fg"><label><i class="fas fa-location-dot"></i> Address</label><input type="text" id="nkAddress" placeholder="Shop / city"></div>
+    <div class="fg"><label><i class="fas fa-money-bill-wave"></i> Opening Balance (optional)</label><input type="number" id="nkOpening" placeholder="0.00" step="0.01" inputmode="decimal"><small style="color:var(--muted);font-size:.72rem;display:block;margin-top:4px">Agar pehle se baqaya hai to yahan daalein (positive = aap ne dena hai)</small></div>
+    <div class="btn-row">
+      <button class="btn btn-outline" data-close="addKhaataOverlay">Cancel</button>
+      <button class="btn btn-primary" id="saveKhaataBtn"><i class="fas fa-save"></i> Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- KHAATA DETAIL OVERLAY -->
+<div class="overlay" id="khaataDetailOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2><i class="fas fa-book-open"></i> Khaata Detail</h2>
+      <button class="close-btn" data-close="khaataDetailOverlay"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="khaataDetailContent"></div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn btn-outline btn-sm" id="kdPrintBtn"><i class="fas fa-print"></i> Print</button>
+      <button class="btn btn-outline btn-sm" id="kdPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
+      <button class="btn btn-accent btn-sm" id="kdShareBtn"><i class="fas fa-share-nodes"></i> Share</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="kdAddEntryBtn"><i class="fas fa-plus"></i> Add Entry</button>
+      <button class="btn btn-danger" id="kdDeleteBtn"><i class="fas fa-trash"></i> Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ENTRY OVERLAY -->
+<div class="overlay" id="addEntryOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2 id="entryTitle"><i class="fas fa-plus-circle"></i> Add Entry</h2>
+      <button class="close-btn" data-close="addEntryOverlay"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="tab-switch">
+      <button class="tab-btn active" data-entry-tab="purchase"><i class="fas fa-box"></i> Maal Aya</button>
+      <button class="tab-btn" data-entry-tab="payment"><i class="fas fa-money-bill"></i> Payment</button>
+    </div>
+
+    <div id="entryPurchaseTab">
+      <div class="fg"><label><i class="fas fa-calendar-day"></i> Date</label><input type="date" id="pDate"></div>
+      <div class="fg">
+        <label><i class="fas fa-boxes-stacked"></i> Items</label>
+        <div class="items-list" id="itemsList"></div>
+        <button type="button" class="add-item-btn" id="addItemBtn"><i class="fas fa-plus"></i> Add Item</button>
+      </div>
+      <div class="total-display">
+        <span class="lbl">Total Amount</span>
+        <span class="val" id="pTotal">Rs. 0.00</span>
+      </div>
+      <div class="fg"><label><i class="fas fa-note-sticky"></i> Notes</label><textarea id="pNotes" placeholder="Optional..."></textarea></div>
+    </div>
+
+    <div id="entryPaymentTab" style="display:none">
+      <div class="fg"><label><i class="fas fa-calendar-day"></i> Date</label><input type="date" id="payDate"></div>
+      <div class="fg"><label><i class="fas fa-money-bill-wave"></i> Amount *</label><input type="number" id="payAmount" placeholder="0.00" step="0.01" min="0" inputmode="decimal"></div>
+      <div class="fg"><label><i class="fas fa-wallet"></i> Method</label>
+        <select id="payMethod"><option value="cash">Cash</option><option value="online">Online / Bank</option><option value="cheque">Cheque</option></select>
+      </div>
+      <div class="fg"><label><i class="fas fa-note-sticky"></i> Notes</label><textarea id="payNotes" placeholder="Optional..."></textarea></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-outline" data-close="addEntryOverlay">Cancel</button>
+      <button class="btn btn-primary" id="saveEntryBtn"><i class="fas fa-save"></i> Save Entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
 <div class="overlay center" id="confirmOverlay">
   <div class="sheet" style="max-width:360px">
     <i class="fas fa-triangle-exclamation confirm-icon"></i>
@@ -455,7 +588,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
   </div>
 </div>
 
-<!-- ============ SETTINGS OVERLAY ============ -->
+<!-- SETTINGS OVERLAY -->
 <div class="overlay center" id="settingsOverlay">
   <div class="sheet" style="max-width:420px">
     <div class="sheet-header">
@@ -494,97 +627,45 @@ input,select,textarea{font-family:inherit;font-size:16px}
   </div>
 </div>
 
-<!-- ============ SECURITY QUESTIONS SETUP ============ -->
+<!-- SECURITY QUESTIONS SETUP -->
 <div class="overlay center" id="secqSetupOverlay">
   <div class="sheet" style="max-width:440px">
-    <div class="sheet-header">
-      <h2><i class="fas fa-shield-halved"></i> Security Questions</h2>
-    </div>
-    <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;text-align:center">
-      PIN bhool jayein to in sawaalon ke jawab se naya PIN bana payenge.<br>
-      <strong>Aise jawab dein jo aap kabhi na bhoolen.</strong>
-    </p>
-
+    <div class="sheet-header"><h2><i class="fas fa-shield-halved"></i> Security Questions</h2></div>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;text-align:center">PIN bhool jayein to in sawaalon ke jawab se naya PIN bana payenge.<br><strong>Aise jawab dein jo aap kabhi na bhoolen.</strong></p>
     <div class="fg">
       <label><i class="fas fa-question-circle"></i> Sawaal 1</label>
       <select id="secq1Select" style="margin-bottom:8px">
         <option value="">-- Sawaal chunein --</option>
-        <option>Aapki maa ka naam kya hai?</option>
-        <option>Aapke pehle school ka naam?</option>
-        <option>Aapki pehli job kahan thi?</option>
-        <option>Aapka bachpan ka best friend kaun tha?</option>
-        <option>Aapki pehli gaadi ka number?</option>
-        <option>Aapka favorite color kaunsa hai?</option>
-        <option>Aapki shaadi ki tareekh?</option>
-        <option>Aapka janam kis sheher mein hua?</option>
-        <option value="__custom__">+ Apna sawaal likhein</option>
+        <option>Aapki maa ka naam kya hai?</option><option>Aapke pehle school ka naam?</option><option>Aapki pehli job kahan thi?</option><option>Aapka bachpan ka best friend kaun tha?</option><option>Aapki pehli gaadi ka number?</option><option>Aapka favorite color kaunsa hai?</option><option>Aapki shaadi ki tareekh?</option><option>Aapka janam kis sheher mein hua?</option><option value="__custom__">+ Apna sawaal likhein</option>
       </select>
       <input type="text" id="secq1Custom" placeholder="Apna sawaal likhein" style="display:none;margin-bottom:8px">
       <input type="text" id="secq1Answer" placeholder="Aapka jawab">
     </div>
-
     <div class="fg">
       <label><i class="fas fa-question-circle"></i> Sawaal 2</label>
       <select id="secq2Select" style="margin-bottom:8px">
         <option value="">-- Sawaal chunein --</option>
-        <option>Aapki maa ka naam kya hai?</option>
-        <option>Aapke pehle school ka naam?</option>
-        <option>Aapki pehli job kahan thi?</option>
-        <option>Aapka bachpan ka best friend kaun tha?</option>
-        <option>Aapki pehli gaadi ka number?</option>
-        <option>Aapka favorite color kaunsa hai?</option>
-        <option>Aapki shaadi ki tareekh?</option>
-        <option>Aapka janam kis sheher mein hua?</option>
-        <option value="__custom__">+ Apna sawaal likhein</option>
+        <option>Aapki maa ka naam kya hai?</option><option>Aapke pehle school ka naam?</option><option>Aapki pehli job kahan thi?</option><option>Aapka bachpan ka best friend kaun tha?</option><option>Aapki pehli gaadi ka number?</option><option>Aapka favorite color kaunsa hai?</option><option>Aapki shaadi ki tareekh?</option><option>Aapka janam kis sheher mein hua?</option><option value="__custom__">+ Apna sawaal likhein</option>
       </select>
       <input type="text" id="secq2Custom" placeholder="Apna sawaal likhein" style="display:none;margin-bottom:8px">
       <input type="text" id="secq2Answer" placeholder="Aapka jawab">
     </div>
-
     <div id="secqSetupError" style="color:#b34141;font-size:.85rem;text-align:center;min-height:20px;margin-bottom:8px"></div>
-
-    <button class="btn btn-primary btn-block" id="secqSaveBtn">
-      <i class="fas fa-save"></i> Save &amp; Continue
-    </button>
-    <button class="btn btn-outline btn-block" id="secqSetupCancel" style="margin-top:8px;display:none">
-      Cancel
-    </button>
+    <button class="btn btn-primary btn-block" id="secqSaveBtn"><i class="fas fa-save"></i> Save &amp; Continue</button>
+    <button class="btn btn-outline btn-block" id="secqSetupCancel" style="margin-top:8px;display:none">Cancel</button>
   </div>
 </div>
 
-<!-- ============ SECURITY QUESTIONS VERIFY ============ -->
+<!-- SECURITY QUESTIONS VERIFY -->
 <div class="overlay center" id="secqVerifyOverlay">
   <div class="sheet" style="max-width:440px">
-    <div class="sheet-header">
-      <h2><i class="fas fa-key"></i> PIN Reset</h2>
-      <button class="close-btn" id="secqVerifyClose"><i class="fas fa-times"></i></button>
-    </div>
-    <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;text-align:center">
-      Sawaalon ke jawab dein, phir naya PIN banayein.
-    </p>
-
-    <div class="fg">
-      <label><i class="fas fa-question-circle"></i> <span id="secqVerifyQ1">Sawaal 1</span></label>
-      <input type="text" id="secqVerifyA1" placeholder="Aapka jawab" autocomplete="off">
-    </div>
-
-    <div class="fg">
-      <label><i class="fas fa-question-circle"></i> <span id="secqVerifyQ2">Sawaal 2</span></label>
-      <input type="text" id="secqVerifyA2" placeholder="Aapka jawab" autocomplete="off">
-    </div>
-
-    <div class="fg">
-      <label><i class="fas fa-lock"></i> Naya 4-digit PIN</label>
-      <input type="password" id="newPin1" placeholder="0000" maxlength="4" inputmode="numeric" pattern="[0-9]*" style="text-align:center;font-size:1.3rem;font-weight:700;letter-spacing:8px">
-    </div>
-
-    <div class="fg">
-      <label><i class="fas fa-lock"></i> Confirm Naya PIN</label>
-      <input type="password" id="newPin2" placeholder="0000" maxlength="4" inputmode="numeric" pattern="[0-9]*" style="text-align:center;font-size:1.3rem;font-weight:700;letter-spacing:8px">
-    </div>
-
+    <div class="sheet-header"><h2><i class="fas fa-key"></i> PIN Reset</h2><button class="close-btn" id="secqVerifyClose"><i class="fas fa-times"></i></button></div>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;text-align:center">Sawaalon ke jawab dein, phir naya PIN banayein.</p>
+    <div class="fg"><label><i class="fas fa-question-circle"></i> <span id="secqVerifyQ1">Sawaal 1</span></label><input type="text" id="secqVerifyA1" placeholder="Aapka jawab" autocomplete="off"></div>
+    <div class="fg"><label><i class="fas fa-question-circle"></i> <span id="secqVerifyQ2">Sawaal 2</span></label><input type="text" id="secqVerifyA2" placeholder="Aapka jawab" autocomplete="off"></div>
+    <div class="fg"><label><i class="fas fa-lock"></i> Naya 4-digit PIN</label><input type="password" id="newPin1" placeholder="0000" maxlength="4" inputmode="numeric" pattern="[0-9]*" style="text-align:center;font-size:1.3rem;font-weight:700;letter-spacing:8px"></div>
+    <div class="fg"><label><i class="fas fa-lock"></i> Confirm Naya PIN</label><input type="password" id="newPin2" placeholder="0000" maxlength="4" inputmode="numeric" pattern="[0-9]*" style="text-align:center;font-size:1.3rem;font-weight:700;letter-spacing:8px"></div>
     <div id="secqVerifyError" style="color:#b34141;font-size:.85rem;text-align:center;min-height:20px;margin-bottom:8px"></div>
-
     <div class="btn-row">
       <button class="btn btn-outline" id="secqVerifyCancel">Cancel</button>
       <button class="btn btn-primary" id="secqVerifySubmit"><i class="fas fa-check"></i> Reset PIN</button>
@@ -592,7 +673,6 @@ input,select,textarea{font-family:inherit;font-size:16px}
   </div>
 </div>
 
-<!-- ============ TOAST & PROGRESS ============ -->
 <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastText">Saved!</span></div>
 
 <div class="upload-progress" id="uploadProgress">
@@ -605,7 +685,6 @@ input,select,textarea{font-family:inherit;font-size:16px}
 
 <div id="print-area"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 (function(){
   'use strict';
@@ -613,7 +692,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
   /* ============================================================
      APKI CLOUDINARY DETAILS — YAHAN APNA CLOUD NAME DAALEIN
      ============================================================ */
-  const DEFAULT_CLOUD_NAME = 'qohsict0';  // <-- YAHAN APNA CLOUD NAME
+  const DEFAULT_CLOUD_NAME = 'qohsict0';
   const DEFAULT_UPLOAD_PRESET = 'bills_upload';
   /* ============================================================ */
 
@@ -621,12 +700,35 @@ input,select,textarea{font-family:inherit;font-size:16px}
   const $$ = sel => document.querySelectorAll(sel);
 
   const BILLS_KEY = 'bm_bills_cloud_v1';
+  const KHAATA_KEY = 'bm_khaatas_v1';
   const SETTINGS_KEY = 'bm_settings_cloud_v1';
   const SECURITY_KEY = 'bm_security_v3';
   const SESSION_KEY = 'bm_session_unlocked';
   const PROMPT_KEY = 'bm_pin_prompt_shown_v2';
 
+  /* ============ LAZY LOAD html2pdf ============ */
+  let _pdfLoading = null;
+  function loadPdfLib(){
+    if (window.html2pdf) return Promise.resolve();
+    if (_pdfLoading) return _pdfLoading;
+    _pdfLoading = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      s.async = true;
+      s.onload = () => resolve();
+      s.onerror = () => { _pdfLoading = null; reject(new Error('PDF lib load fail')); };
+      document.head.appendChild(s);
+    });
+    return _pdfLoading;
+  }
+
+  /* ============ PASSIVE LISTENERS ============ */
+  document.addEventListener('touchstart', () => {}, { passive: true });
+  document.addEventListener('touchmove', () => {}, { passive: true });
+  document.addEventListener('wheel', () => {}, { passive: true });
+
   let bills = [];
+  let khaatas = [];
   let settings = { shopName:'', shopAddress:'', shopPhone:'', cloudName:'', cloudPreset:'' };
   let security = {
     pinHash: null,
@@ -643,6 +745,8 @@ input,select,textarea{font-family:inherit;font-size:16px}
   let currentPhotoData = null;
   let editingId = null;
   let currentBillId = null;
+  let currentKhaataId = null;
+  let currentEntryTab = 'purchase';
 
   /* ============ TOAST ============ */
   let toastTimer;
@@ -685,7 +789,6 @@ input,select,textarea{font-family:inherit;font-size:16px}
     const buf = await crypto.subtle.digest('SHA-256', data);
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
   }
-
   async function hashAnswer(answer){
     const normalized = String(answer||'').trim().toLowerCase().replace(/\s+/g, ' ');
     const encoder = new TextEncoder();
@@ -694,7 +797,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
   }
 
-  /* ============ BASE64 HELPERS ============ */
+  /* ============ BASE64 ============ */
   function bufToBase64(buf){
     const bytes = new Uint8Array(buf);
     let binary = '';
@@ -711,82 +814,49 @@ input,select,textarea{font-family:inherit;font-size:16px}
   /* ============ FINGERPRINT ============ */
   async function isFingerprintAvailable(){
     if (!window.PublicKeyCredential) return false;
-    try {
-      return await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-    } catch(e){ return false; }
+    try { return await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable(); }
+    catch(e){ return false; }
   }
-
   async function registerFingerprint(){
     try {
       const challenge = new Uint8Array(32); crypto.getRandomValues(challenge);
       const userID = new Uint8Array(16); crypto.getRandomValues(userID);
       const credential = await navigator.credentials.create({
         publicKey: {
-          challenge: challenge,
-          rp: { name: 'Bills Manager', id: location.hostname },
+          challenge, rp: { name: 'Bills Manager', id: location.hostname },
           user: { id: userID, name: 'bills-user', displayName: 'Bills Manager' },
-          pubKeyCredParams: [
-            { alg: -7, type: 'public-key' },
-            { alg: -257, type: 'public-key' }
-          ],
-          authenticatorSelection: {
-            authenticatorAttachment: 'platform',
-            userVerification: 'required',
-            residentKey: 'preferred'
-          },
-          timeout: 60000,
-          attestation: 'none'
+          pubKeyCredParams: [{ alg: -7, type: 'public-key' }, { alg: -257, type: 'public-key' }],
+          authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' },
+          timeout: 60000, attestation: 'none'
         }
       });
       if (!credential) return null;
       return bufToBase64(credential.rawId);
-    } catch(e){
-      console.warn('Fingerprint register failed:', e);
-      return null;
-    }
+    } catch(e){ return null; }
   }
-
   async function verifyFingerprint(){
     if (!security.credentialId) return false;
     try {
       const challenge = new Uint8Array(32); crypto.getRandomValues(challenge);
       const assertion = await navigator.credentials.get({
         publicKey: {
-          challenge: challenge,
-          allowCredentials: [{
-            id: base64ToBuf(security.credentialId),
-            type: 'public-key',
-            transports: ['internal']
-          }],
-          userVerification: 'required',
-          timeout: 60000
+          challenge,
+          allowCredentials: [{ id: base64ToBuf(security.credentialId), type: 'public-key', transports: ['internal'] }],
+          userVerification: 'required', timeout: 60000
         }
       });
       return !!assertion;
-    } catch(e){
-      return false;
-    }
+    } catch(e){ return false; }
   }
 
-  /* ============ SECURITY STORAGE ============ */
+  /* ============ STORAGE ============ */
   function loadSecurity(){
-    try {
-      const s = localStorage.getItem(SECURITY_KEY);
-      if (s) security = Object.assign(security, JSON.parse(s));
-    } catch(e){}
+    try { const s = localStorage.getItem(SECURITY_KEY); if (s) security = Object.assign(security, JSON.parse(s)); } catch(e){}
   }
-  function saveSecurity(){
-    try { localStorage.setItem(SECURITY_KEY, JSON.stringify(security)); } catch(e){}
-  }
-  function isUnlockedThisSession(){
-    try { return sessionStorage.getItem(SESSION_KEY) === 'yes'; } catch(e){ return false; }
-  }
-  function setSessionUnlocked(){
-    try { sessionStorage.setItem(SESSION_KEY, 'yes'); } catch(e){}
-  }
-  function clearSession(){
-    try { sessionStorage.removeItem(SESSION_KEY); } catch(e){}
-  }
+  function saveSecurity(){ try { localStorage.setItem(SECURITY_KEY, JSON.stringify(security)); } catch(e){} }
+  function isUnlockedThisSession(){ try { return sessionStorage.getItem(SESSION_KEY) === 'yes'; } catch(e){ return false; } }
+  function setSessionUnlocked(){ try { sessionStorage.setItem(SESSION_KEY, 'yes'); } catch(e){} }
+  function clearSession(){ try { sessionStorage.removeItem(SESSION_KEY); } catch(e){} }
 
   /* ============ LOCK SCREEN ============ */
   let lockMode = 'unlock';
@@ -813,46 +883,23 @@ input,select,textarea{font-family:inherit;font-size:16px}
     renderDots();
     $('lockScreen').classList.remove('hidden');
 
-    const title = $('lockTitle');
-    const sub = $('lockSubtitle');
-    const fpBtn = $('lockFingerprintBtn');
-    const forgotBtn = $('lockForgotBtn');
-    const cancelBtn = $('lockCancelBtn');
+    const title = $('lockTitle'), sub = $('lockSubtitle');
+    const fpBtn = $('lockFingerprintBtn'), forgotBtn = $('lockForgotBtn'), cancelBtn = $('lockCancelBtn');
     const hint = $('fingerprintHint');
     fpBtn.classList.remove('show');
     forgotBtn.style.display = 'none';
     cancelBtn.style.display = 'none';
     hint.style.display = 'none';
 
-    if (mode === 'setup'){
-      title.textContent = 'Set PIN';
-      sub.textContent = 'Naya 4-digit PIN banayein';
-      lockExitMode = 'app';
-    } else if (mode === 'confirm'){
-      title.textContent = 'Confirm PIN';
-      sub.textContent = 'Dobara PIN daalein';
-      lockExitMode = 'app';
-    } else if (mode === 'change-current'){
-      title.textContent = 'Current PIN';
-      sub.textContent = 'Purana PIN daalein';
-      cancelBtn.style.display = 'block';
-      lockExitMode = 'app';
-    } else if (mode === 'change-new'){
-      title.textContent = 'New PIN';
-      sub.textContent = 'Naya PIN banayein';
-      cancelBtn.style.display = 'block';
-      lockExitMode = 'app';
-    } else if (mode === 'change-confirm'){
-      title.textContent = 'Confirm New PIN';
-      sub.textContent = 'Dobara naya PIN daalein';
-      cancelBtn.style.display = 'block';
-      lockExitMode = 'app';
-    } else {
+    if (mode === 'setup'){ title.textContent='Set PIN'; sub.textContent='Naya 4-digit PIN banayein'; lockExitMode='app'; }
+    else if (mode === 'confirm'){ title.textContent='Confirm PIN'; sub.textContent='Dobara PIN daalein'; lockExitMode='app'; }
+    else if (mode === 'change-current'){ title.textContent='Current PIN'; sub.textContent='Purana PIN daalein'; cancelBtn.style.display='block'; lockExitMode='app'; }
+    else if (mode === 'change-new'){ title.textContent='New PIN'; sub.textContent='Naya PIN banayein'; cancelBtn.style.display='block'; lockExitMode='app'; }
+    else if (mode === 'change-confirm'){ title.textContent='Confirm New PIN'; sub.textContent='Dobara naya PIN daalein'; cancelBtn.style.display='block'; lockExitMode='app'; }
+    else {
       title.textContent = 'Enter PIN';
       sub.textContent = 'Apna 4-digit PIN daalein';
-      if (security.fingerprintEnabled && security.credentialId){
-        fpBtn.classList.add('show');
-      }
+      if (security.fingerprintEnabled && security.credentialId) fpBtn.classList.add('show');
       forgotBtn.style.display = 'block';
       lockExitMode = 'app';
       scheduleAutoFingerprint();
@@ -883,12 +930,8 @@ input,select,textarea{font-family:inherit;font-size:16px}
     try {
       const ok = await verifyFingerprint();
       if (ok){
-        security.failedAttempts = 0;
-        security.lockUntil = 0;
-        saveSecurity();
-        setSessionUnlocked();
-        hideLock();
-        toast('Unlocked!');
+        security.failedAttempts = 0; security.lockUntil = 0; saveSecurity();
+        setSessionUnlocked(); hideLock(); toast('Unlocked!');
       } else {
         hint.innerHTML = '<i class="fas fa-fingerprint"></i> Fingerprint match nahi hui. Icon dabayein ya PIN daalein.';
       }
@@ -913,144 +956,73 @@ input,select,textarea{font-family:inherit;font-size:16px}
   }
 
   async function onPinComplete(pin){
-    if (lockMode === 'setup'){
-      tempPin = pin;
-      showLock('confirm');
-      return;
-    }
-
+    if (lockMode === 'setup'){ tempPin = pin; showLock('confirm'); return; }
     if (lockMode === 'confirm'){
-      if (pin !== tempPin){
-        lockError('PIN match nahi hua. Dobara try karein.');
-        tempPin = '';
-        setTimeout(() => showLock('setup'), 700);
-        return;
-      }
+      if (pin !== tempPin){ lockError('PIN match nahi hua. Dobara try karein.'); tempPin=''; setTimeout(()=>showLock('setup'),700); return; }
       try {
         const hash = await hashPin(pin);
-        security.pinHash = hash;
-        security.failedAttempts = 0;
-        security.lockUntil = 0;
-        saveSecurity();
-      } catch(e){
-        lockError('PIN save nahi ho saka. Dobara try karein.');
-        tempPin = '';
-        setTimeout(() => showLock('setup'), 700);
-        return;
-      }
+        security.pinHash = hash; security.failedAttempts = 0; security.lockUntil = 0; saveSecurity();
+      } catch(e){ lockError('PIN save nahi ho saka'); tempPin=''; setTimeout(()=>showLock('setup'),700); return; }
       resetSecqSetup();
       $('secqSetupCancel').style.display = 'none';
       openOv('secqSetupOverlay');
       return;
     }
-
     if (lockMode === 'unlock'){
       if (security.lockUntil && Date.now() < security.lockUntil){
         const secs = Math.ceil((security.lockUntil - Date.now())/1000);
         lockError(`Bahut zyada ghalat koshish. ${secs}s wait karein.`);
-        enteredPin = '';
-        renderDots();
-        return;
+        enteredPin=''; renderDots(); return;
       }
       try {
         const hash = await hashPin(pin);
         if (hash === security.pinHash){
-          security.failedAttempts = 0;
-          security.lockUntil = 0;
-          saveSecurity();
-          setSessionUnlocked();
-          hideLock();
-          toast('Welcome back!');
+          security.failedAttempts = 0; security.lockUntil = 0; saveSecurity();
+          setSessionUnlocked(); hideLock(); toast('Welcome back!');
         } else {
-          security.failedAttempts = (security.failedAttempts || 0) + 1;
-          if (security.failedAttempts >= 5){
-            security.lockUntil = Date.now() + 30000;
-            security.failedAttempts = 0;
-            lockError('5 ghalat koshish. 30 second wait karein.');
-          } else {
-            lockError(`Ghalat PIN. ${5 - security.failedAttempts} koshish baaki.`);
-          }
-          saveSecurity();
-          enteredPin = '';
-          renderDots();
+          security.failedAttempts = (security.failedAttempts||0)+1;
+          if (security.failedAttempts >= 5){ security.lockUntil = Date.now()+30000; security.failedAttempts = 0; lockError('5 ghalat koshish. 30 second wait karein.'); }
+          else { lockError(`Ghalat PIN. ${5 - security.failedAttempts} koshish baaki.`); }
+          saveSecurity(); enteredPin=''; renderDots();
         }
-      } catch(e){
-        lockError('Error aaya. Dobara try karein.');
-        enteredPin = '';
-        renderDots();
-      }
+      } catch(e){ lockError('Error aaya'); enteredPin=''; renderDots(); }
       return;
     }
-
     if (lockMode === 'change-current'){
       try {
         const hash = await hashPin(pin);
-        if (hash === security.pinHash){
-          showLock('change-new');
-        } else {
-          lockError('Purana PIN ghalat hai');
-          enteredPin = '';
-          renderDots();
-        }
-      } catch(e){
-        lockError('Error aaya');
-        enteredPin = '';
-        renderDots();
-      }
+        if (hash === security.pinHash) showLock('change-new');
+        else { lockError('Purana PIN ghalat hai'); enteredPin=''; renderDots(); }
+      } catch(e){ lockError('Error'); enteredPin=''; renderDots(); }
       return;
     }
-
-    if (lockMode === 'change-new'){
-      tempPin = pin;
-      showLock('change-confirm');
-      return;
-    }
-
+    if (lockMode === 'change-new'){ tempPin = pin; showLock('change-confirm'); return; }
     if (lockMode === 'change-confirm'){
-      if (pin !== tempPin){
-        lockError('PIN match nahi hua');
-        tempPin = '';
-        setTimeout(() => showLock('change-new'), 700);
-        return;
-      }
+      if (pin !== tempPin){ lockError('PIN match nahi hua'); tempPin=''; setTimeout(()=>showLock('change-new'),700); return; }
       try {
         const hash = await hashPin(pin);
-        security.pinHash = hash;
-        saveSecurity();
-        hideLock();
-        setSessionUnlocked();
-        toast('PIN change ho gaya!');
-      } catch(e){
-        lockError('PIN save nahi ho saka');
-      }
+        security.pinHash = hash; saveSecurity(); hideLock(); setSessionUnlocked(); toast('PIN change ho gaya!');
+      } catch(e){ lockError('PIN save nahi ho saka'); }
       return;
     }
   }
 
   function handleKey(k){
-    // Any key press cancels auto-fingerprint
     userStartedTyping = true;
     if (autoFpTimer){ clearTimeout(autoFpTimer); autoFpTimer = null; }
     const hint = $('fingerprintHint');
     if (hint) hint.style.display = 'none';
-
     if (k === 'back'){
       if (pendingPinTimer){ clearTimeout(pendingPinTimer); pendingPinTimer = null; }
-      enteredPin = enteredPin.slice(0, -1);
-      renderDots();
-      return;
+      enteredPin = enteredPin.slice(0, -1); renderDots(); return;
     }
     if (!/^[0-9]$/.test(k)) return;
     if (enteredPin.length >= 4) return;
-    enteredPin += k;
-    renderDots();
-        if (enteredPin.length === 4){
+    enteredPin += k; renderDots();
+    if (enteredPin.length === 4){
       const pin = enteredPin;
       if (pendingPinTimer) clearTimeout(pendingPinTimer);
-      pendingPinTimer = setTimeout(() => {
-        pendingPinTimer = null;
-        onPinComplete(pin);
-      }, 60);
+      pendingPinTimer = setTimeout(() => { pendingPinTimer = null; onPinComplete(pin); }, 60);
     }
   }
 
@@ -1071,27 +1043,14 @@ input,select,textarea{font-family:inherit;font-size:16px}
     if (autoFpTimer){ clearTimeout(autoFpTimer); autoFpTimer = null; }
     userStartedTyping = true;
     const hint = $('fingerprintHint');
-    if (hint){
-      hint.style.display = 'block';
-      hint.innerHTML = '<i class="fas fa-fingerprint fa-beat"></i> Fingerprint check ho raha hai...';
-    }
+    if (hint){ hint.style.display = 'block'; hint.innerHTML = '<i class="fas fa-fingerprint fa-beat"></i> Fingerprint check ho raha hai...'; }
     $('lockError').textContent = '';
     fpInProgress = true;
     try {
       const ok = await verifyFingerprint();
-      if (ok){
-        security.failedAttempts = 0;
-        security.lockUntil = 0;
-        saveSecurity();
-        setSessionUnlocked();
-        hideLock();
-        toast('Unlocked!');
-      } else {
-        lockError('Fingerprint match nahi hui');
-      }
-    } catch(e){
-      lockError('Fingerprint skip. PIN use karein.');
-    }
+      if (ok){ security.failedAttempts=0; security.lockUntil=0; saveSecurity(); setSessionUnlocked(); hideLock(); toast('Unlocked!'); }
+      else lockError('Fingerprint match nahi hui');
+    } catch(e){ lockError('Fingerprint skip. PIN use karein.'); }
     fpInProgress = false;
   });
 
@@ -1102,10 +1061,8 @@ input,select,textarea{font-family:inherit;font-size:16px}
     }
     $('secqVerifyQ1').textContent = security.secQ1 || 'Sawaal 1';
     $('secqVerifyQ2').textContent = security.secQ2 || 'Sawaal 2';
-    $('secqVerifyA1').value = '';
-    $('secqVerifyA2').value = '';
-    $('newPin1').value = '';
-    $('newPin2').value = '';
+    $('secqVerifyA1').value = ''; $('secqVerifyA2').value = '';
+    $('newPin1').value = ''; $('newPin2').value = '';
     $('secqVerifyError').textContent = '';
     openOv('secqVerifyOverlay');
   });
@@ -1113,48 +1070,25 @@ input,select,textarea{font-family:inherit;font-size:16px}
   $('lockCancelBtn').addEventListener('click', () => {
     if (pendingPinTimer){ clearTimeout(pendingPinTimer); pendingPinTimer = null; }
     if (autoFpTimer){ clearTimeout(autoFpTimer); autoFpTimer = null; }
-    tempPin = '';
-    enteredPin = '';
-    if (lockExitMode === 'app'){
-      hideLock();
-      setSessionUnlocked();
-      toast('Cancelled');
-    } else {
-      showLock('unlock');
-    }
+    tempPin = ''; enteredPin = '';
+    if (lockExitMode === 'app'){ hideLock(); setSessionUnlocked(); toast('Cancelled'); }
+    else showLock('unlock');
   });
 
-  /* ============ SECURITY QUESTIONS SETUP ============ */
+  /* ============ SECURITY QUESTIONS ============ */
   function resetSecqSetup(){
-    $('secq1Select').value = '';
-    $('secq1Custom').value = '';
-    $('secq1Custom').style.display = 'none';
-    $('secq1Answer').value = '';
-    $('secq2Select').value = '';
-    $('secq2Custom').value = '';
-    $('secq2Custom').style.display = 'none';
-    $('secq2Answer').value = '';
-    $('secqSetupError').textContent = '';
+    $('secq1Select').value=''; $('secq1Custom').value=''; $('secq1Custom').style.display='none'; $('secq1Answer').value='';
+    $('secq2Select').value=''; $('secq2Custom').value=''; $('secq2Custom').style.display='none'; $('secq2Answer').value='';
+    $('secqSetupError').textContent='';
   }
-
-  $('secq1Select').addEventListener('change', e => {
-    $('secq1Custom').style.display = e.target.value === '__custom__' ? 'block' : 'none';
-  });
-  $('secq2Select').addEventListener('change', e => {
-    $('secq2Custom').style.display = e.target.value === '__custom__' ? 'block' : 'none';
-  });
+  $('secq1Select').addEventListener('change', e => { $('secq1Custom').style.display = e.target.value === '__custom__' ? 'block' : 'none'; });
+  $('secq2Select').addEventListener('change', e => { $('secq2Custom').style.display = e.target.value === '__custom__' ? 'block' : 'none'; });
 
   $('secqSaveBtn').addEventListener('click', async () => {
-    const errEl = $('secqSetupError');
-    errEl.textContent = '';
-
-    let q1 = $('secq1Select').value;
-    if (q1 === '__custom__') q1 = $('secq1Custom').value.trim();
-    let q2 = $('secq2Select').value;
-    if (q2 === '__custom__') q2 = $('secq2Custom').value.trim();
-    const a1 = $('secq1Answer').value.trim();
-    const a2 = $('secq2Answer').value.trim();
-
+    const errEl = $('secqSetupError'); errEl.textContent = '';
+    let q1 = $('secq1Select').value; if (q1 === '__custom__') q1 = $('secq1Custom').value.trim();
+    let q2 = $('secq2Select').value; if (q2 === '__custom__') q2 = $('secq2Custom').value.trim();
+    const a1 = $('secq1Answer').value.trim(), a2 = $('secq2Answer').value.trim();
     if (!q1){ errEl.textContent = 'Pehla sawaal chunein'; return; }
     if (!a1){ errEl.textContent = 'Pehle sawaal ka jawab daalein'; return; }
     if (!q2){ errEl.textContent = 'Doosra sawaal chunein'; return; }
@@ -1162,105 +1096,63 @@ input,select,textarea{font-family:inherit;font-size:16px}
     if (q1 === q2){ errEl.textContent = 'Dono sawaal alag hone chahiye'; return; }
     if (a1.toLowerCase() === a2.toLowerCase()){ errEl.textContent = 'Dono jawab alag hone chahiye'; return; }
     if (a1.length < 2 || a2.length < 2){ errEl.textContent = 'Jawab kam se kam 2 letter ka ho'; return; }
-
     try {
-      security.secQ1 = q1;
-      security.secQ2 = q2;
-      security.secA1Hash = await hashAnswer(a1);
-      security.secA2Hash = await hashAnswer(a2);
-      security.verifyAttempts = 0;
-      security.verifyLockUntil = 0;
+      security.secQ1 = q1; security.secQ2 = q2;
+      security.secA1Hash = await hashAnswer(a1); security.secA2Hash = await hashAnswer(a2);
+      security.verifyAttempts = 0; security.verifyLockUntil = 0;
       saveSecurity();
-    } catch(e){
-      errEl.textContent = 'Save nahi ho saka. Try again.';
-      return;
-    }
-
+    } catch(e){ errEl.textContent = 'Save nahi ho saka. Try again.'; return; }
     closeOv('secqSetupOverlay');
-    setSessionUnlocked();
-    hideLock();
+    setSessionUnlocked(); hideLock();
     toast('PIN aur Security Questions set ho gaye!');
     isFingerprintAvailable().then(fpAvail => {
-      if (fpAvail && !security.fingerprintEnabled){
-        setTimeout(() => toast('Fingerprint Settings se enable kar sakte hain', 3000), 2000);
-      }
+      if (fpAvail && !security.fingerprintEnabled) setTimeout(() => toast('Fingerprint Settings se enable kar sakte hain', 3000), 2000);
     });
   });
 
-  $('secqSetupCancel').addEventListener('click', () => {
-    closeOv('secqSetupOverlay');
-    hideLock();
-    setSessionUnlocked();
-  });
+  $('secqSetupCancel').addEventListener('click', () => { closeOv('secqSetupOverlay'); hideLock(); setSessionUnlocked(); });
 
-  /* ============ SECURITY QUESTIONS VERIFY ============ */
-  $('secqVerifyClose').addEventListener('click', () => {
-    closeOv('secqVerifyOverlay');
-    showLock('unlock');
-  });
-  $('secqVerifyCancel').addEventListener('click', () => {
-    closeOv('secqVerifyOverlay');
-    showLock('unlock');
-  });
+  $('secqVerifyClose').addEventListener('click', () => { closeOv('secqVerifyOverlay'); showLock('unlock'); });
+  $('secqVerifyCancel').addEventListener('click', () => { closeOv('secqVerifyOverlay'); showLock('unlock'); });
 
   $('secqVerifySubmit').addEventListener('click', async () => {
-    const errEl = $('secqVerifyError');
-    errEl.textContent = '';
-
+    const errEl = $('secqVerifyError'); errEl.textContent = '';
     if (security.verifyLockUntil && Date.now() < security.verifyLockUntil){
       const secs = Math.ceil((security.verifyLockUntil - Date.now())/1000);
-      errEl.textContent = `Bahut zyada ghalat koshish. ${secs}s wait karein.`;
-      return;
+      errEl.textContent = `Bahut zyada ghalat koshish. ${secs}s wait karein.`; return;
     }
-
-    const a1 = $('secqVerifyA1').value.trim();
-    const a2 = $('secqVerifyA2').value.trim();
-    const p1 = $('newPin1').value.trim();
-    const p2 = $('newPin2').value.trim();
-
+    const a1 = $('secqVerifyA1').value.trim(), a2 = $('secqVerifyA2').value.trim();
+    const p1 = $('newPin1').value.trim(), p2 = $('newPin2').value.trim();
     if (!a1 || !a2){ errEl.textContent = 'Dono sawaalon ke jawab daalein'; return; }
     if (!/^\d{4}$/.test(p1)){ errEl.textContent = 'Naya PIN 4 digit ka ho'; return; }
     if (p1 !== p2){ errEl.textContent = 'Dono PIN match nahi kar rahe'; return; }
-
     try {
-      const h1 = await hashAnswer(a1);
-      const h2 = await hashAnswer(a2);
-
+      const h1 = await hashAnswer(a1), h2 = await hashAnswer(a2);
       if (h1 === security.secA1Hash && h2 === security.secA2Hash){
         const pinHash = await hashPin(p1);
         security.pinHash = pinHash;
-        security.verifyAttempts = 0;
-        security.verifyLockUntil = 0;
-        security.failedAttempts = 0;
-        security.lockUntil = 0;
+        security.verifyAttempts = 0; security.verifyLockUntil = 0;
+        security.failedAttempts = 0; security.lockUntil = 0;
         saveSecurity();
-        closeOv('secqVerifyOverlay');
-        hideLock();
-        setSessionUnlocked();
+        closeOv('secqVerifyOverlay'); hideLock(); setSessionUnlocked();
         toast('PIN reset ho gaya!');
       } else {
-        security.verifyAttempts = (security.verifyAttempts || 0) + 1;
-        if (security.verifyAttempts >= 3){
-          security.verifyLockUntil = Date.now() + 60000;
-          security.verifyAttempts = 0;
-          errEl.textContent = '3 ghalat koshish. 1 minute wait karein.';
-        } else {
-          errEl.textContent = `Ghalat jawab. ${3 - security.verifyAttempts} koshish baaki.`;
-        }
+        security.verifyAttempts = (security.verifyAttempts||0)+1;
+        if (security.verifyAttempts >= 3){ security.verifyLockUntil = Date.now()+60000; security.verifyAttempts = 0; errEl.textContent = '3 ghalat koshish. 1 minute wait karein.'; }
+        else errEl.textContent = `Ghalat jawab. ${3 - security.verifyAttempts} koshish baaki.`;
         saveSecurity();
       }
-    } catch(e){
-      errEl.textContent = 'Error aaya. Try again.';
-    }
+    } catch(e){ errEl.textContent = 'Error aaya. Try again.'; }
   });
 
-  /* ============ MAIN APP ============ */
+  /* ============ NAVIGATION ============ */
   function showView(name){
     $$('.view').forEach(v => v.classList.remove('active'));
     $$('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === name));
     $('view-' + name).classList.add('active');
     window.scrollTo({top:0, behavior:'smooth'});
     if (name === 'bills') renderBills();
+    if (name === 'khaata') renderKhaatas();
     if (name === 'summary') renderSummary();
   }
   $$('.nav-btn').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
@@ -1272,14 +1164,20 @@ input,select,textarea{font-family:inherit;font-size:16px}
     closeOv(id);
     if (id === 'cameraOverlay') stopCam();
   }));
-  ['cameraOverlay','formOverlay','detailOverlay','confirmOverlay','settingsOverlay'].forEach(id => {
-    $(id).addEventListener('click', e => {
+  ['cameraOverlay','formOverlay','detailOverlay','confirmOverlay','settingsOverlay','addKhaataOverlay','khaataDetailOverlay','addEntryOverlay'].forEach(id => {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener('click', e => {
       if (e.target.id === id){
         if (id === 'cameraOverlay') stopCam();
         closeOv(id);
       }
     });
   });
+
+  /* ============ LOAD / SAVE (with debounce) ============ */
+  let _saveTimer = null;
+  let _saveKhaataTimer = null;
 
   function loadData(){
     try {
@@ -1288,52 +1186,78 @@ input,select,textarea{font-family:inherit;font-size:16px}
       if (!Array.isArray(bills)) bills = [];
     } catch(e){ bills = []; }
     try {
+      const k = localStorage.getItem(KHAATA_KEY);
+      khaatas = k ? JSON.parse(k) : [];
+      if (!Array.isArray(khaatas)) khaatas = [];
+    } catch(e){ khaatas = []; }
+    try {
       const s = localStorage.getItem(SETTINGS_KEY);
       if (s) settings = Object.assign(settings, JSON.parse(s));
     } catch(e){}
   }
+
   function saveData(){
-    try {
-      localStorage.setItem(BILLS_KEY, JSON.stringify(bills));
-      return true;
-    } catch(e){
-      toast('Storage full! Backup lein aur purane delete karein', 3000);
-      return false;
-    }
-  }
-  function saveSettings(){
-    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch(e){}
+    if (_saveTimer) clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(() => {
+      _saveTimer = null;
+      try { localStorage.setItem(BILLS_KEY, JSON.stringify(bills)); }
+      catch(e){ if (e.name === 'QuotaExceededError') toast('Storage full! Backup lein.', 3000); }
+    }, 50);
+    return true;
   }
 
-  function billTotal(b){
-    return (Number(b.amount)||0) + (Number(b.advanceTax)||0) + (Number(b.withholdingTax)||0);
+  function saveKhaatas(){
+    if (_saveKhaataTimer) clearTimeout(_saveKhaataTimer);
+    _saveKhaataTimer = setTimeout(() => {
+      _saveKhaataTimer = null;
+      try { localStorage.setItem(KHAATA_KEY, JSON.stringify(khaatas)); }
+      catch(e){ if (e.name === 'QuotaExceededError') toast('Storage full!', 3000); }
+    }, 50);
+    return true;
   }
+
+  function saveSettings(){ try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch(e){} }
+
+  window.addEventListener('beforeunload', () => {
+    if (_saveTimer){
+      clearTimeout(_saveTimer); _saveTimer = null;
+      try { localStorage.setItem(BILLS_KEY, JSON.stringify(bills)); } catch(e){}
+    }
+    if (_saveKhaataTimer){
+      clearTimeout(_saveKhaataTimer); _saveKhaataTimer = null;
+      try { localStorage.setItem(KHAATA_KEY, JSON.stringify(khaatas)); } catch(e){}
+    }
+  });
+
+  /* ============ HELPERS ============ */
+  function billTotal(b){ return (Number(b.amount)||0) + (Number(b.advanceTax)||0) + (Number(b.withholdingTax)||0); }
   function fmtRs(n){
     const v = Number(n)||0;
     return 'Rs. ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
   function fmtRsShort(n){
     const v = Number(n)||0;
-    if (v >= 100000) return 'Rs. ' + (v/100000).toFixed(1) + 'L';
-    if (v >= 1000) return 'Rs. ' + (v/1000).toFixed(1) + 'k';
+    if (Math.abs(v) >= 100000) return 'Rs. ' + (v/100000).toFixed(1) + 'L';
+    if (Math.abs(v) >= 1000) return 'Rs. ' + (v/1000).toFixed(1) + 'k';
     return 'Rs. ' + v.toFixed(0);
   }
   function fmtDate(d){
     if (!d) return '—';
-    try {
-      const dt = new Date(d);
-      if (isNaN(dt.getTime())) return d;
-      return dt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-    } catch(e){ return d; }
+    try { const dt = new Date(d); if (isNaN(dt.getTime())) return d; return dt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }
+    catch(e){ return d; }
   }
-  function esc(s){
-    return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  }
+  function esc(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function todayISO(){ return new Date().toISOString().split('T')[0]; }
 
+  /* ============ BILLS RENDER (with early exit) ============ */
+  let _lastBillsHash = '';
   function renderBills(){
+    const hash = bills.length + '|' + bills.reduce((s,b) => s + (b.updatedAt || b.createdAt || 0), 0);
+    if (hash === _lastBillsHash && $('billList').children.length > 0) return;
+    _lastBillsHash = hash;
+
     const list = $('billList');
     const sorted = [...bills].sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
-
     const total = bills.reduce((s,b) => s + billTotal(b), 0);
     const cash = bills.filter(b => b.payment === 'cash').reduce((s,b) => s + billTotal(b), 0);
     const credit = bills.filter(b => b.payment === 'credit').reduce((s,b) => s + billTotal(b), 0);
@@ -1342,12 +1266,8 @@ input,select,textarea{font-family:inherit;font-size:16px}
     $('cashTotal').textContent = fmtRsShort(cash);
     $('creditTotal').textContent = fmtRsShort(credit);
 
-    if (bills.length > 0){
-      $('navCount').style.display = 'inline-block';
-      $('navCount').textContent = bills.length;
-    } else {
-      $('navCount').style.display = 'none';
-    }
+    if (bills.length > 0){ $('navCount').style.display = 'inline-block'; $('navCount').textContent = bills.length; }
+    else $('navCount').style.display = 'none';
 
     if (bills.length === 0){
       list.innerHTML = `<div class="empty"><i class="fas fa-receipt"></i><h3>Abhi koi bill nahi</h3><p>Neeche "Add" tab se pehla bill banayein</p></div>`;
@@ -1357,13 +1277,11 @@ input,select,textarea{font-family:inherit;font-size:16px}
     list.innerHTML = sorted.map(b => {
       let thumb;
       if (b.imageUrl){
-        thumb = `<div class="bill-thumb"><div class="loading"><i class="fas fa-spinner fa-spin"></i></div><img src="${b.imageUrl}" alt="" loading="lazy" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'"></div>`;
+        thumb = `<div class="bill-thumb"><img src="${b.imageUrl}" alt="" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.opacity='0'"></div>`;
       } else {
         thumb = `<div class="bill-thumb"><i class="fas fa-file-lines"></i></div>`;
       }
-      const badge = b.payment === 'credit'
-        ? '<span class="badge credit">Credit</span>'
-        : '<span class="badge cash">Cash</span>';
+      const badge = b.payment === 'credit' ? '<span class="badge credit">Credit</span>' : '<span class="badge cash">Cash</span>';
       return `
         <div class="bill-card" data-id="${b.id}">
           ${thumb}
@@ -1371,18 +1289,525 @@ input,select,textarea{font-family:inherit;font-size:16px}
             <div class="agency">${esc(b.agencyName || 'Untitled')}</div>
             <div class="meta"><span>${fmtDate(b.supplyDate || b.bookingDate || b.createdAt)}</span>${badge}</div>
           </div>
-          <div class="bill-amount">
-            ${fmtRs(billTotal(b))}
-            ${(b.advanceTax || b.withholdingTax) ? `<span class="sub">+taxes</span>` : ''}
+          <div class="bill-amount">${fmtRs(billTotal(b))}${(b.advanceTax || b.withholdingTax) ? `<span class="sub">+taxes</span>` : ''}</div>
+        </div>`;
+    }).join('');
+
+    list.querySelectorAll('.bill-card').forEach(c => c.addEventListener('click', () => openDetail(c.dataset.id)));
+  }
+
+  /* ============ KHAATA HELPERS ============ */
+  function khaataBalance(k){
+    if (!k || !Array.isArray(k.entries)) return 0;
+    let bal = 0;
+    k.entries.forEach(e => {
+      const amt = Number(e.amount) || 0;
+      if (e.type === 'purchase') bal += amt;
+      else if (e.type === 'payment') bal -= amt;
+    });
+    return bal;
+  }
+  function khaataLastDate(k){
+    if (!k.entries || k.entries.length === 0) return k.createdAt;
+    let max = 0;
+    k.entries.forEach(e => { const t = new Date(e.date||0).getTime(); if (t > max) max = t; });
+    return max || k.createdAt;
+  }
+  function khaataTotals(k){
+    let purchases = 0, payments = 0;
+    (k.entries||[]).forEach(e => {
+      const amt = Number(e.amount) || 0;
+      if (e.type === 'purchase') purchases += amt;
+      else if (e.type === 'payment') payments += amt;
+    });
+    return { purchases, payments, balance: purchases - payments };
+  }
+
+  /* ============ KHAATA RENDER (with early exit) ============ */
+  let _lastKhaataHash = '';
+  function renderKhaatas(){
+    const hash = khaatas.length + '|' + khaatas.reduce((s,k) => s + (k.updatedAt||k.createdAt||0), 0);
+    if (hash === _lastKhaataHash && $('khaataList').children.length > 0) return;
+    _lastKhaataHash = hash;
+
+    const list = $('khaataList');
+    const sorted = [...khaatas].sort((a,b) => khaataLastDate(b) - khaataLastDate(a));
+
+    let totalOwe = 0, totalAdv = 0, totalOutstanding = 0;
+    khaatas.forEach(k => {
+      const bal = khaataBalance(k);
+      if (bal > 0){ totalOwe += bal; totalOutstanding += bal; }
+      else if (bal < 0){ totalAdv += Math.abs(bal); }
+    });
+
+    $('khaataTotalOutstanding').textContent = fmtRs(totalOutstanding);
+    $('khaataCount').textContent = khaatas.length;
+    $('khaataYouOwe').textContent = fmtRsShort(totalOwe);
+    $('khaataAdvance').textContent = fmtRsShort(totalAdv);
+
+    if (khaatas.length > 0){ $('navKhaataCount').style.display = 'inline-block'; $('navKhaataCount').textContent = khaatas.length; }
+    else $('navKhaataCount').style.display = 'none';
+
+    if (khaatas.length === 0){
+      list.innerHTML = `<div class="empty"><i class="fas fa-book"></i><h3>Abhi koi khaata nahi</h3><p>Upar "+ New Khaata" se vendor ka khata banayein</p></div>`;
+      return;
+    }
+
+    list.innerHTML = sorted.map(k => {
+      const bal = khaataBalance(k);
+      let badge, amtClass, amtLabel;
+      if (bal > 0){ badge = '<span class="badge due">Baqaya</span>'; amtClass = 'owe'; amtLabel = 'You Owe'; }
+      else if (bal < 0){ badge = '<span class="badge advance">Advance</span>'; amtClass = 'adv'; amtLabel = 'Advance'; }
+      else { badge = '<span class="badge settled">Settled</span>'; amtClass = ''; amtLabel = 'Settled'; }
+      const entryCount = (k.entries || []).length;
+      return `
+        <div class="bill-card khaata-card" data-id="${k.id}">
+          <div class="bill-thumb khaata"><i class="fas fa-store"></i></div>
+          <div class="bill-info">
+            <div class="agency">${esc(k.agencyName || 'Untitled')}</div>
+            <div class="meta"><span>${entryCount} entries</span><span>Last: ${fmtDate(khaataLastDate(k))}</span>${badge}</div>
+          </div>
+          <div class="bill-amount ${amtClass}">
+            ${fmtRs(Math.abs(bal))}
+            <span class="sub">${amtLabel}</span>
           </div>
         </div>`;
     }).join('');
 
-    list.querySelectorAll('.bill-card').forEach(c => {
-      c.addEventListener('click', () => openDetail(c.dataset.id));
+    list.querySelectorAll('.khaata-card').forEach(c => c.addEventListener('click', () => openKhaataDetail(c.dataset.id)));
+  }
+
+  /* ============ KHAATA DETAIL ============ */
+  function openKhaataDetail(id){
+    const k = khaatas.find(x => x.id === id);
+    if (!k) return;
+    currentKhaataId = id;
+    renderKhaataDetail(k);
+    openOv('khaataDetailOverlay');
+  }
+
+  function renderKhaataDetail(k){
+    const { purchases, payments, balance } = khaataTotals(k);
+    let balClass = 'settled', balLabel = 'Settled';
+    if (balance > 0){ balClass = 'owe'; balLabel = 'You Owe Vendor'; }
+    else if (balance < 0){ balClass = 'adv'; balLabel = 'Advance Paid'; }
+
+    const entries = [...(k.entries||[])].sort((a,b) => new Date(a.date||0) - new Date(b.date||0));
+
+    let running = 0;
+    const ledgerHtml = entries.length === 0
+      ? '<div class="empty" style="padding:24px"><i class="fas fa-inbox"></i><h3>Abhi koi entry nahi</h3><p>"Add Entry" dabayein</p></div>'
+      : entries.map(e => {
+          const amt = Number(e.amount) || 0;
+          if (e.type === 'purchase') running += amt; else running -= amt;
+          const isPurchase = e.type === 'purchase';
+          const itemsHtml = (e.items && e.items.length > 0)
+            ? `<div class="ledger-items">${e.items.map(it => {
+                const qty = it.qty ? `${it.qty}${it.unit ? ' '+it.unit : ''} × ` : '';
+                const rateStr = it.rate ? `Rs. ${it.rate}` : '';
+                const nameStr = it.name ? esc(it.name) : 'Item';
+                return `<div class="li"><span class="n">${nameStr}${qty ? ' — ' + qty + rateStr : (rateStr ? ' — ' + rateStr : '')}</span><span class="a">Rs. ${(Number(it.amount)||0).toFixed(0)}</span></div>`;
+              }).join('')}</div>`
+            : '';
+          const notesHtml = e.notes ? `<div class="ledger-notes"><i class="fas fa-note-sticky"></i> ${esc(e.notes)}</div>` : '';
+          return `
+            <div class="ledger-entry ${isPurchase ? 'purchase' : 'payment'}">
+              <div class="ledger-actions">
+                <button data-entry-del="${e.id}" title="Delete"><i class="fas fa-trash"></i></button>
+              </div>
+              <div class="ledger-entry-top">
+                <div>
+                  <div class="ledger-date">${fmtDate(e.date)}</div>
+                  <span class="ledger-type-tag ${isPurchase ? 'purchase' : 'payment'}">${isPurchase ? 'Maal Aya' : 'Payment'}</span>
+                </div>
+                <div class="ledger-amount ${isPurchase ? 'purchase' : 'payment'}">${isPurchase ? '+' : '−'} ${fmtRs(amt)}</div>
+              </div>
+              ${itemsHtml}
+              ${notesHtml}
+              <div class="ledger-balance">Balance: <strong>${fmtRs(Math.abs(running))} ${running > 0 ? '(owe)' : running < 0 ? '(advance)' : ''}</strong></div>
+            </div>`;
+        }).reverse().join('');
+
+    $('khaataDetailContent').innerHTML = `
+      <div class="khaata-header-card">
+        <div class="agency">${esc(k.agencyName || 'Untitled')}</div>
+        <div class="meta">
+          ${k.phone ? `<span><i class="fas fa-phone"></i>${esc(k.phone)}</span>` : ''}
+          ${k.address ? `<span><i class="fas fa-location-dot"></i>${esc(k.address)}</span>` : ''}
+          <span><i class="fas fa-calendar"></i>Since ${fmtDate(k.createdAt)}</span>
+        </div>
+        <div class="khaata-balance-row">
+          <div class="b-item"><div class="v">${fmtRs(purchases)}</div><div class="l">Total Purchase</div></div>
+          <div class="b-item"><div class="v">${fmtRs(payments)}</div><div class="l">Total Paid</div></div>
+        </div>
+      </div>
+      <div class="balance-summary">
+        <div class="row"><span>Total Purchases (Maal)</span><span>${fmtRs(purchases)}</span></div>
+        <div class="row"><span>Total Payments (Paise)</span><span>− ${fmtRs(payments)}</span></div>
+        <div class="row total"><span>${balLabel}</span><span class="v ${balClass}">${fmtRs(Math.abs(balance))}</span></div>
+      </div>
+      <div class="section-title" style="margin-top:12px"><i class="fas fa-list"></i> Ledger (Newest First)</div>
+      <div class="ledger-list">${ledgerHtml}</div>
+    `;
+
+    $('khaataDetailContent').querySelectorAll('[data-entry-del]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const entryId = btn.dataset.entryDel;
+        askConfirm('Entry delete karein?', 'Ye entry khaate se hat jayegi aur balance update ho jayega.', () => {
+          const kk = khaatas.find(x => x.id === currentKhaataId);
+          if (!kk) return;
+          kk.entries = (kk.entries||[]).filter(x => x.id !== entryId);
+          kk.updatedAt = Date.now();
+          saveKhaatas();
+          renderKhaataDetail(kk);
+          renderKhaatas();
+          toast('Entry delete ho gayi');
+        }, 'Delete');
+      });
     });
   }
 
+  /* ============ NEW KHAATA ============ */
+  $('newKhaataBtn').addEventListener('click', () => {
+    $('nkAgency').value = ''; $('nkPhone').value = ''; $('nkAddress').value = ''; $('nkOpening').value = '';
+    openOv('addKhaataOverlay');
+  });
+  $('optNewKhaata').addEventListener('click', () => {
+    $('nkAgency').value = ''; $('nkPhone').value = ''; $('nkAddress').value = ''; $('nkOpening').value = '';
+    openOv('addKhaataOverlay');
+  });
+
+  $('saveKhaataBtn').addEventListener('click', () => {
+    const agency = $('nkAgency').value.trim();
+    if (!agency){ toast('Agency ka naam zaroori hai'); return; }
+    const opening = parseFloat($('nkOpening').value) || 0;
+    const k = {
+      id: 'kh_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+      agencyName: agency,
+      phone: $('nkPhone').value.trim(),
+      address: $('nkAddress').value.trim(),
+      entries: [],
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    };
+    if (opening !== 0){
+      k.entries.push({
+        id: 'en_' + Date.now() + '_1',
+        type: opening > 0 ? 'purchase' : 'payment',
+        date: todayISO(),
+        amount: Math.abs(opening),
+        items: [],
+        notes: 'Opening Balance',
+        method: opening > 0 ? '' : 'cash'
+      });
+    }
+    khaatas.push(k);
+    if (!saveKhaatas()) return;
+    closeOv('addKhaataOverlay');
+    toast('Khaata ban gaya!');
+    renderKhaatas();
+    showView('khaata');
+    setTimeout(() => openKhaataDetail(k.id), 300);
+  });
+
+  /* ============ KHAATA DETAIL BUTTONS ============ */
+  $('kdAddEntryBtn').addEventListener('click', () => {
+    if (!currentKhaataId) return;
+    currentEntryTab = 'purchase';
+    $$('.tab-btn[data-entry-tab]').forEach(b => b.classList.toggle('active', b.dataset.entryTab === 'purchase'));
+    $('entryPurchaseTab').style.display = 'block';
+    $('entryPaymentTab').style.display = 'none';
+    $('pDate').value = todayISO();
+    $('payDate').value = todayISO();
+    $('pNotes').value = ''; $('payNotes').value = ''; $('payAmount').value = '';
+    $('payMethod').value = 'cash';
+    $('itemsList').innerHTML = '';
+    addItemRow();
+    updatePurchaseTotal();
+    openOv('addEntryOverlay');
+  });
+
+  $('kdDeleteBtn').addEventListener('click', () => {
+    if (!currentKhaataId) return;
+    askConfirm('Poora khaata delete karein?', 'Saari entries bhi delete ho jayengi. Ye undo nahi hoga.', () => {
+      khaatas = khaatas.filter(x => x.id !== currentKhaataId);
+      saveKhaatas();
+      closeOv('khaataDetailOverlay');
+      renderKhaatas();
+      toast('Khaata delete ho gaya');
+    }, 'Delete');
+  });
+
+  /* ============ ADD ENTRY — TABS ============ */
+  $$('.tab-btn[data-entry-tab]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentEntryTab = btn.dataset.entryTab;
+      $$('.tab-btn[data-entry-tab]').forEach(b => b.classList.toggle('active', b.dataset.entryTab === currentEntryTab));
+      $('entryPurchaseTab').style.display = currentEntryTab === 'purchase' ? 'block' : 'none';
+      $('entryPaymentTab').style.display = currentEntryTab === 'payment' ? 'block' : 'none';
+    });
+  });
+
+  /* ============ ITEMS MANAGEMENT ============ */
+  function addItemRow(){
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    row.innerHTML = `
+      <div class="item-row-top">
+        <input type="text" class="item-name" placeholder="Item name (e.g. Tomato)">
+        <button type="button" class="remove-item-row" title="Remove"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="item-row-mid">
+        <input type="number" class="item-qty" placeholder="Qty" inputmode="decimal" min="0" step="0.01">
+        <input type="text" class="item-unit" placeholder="Unit (kg/pc)" style="min-width:0">
+        <input type="number" class="item-rate" placeholder="Rate" inputmode="decimal" min="0" step="0.01">
+      </div>
+      <input type="number" class="item-amount" placeholder="Amount (auto)" readonly>
+    `;
+    $('itemsList').appendChild(row);
+    const qty = row.querySelector('.item-qty');
+    const rate = row.querySelector('.item-rate');
+    const name = row.querySelector('.item-name');
+    const unit = row.querySelector('.item-unit');
+    const amt = row.querySelector('.item-amount');
+    function recalc(){
+      const q = parseFloat(qty.value) || 0;
+      const r = parseFloat(rate.value) || 0;
+      const a = q * r;
+      amt.value = a > 0 ? a.toFixed(2) : '';
+      updatePurchaseTotal();
+    }
+    qty.addEventListener('input', recalc);
+    rate.addEventListener('input', recalc);
+    name.addEventListener('input', updatePurchaseTotal);
+    unit.addEventListener('input', updatePurchaseTotal);
+    row.querySelector('.remove-item-row').addEventListener('click', () => {
+      row.remove();
+      updatePurchaseTotal();
+      if ($('itemsList').children.length === 0) addItemRow();
+    });
+  }
+
+  function updatePurchaseTotal(){
+    let total = 0;
+    $$('#itemsList .item-amount').forEach(inp => { total += parseFloat(inp.value) || 0; });
+    $('pTotal').textContent = fmtRs(total);
+    return total;
+  }
+
+  $('addItemBtn').addEventListener('click', () => addItemRow());
+
+  /* ============ SAVE ENTRY ============ */
+  $('saveEntryBtn').addEventListener('click', () => {
+    const k = khaatas.find(x => x.id === currentKhaataId);
+    if (!k){ toast('Khaata nahi mila'); return; }
+    if (!Array.isArray(k.entries)) k.entries = [];
+
+    if (currentEntryTab === 'purchase'){
+      const date = $('pDate').value || todayISO();
+      const items = [];
+      $$('#itemsList .item-row').forEach(row => {
+        const name = row.querySelector('.item-name').value.trim();
+        const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+        const unit = row.querySelector('.item-unit').value.trim();
+        const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+        const amount = parseFloat(row.querySelector('.item-amount').value) || 0;
+        if (name || qty || rate || amount){
+          items.push({ name, qty, unit, rate, amount });
+        }
+      });
+      const total = items.reduce((s, it) => s + (Number(it.amount) || 0), 0);
+      if (total <= 0){ toast('Kam se kam ek item ya amount daalein'); return; }
+      const notes = $('pNotes').value.trim();
+      k.entries.push({
+        id: 'en_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+        type: 'purchase',
+        date, amount: total, items, notes
+      });
+    } else {
+      const date = $('payDate').value || todayISO();
+      const amount = parseFloat($('payAmount').value) || 0;
+      if (amount <= 0){ toast('Payment amount daalein'); return; }
+      const notes = $('payNotes').value.trim();
+      const method = $('payMethod').value;
+      k.entries.push({
+        id: 'en_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+        type: 'payment',
+        date, amount, method, notes, items: []
+      });
+    }
+
+    k.updatedAt = Date.now();
+    if (!saveKhaatas()) return;
+
+    closeOv('addEntryOverlay');
+    toast(currentEntryTab === 'purchase' ? 'Purchase entry save ho gayi!' : 'Payment entry save ho gayi!');
+    renderKhaataDetail(k);
+    renderKhaatas();
+    currentEntryTab = 'purchase';
+  });
+
+  /* ============ KHAATA PRINT / PDF / SHARE ============ */
+  function buildKhaataHTML(k){
+    const shop = settings.shopName || 'My Shop';
+    const shopAddr = settings.shopAddress || '';
+    const shopPhone = settings.shopPhone || '';
+    const { purchases, payments, balance } = khaataTotals(k);
+    const entries = [...(k.entries||[])].sort((a,b) => new Date(a.date||0) - new Date(b.date||0));
+    const fromDate = entries.length > 0 ? entries[0].date : k.createdAt;
+    const toDate = entries.length > 0 ? entries[entries.length-1].date : k.createdAt;
+
+    let running = 0;
+    const rowsHtml = entries.map((e, idx) => {
+      const amt = Number(e.amount) || 0;
+      const isP = e.type === 'purchase';
+      if (isP) running += amt; else running -= amt;
+      const itemsLine = (e.items && e.items.length > 0)
+        ? e.items.map(it => `${esc(it.name||'Item')}${it.qty ? ' '+it.qty+(it.unit||'') : ''}${it.rate ? ' × '+it.rate : ''}`).join(', ')
+        : '';
+      const desc = isP ? (itemsLine || 'Purchase') : ('Payment' + (e.method ? ' ('+e.method+')' : ''));
+      const notesLine = e.notes ? `<br><em style="color:#666;font-size:8pt">${esc(e.notes)}</em>` : '';
+      return `<tr>
+        <td>${idx+1}</td>
+        <td>${fmtDate(e.date)}</td>
+        <td>${desc}${notesLine}</td>
+        <td class="r">${isP ? fmtRs(amt) : '—'}</td>
+        <td class="r">${!isP ? fmtRs(amt) : '—'}</td>
+        <td class="r">${fmtRs(Math.abs(running))}${running > 0 ? ' (Dr)' : running < 0 ? ' (Cr)' : ''}</td>
+      </tr>`;
+    }).join('');
+
+    const balanceLabel = balance > 0 ? 'You Owe Vendor' : (balance < 0 ? 'Advance Paid' : 'Settled');
+
+    return `
+      <div class="print-doc">
+        <div class="p-head">
+          <div>
+            <h1>${esc(shop)}</h1>
+            <h2>Vendor Ledger / Khaata Statement</h2>
+            ${shopAddr ? `<div style="font-size:9.5pt;color:#555">${esc(shopAddr)}</div>` : ''}
+            ${shopPhone ? `<div style="font-size:9.5pt;color:#555">Phone: ${esc(shopPhone)}</div>` : ''}
+          </div>
+          <div class="bill-no">
+            <strong>Statement</strong>
+            From: ${fmtDate(fromDate)}<br>
+            To: ${fmtDate(toDate)}<br>
+            Generated: ${new Date().toLocaleDateString('en-GB')}
+          </div>
+        </div>
+        <div class="p-section">
+          <h3>Vendor Details</h3>
+          <div class="p-info">
+            <div class="row"><span class="k">Name:</span><span class="v">${esc(k.agencyName || '—')}</span></div>
+            <div class="row"><span class="k">Phone:</span><span class="v">${esc(k.phone || '—')}</span></div>
+            <div class="row" style="grid-column:1/-1"><span class="k">Address:</span><span class="v">${esc(k.address || '—')}</span></div>
+          </div>
+        </div>
+        <div class="p-section">
+          <h3>Ledger Entries</h3>
+          <table class="ledger-table">
+            <thead>
+              <tr>
+                <th style="width:8%">#</th>
+                <th style="width:16%">Date</th>
+                <th>Description</th>
+                <th class="r" style="width:16%">Debit (Purchase)</th>
+                <th class="r" style="width:16%">Credit (Payment)</th>
+                <th class="r" style="width:18%">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml || '<tr><td colspan="6" style="text-align:center;color:#999">Koi entry nahi</td></tr>'}
+            </tbody>
+            <tfoot>
+              <tr class="total">
+                <td colspan="3" style="text-align:right">TOTAL</td>
+                <td class="r">${fmtRs(purchases)}</td>
+                <td class="r">${fmtRs(payments)}</td>
+                <td class="r">${fmtRs(Math.abs(balance))}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="p-section">
+          <h3>Summary</h3>
+          <table>
+            <tbody>
+              <tr><td>Total Purchases (Maal Aya)</td><td class="r">${fmtRs(purchases)}</td></tr>
+              <tr><td>Total Payments (Paise Diye)</td><td class="r">− ${fmtRs(payments)}</td></tr>
+              <tr class="total"><td>${balanceLabel}</td><td class="r">${fmtRs(Math.abs(balance))}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="p-sign">
+          <div class="box">Received By</div>
+          <div class="box">Authorized Signature</div>
+        </div>
+        <div class="p-footer">Generated on ${new Date().toLocaleString('en-GB')} — Bills Manager App</div>
+      </div>`;
+  }
+
+  $('kdPrintBtn').addEventListener('click', () => {
+    const k = khaatas.find(x => x.id === currentKhaataId); if (!k) return;
+    $('print-area').innerHTML = buildKhaataHTML(k);
+    setTimeout(() => window.print(), 300);
+  });
+
+  $('kdPdfBtn').addEventListener('click', async () => {
+    const k = khaatas.find(x => x.id === currentKhaataId); if (!k) return;
+    const btn = $('kdPdfBtn'); const orig = btn.innerHTML;
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PDF...';
+    try {
+      await loadPdfLib();
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:210mm;background:#fff';
+      wrapper.innerHTML = buildKhaataHTML(k);
+      document.body.appendChild(wrapper);
+      await html2pdf().set({
+        margin: 0,
+        filename: `khaata-${(k.agencyName||'vendor').replace(/\s+/g,'-').toLowerCase()}-${todayISO()}.pdf`,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(wrapper.firstElementChild).save();
+      document.body.removeChild(wrapper);
+      toast('Khaata PDF ban gayi!');
+    } catch(e){ toast('PDF error'); }
+    btn.disabled = false; btn.innerHTML = orig;
+  });
+
+  $('kdShareBtn').addEventListener('click', async () => {
+    const k = khaatas.find(x => x.id === currentKhaataId); if (!k) return;
+    const btn = $('kdShareBtn'); const orig = btn.innerHTML;
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    try {
+      await loadPdfLib();
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:210mm;background:#fff';
+      wrapper.innerHTML = buildKhaataHTML(k);
+      document.body.appendChild(wrapper);
+      const pdfBlob = await html2pdf().set({
+        margin: 0,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(wrapper.firstElementChild).outputPdf('blob');
+      document.body.removeChild(wrapper);
+      const fileName = `khaata-${(k.agencyName||'vendor').replace(/\s+/g,'-').toLowerCase()}-${todayISO()}.pdf`;
+      const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })){
+        await navigator.share({ files: [file], title: `Khaata - ${k.agencyName}`, text: `Khaata statement for ${k.agencyName}` });
+        toast('Share complete!');
+      } else {
+        const { balance } = khaataTotals(k);
+        const msg = `*Khaata - ${k.agencyName}*\nBalance: ${fmtRs(Math.abs(balance))} ${balance > 0 ? '(You Owe)' : balance < 0 ? '(Advance)' : '(Settled)'}`;
+        window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+      }
+    } catch(e){ if (e.name !== 'AbortError') toast('Share error'); }
+    btn.disabled = false; btn.innerHTML = orig;
+  });
+
+  /* ============ SUMMARY ============ */
   function renderSummary(){
     const total = bills.reduce((s,b) => s + billTotal(b), 0);
     const base = bills.reduce((s,b) => s + (Number(b.amount)||0), 0);
@@ -1395,104 +1820,81 @@ input,select,textarea{font-family:inherit;font-size:16px}
     const withPhoto = bills.filter(b => b.imageUrl).length;
     const manual = bills.length - withPhoto;
 
+    let khaataPurchases = 0, khaataPayments = 0, khaataOutstanding = 0;
+    khaatas.forEach(k => {
+      const t = khaataTotals(k);
+      khaataPurchases += t.purchases;
+      khaataPayments += t.payments;
+      if (t.balance > 0) khaataOutstanding += t.balance;
+    });
+
     $('summaryStats').innerHTML = `
-      <div class="stat-card total"><div class="lbl"><i class="fas fa-calculator"></i> Grand Total</div><div class="val">${fmtRs(total)}</div></div>
+      <div class="stat-card total"><div class="lbl"><i class="fas fa-calculator"></i> Bills Total</div><div class="val">${fmtRs(total)}</div></div>
       <div class="stat-card"><div class="lbl"><i class="fas fa-money-bill-wave"></i> Base Amount</div><div class="val">${fmtRs(base)}</div></div>
       <div class="stat-card"><div class="lbl"><i class="fas fa-percent"></i> Advance Tax</div><div class="val">${fmtRs(adv)}</div></div>
       <div class="stat-card"><div class="lbl"><i class="fas fa-file-invoice"></i> Withholding Tax</div><div class="val">${fmtRs(wht)}</div></div>
       <div class="section-title" style="margin-top:20px"><i class="fas fa-wallet"></i> Payment Split</div>
-      <div class="stat-card"><div class="lbl"><i class="fas fa-money-bill-1"></i> Cash (${cashCount} bills)</div><div class="val">${fmtRs(cash)}</div></div>
-      <div class="stat-card"><div class="lbl"><i class="fas fa-credit-card"></i> Credit (${creditCount} bills)</div><div class="val">${fmtRs(credit)}</div></div>
+      <div class="stat-card"><div class="lbl"><i class="fas fa-money-bill-1"></i> Cash (${cashCount})</div><div class="val">${fmtRs(cash)}</div></div>
+      <div class="stat-card"><div class="lbl"><i class="fas fa-credit-card"></i> Credit (${creditCount})</div><div class="val">${fmtRs(credit)}</div></div>
+      <div class="section-title" style="margin-top:20px"><i class="fas fa-book"></i> Khaata Summary</div>
+      <div class="stat-card"><div class="lbl"><i class="fas fa-store"></i> Total Khaatas</div><div class="val">${khaatas.length}</div></div>
+      <div class="stat-card"><div class="lbl"><i class="fas fa-box"></i> Khaata Purchases</div><div class="val">${fmtRs(khaataPurchases)}</div></div>
+      <div class="stat-card"><div class="lbl"><i class="fas fa-hand-holding-dollar"></i> Khaata Payments</div><div class="val">${fmtRs(khaataPayments)}</div></div>
+      <div class="stat-card" style="background:#fee2e2"><div class="lbl" style="color:#991b1b"><i class="fas fa-exclamation-triangle" style="color:#dc2626"></i> Outstanding (Baqaya)</div><div class="val" style="color:#991b1b">${fmtRs(khaataOutstanding)}</div></div>
       <div class="section-title" style="margin-top:20px"><i class="fas fa-images"></i> Bill Types</div>
-      <div class="stat-card"><div class="lbl"><i class="fas fa-camera"></i> With Photo (cloud)</div><div class="val">${withPhoto}</div></div>
-      <div class="stat-card"><div class="lbl"><i class="fas fa-pen"></i> Manual (no photo)</div><div class="val">${manual}</div></div>
-      <div class="stat-card"><div class="lbl"><i class="fas fa-receipt"></i> Total Bills</div><div class="val">${bills.length}</div></div>
+      <div class="stat-card"><div class="lbl"><i class="fas fa-camera"></i> With Photo</div><div class="val">${withPhoto}</div></div>
+      <div class="stat-card"><div class="lbl"><i class="fas fa-pen"></i> Manual</div><div class="val">${manual}</div></div>
     `;
   }
 
   /* ============ ADD FLOW ============ */
-  $('optCamera').addEventListener('click', () => {
-    currentPhotoData = null;
-    startCamera();
-    openOv('cameraOverlay');
-  });
-
+  $('optCamera').addEventListener('click', () => { currentPhotoData = null; startCamera(); openOv('cameraOverlay'); });
   $('optGallery').addEventListener('click', () => {
     const inp = document.createElement('input');
-    inp.type = 'file';
-    inp.accept = 'image/*';
+    inp.type = 'file'; inp.accept = 'image/*';
     inp.onchange = e => {
-      const f = e.target.files && e.target.files[0];
-      if (!f) return;
+      const f = e.target.files && e.target.files[0]; if (!f) return;
       const r = new FileReader();
       r.onload = ev => { openForm(null, ev.target.result); };
       r.readAsDataURL(f);
     };
     inp.click();
   });
-
   $('optManual').addEventListener('click', () => openForm(null, null));
 
   /* ============ CAMERA ============ */
   let camStream = null, camFacing = 'environment';
-
   function stopCam(){
-    if (camStream){
-      try { camStream.getTracks().forEach(t => t.stop()); } catch(e){}
-      camStream = null;
-    }
-    const v = $('camVideo');
-    if (v) v.srcObject = null;
+    if (camStream){ try { camStream.getTracks().forEach(t => t.stop()); } catch(e){} camStream = null; }
+    const v = $('camVideo'); if (v) v.srcObject = null;
   }
-
-  function camErr(msg){
-    const b = $('camError');
-    b.textContent = msg;
-    b.style.display = 'block';
-  }
-
+  function camErr(msg){ const b = $('camError'); b.textContent = msg; b.style.display = 'block'; }
   function camFallback(msg){
     camErr(msg + ' — neeche "Device camera" button use karein.');
     $('camPlaceholder').style.display = 'flex';
     $('camPlaceholder').innerHTML = '<i class="fas fa-camera-retro"></i><span>Fallback mode</span>';
-    $('camCapture').disabled = true;
-    $('camCapture').style.display = 'none';
-    $('camSwitch').style.display = 'none';
-    $('camFallback').style.display = 'inline-flex';
+    $('camCapture').disabled = true; $('camCapture').style.display = 'none';
+    $('camSwitch').style.display = 'none'; $('camFallback').style.display = 'inline-flex';
   }
-
   async function startCamera(){
     stopCam();
     $('camError').style.display = 'none';
     $('camPlaceholder').style.display = 'flex';
     $('camPlaceholder').innerHTML = '<i class="fas fa-video"></i><span>Camera start ho raha hai...</span>';
-    $('camVideo').style.display = 'none';
-    $('camPreview').style.display = 'none';
-    $('camCapture').style.display = 'flex';
-    $('camCapture').disabled = true;
-    $('camSwitch').style.display = 'inline-flex';
-    $('camRetake').style.display = 'none';
-    $('camFallback').style.display = 'none';
-    $('camUseBtn').style.display = 'none';
+    $('camVideo').style.display = 'none'; $('camPreview').style.display = 'none';
+    $('camCapture').style.display = 'flex'; $('camCapture').disabled = true;
+    $('camSwitch').style.display = 'inline-flex'; $('camRetake').style.display = 'none';
+    $('camFallback').style.display = 'none'; $('camUseBtn').style.display = 'none';
 
-    if (location.protocol === 'file:'){
-      camFallback('file:// se camera block hota hai.');
-      return;
-    }
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-      camFallback('Browser camera support nahi karta.');
-      return;
-    }
+    if (location.protocol === 'file:'){ camFallback('file:// se camera block hota hai.'); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ camFallback('Browser camera support nahi karta.'); return; }
     try {
       camStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { ideal: camFacing }, width: {ideal:1920}, height: {ideal:1440} },
         audio: false
       });
-      const v = $('camVideo');
-      v.srcObject = camStream;
-      v.style.display = 'block';
-      $('camPlaceholder').style.display = 'none';
-      $('camCapture').disabled = false;
+      const v = $('camVideo'); v.srcObject = camStream; v.style.display = 'block';
+      $('camPlaceholder').style.display = 'none'; $('camCapture').disabled = false;
     } catch(e){
       let m = 'Camera access nahi mila. ';
       if (e.name === 'NotAllowedError') m += 'Permission allow karein.';
@@ -1501,60 +1903,38 @@ input,select,textarea{font-family:inherit;font-size:16px}
       camFallback(m);
     }
   }
-
-  $('camSwitch').addEventListener('click', () => {
-    camFacing = camFacing === 'environment' ? 'user' : 'environment';
-    startCamera();
-  });
-
+  $('camSwitch').addEventListener('click', () => { camFacing = camFacing === 'environment' ? 'user' : 'environment'; startCamera(); });
   $('camCapture').addEventListener('click', () => {
     if (!camStream) return;
-    const v = $('camVideo');
-    const w = v.videoWidth || 1280, h = v.videoHeight || 960;
-    const c = document.createElement('canvas');
-    c.width = w; c.height = h;
+    const v = $('camVideo'); const w = v.videoWidth || 1280, h = v.videoHeight || 960;
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
     c.getContext('2d').drawImage(v, 0, 0, w, h);
     currentPhotoData = c.toDataURL('image/jpeg', 0.92);
-    $('camPreview').src = currentPhotoData;
-    $('camPreview').style.display = 'block';
-    v.style.display = 'none';
-    $('camCapture').style.display = 'none';
-    $('camSwitch').style.display = 'none';
-    $('camRetake').style.display = 'inline-flex';
+    $('camPreview').src = currentPhotoData; $('camPreview').style.display = 'block';
+    v.style.display = 'none'; $('camCapture').style.display = 'none';
+    $('camSwitch').style.display = 'none'; $('camRetake').style.display = 'inline-flex';
     $('camUseBtn').style.display = 'inline-flex';
     stopCam();
   });
-
   $('camRetake').addEventListener('click', () => {
-    currentPhotoData = null;
-    $('camPreview').style.display = 'none';
-    $('camUseBtn').style.display = 'none';
-    startCamera();
+    currentPhotoData = null; $('camPreview').style.display = 'none';
+    $('camUseBtn').style.display = 'none'; startCamera();
   });
-
-  // CRITICAL: do NOT null out currentPhotoData here — pass to form
   $('camUseBtn').addEventListener('click', () => {
     if (!currentPhotoData) return;
     const photoToUse = currentPhotoData;
-    closeOv('cameraOverlay');
-    stopCam();
+    closeOv('cameraOverlay'); stopCam();
     openForm(null, photoToUse);
   });
-
   $('camFallback').addEventListener('click', () => $('camFallbackInput').click());
   $('camFallbackInput').addEventListener('change', e => {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
+    const f = e.target.files && e.target.files[0]; if (!f) return;
     const r = new FileReader();
-    r.onload = ev => {
-      closeOv('cameraOverlay');
-      openForm(null, ev.target.result);
-    };
-    r.readAsDataURL(f);
-    e.target.value = '';
+    r.onload = ev => { closeOv('cameraOverlay'); openForm(null, ev.target.result); };
+    r.readAsDataURL(f); e.target.value = '';
   });
 
-  /* ============ FORM ============ */
+  /* ============ BILL FORM ============ */
   function openForm(bill, photo){
     editingId = bill ? bill.id : null;
     $('formTitle').innerHTML = `<i class="fas fa-pen-to-square"></i> ${bill ? 'Edit Bill' : 'New Bill'}`;
@@ -1562,79 +1942,42 @@ input,select,textarea{font-family:inherit;font-size:16px}
     if (photo) $('formImage').src = photo;
 
     if (bill){
-      $('fAgency').value = bill.agencyName || '';
-      $('fAddress').value = bill.address || '';
-      $('fPhone').value = bill.phone || '';
-      $('fPayment').value = bill.payment || 'cash';
-      $('fBookingDate').value = bill.bookingDate || '';
-      $('fSupplyDate').value = bill.supplyDate || '';
-      $('fBookedBy').value = bill.bookedBy || '';
-      $('fDeliveredBy').value = bill.deliveredBy || '';
-      $('fAmount').value = bill.amount || '';
-      $('fAdvanceTax').value = bill.advanceTax || '';
-      $('fWithholdingTax').value = bill.withholdingTax || '';
-      $('fNotes').value = bill.notes || '';
+      $('fAgency').value = bill.agencyName || ''; $('fAddress').value = bill.address || '';
+      $('fPhone').value = bill.phone || ''; $('fPayment').value = bill.payment || 'cash';
+      $('fBookingDate').value = bill.bookingDate || ''; $('fSupplyDate').value = bill.supplyDate || '';
+      $('fBookedBy').value = bill.bookedBy || ''; $('fDeliveredBy').value = bill.deliveredBy || '';
+      $('fAmount').value = bill.amount || ''; $('fAdvanceTax').value = bill.advanceTax || '';
+      $('fWithholdingTax').value = bill.withholdingTax || ''; $('fNotes').value = bill.notes || '';
       currentPhotoData = null;
-      if (bill.imageUrl){
-        $('formImage').src = bill.imageUrl;
-        $('formImagePreview').style.display = 'block';
-      }
+      if (bill.imageUrl){ $('formImage').src = bill.imageUrl; $('formImagePreview').style.display = 'block'; }
     } else {
       $('billForm').reset();
       $('fPayment').value = 'cash';
-      const today = new Date().toISOString().split('T')[0];
-      $('fBookingDate').value = today;
-      $('fSupplyDate').value = today;
+      $('fBookingDate').value = todayISO(); $('fSupplyDate').value = todayISO();
       currentPhotoData = photo || null;
     }
     openOv('formOverlay');
   }
-
   $('removeImageBtn').addEventListener('click', () => {
-    currentPhotoData = null;
-    $('formImagePreview').style.display = 'none';
-    $('formImage').src = '';
+    currentPhotoData = null; $('formImagePreview').style.display = 'none'; $('formImage').src = '';
   });
 
-  /* ============ CLOUDINARY UPLOAD ============ */
+  /* ============ CLOUDINARY ============ */
   async function uploadToCloudinary(dataUrl){
     const cloudName = (settings.cloudName || DEFAULT_CLOUD_NAME).trim();
     const preset = (settings.cloudPreset || DEFAULT_UPLOAD_PRESET).trim();
-
-    if (!cloudName || cloudName === 'YAHAN_APKA_CLOUD_NAME'){
-      toast('Cloudinary set nahi hai. Settings check karein.', 3000);
-      return null;
-    }
-
-    $('uploadMsg').textContent = 'Uploading photo...';
-    $('uploadProgress').classList.add('show');
-
+    if (!cloudName || cloudName === 'YAHAN_APKA_CLOUD_NAME'){ toast('Cloudinary set nahi hai', 3000); return null; }
+    $('uploadMsg').textContent = 'Uploading photo...'; $('uploadProgress').classList.add('show');
     try {
-      const formData = new FormData();
-      formData.append('file', dataUrl);
-      formData.append('upload_preset', preset);
-      formData.append('folder', 'bills');
-
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-        method: 'POST',
-        body: formData
-      });
+      const fd = new FormData();
+      fd.append('file', dataUrl); fd.append('upload_preset', preset); fd.append('folder', 'bills');
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { method: 'POST', body: fd });
       const data = await res.json();
       $('uploadProgress').classList.remove('show');
-
-      if (data.secure_url){
-        return data.secure_url;
-      } else {
-        console.error('Cloudinary error:', data);
-        toast('Upload fail: ' + ((data.error && data.error.message) || 'Unknown'));
-        return null;
-      }
-    } catch(e){
-      $('uploadProgress').classList.remove('show');
-      console.error(e);
-      toast('Internet ya Cloudinary error');
+      if (data.secure_url) return data.secure_url;
+      toast('Upload fail: ' + ((data.error && data.error.message) || 'Unknown'));
       return null;
-    }
+    } catch(e){ $('uploadProgress').classList.remove('show'); toast('Internet error'); return null; }
   }
 
   /* ============ SAVE BILL ============ */
@@ -1645,92 +1988,55 @@ input,select,textarea{font-family:inherit;font-size:16px}
     if (!agency){ toast('Agency ka naam zaroori hai'); return; }
     if (amount <= 0){ toast('Amount zaroori hai'); return; }
 
-    const btn = $('saveBillBtn');
-    btn.disabled = true;
+    const btn = $('saveBillBtn'); btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
 
     const existingBill = editingId ? bills.find(b => b.id === editingId) : null;
     let imageUrl = existingBill ? existingBill.imageUrl : null;
-
     const imageRemoved = ($('formImagePreview').style.display === 'none');
 
     if (currentPhotoData && currentPhotoData.startsWith('data:image')){
       const url = await uploadToCloudinary(currentPhotoData);
       if (url) imageUrl = url;
-      else {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-save"></i> Save Bill';
-        return;
-      }
-    } else if (imageRemoved){
-      imageUrl = null;
-    }
+      else { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Save Bill'; return; }
+    } else if (imageRemoved){ imageUrl = null; }
 
     const billData = {
       id: editingId || ('bill_' + Date.now() + '_' + Math.random().toString(36).slice(2,7)),
-      imageUrl: imageUrl,
-      agencyName: agency,
-      address: $('fAddress').value.trim(),
-      phone: $('fPhone').value.trim(),
-      bookingDate: $('fBookingDate').value,
-      supplyDate: $('fSupplyDate').value,
-      bookedBy: $('fBookedBy').value.trim(),
-      deliveredBy: $('fDeliveredBy').value.trim(),
-      payment: $('fPayment').value,
-      amount: amount,
+      imageUrl, agencyName: agency, address: $('fAddress').value.trim(), phone: $('fPhone').value.trim(),
+      bookingDate: $('fBookingDate').value, supplyDate: $('fSupplyDate').value,
+      bookedBy: $('fBookedBy').value.trim(), deliveredBy: $('fDeliveredBy').value.trim(),
+      payment: $('fPayment').value, amount,
       advanceTax: parseFloat($('fAdvanceTax').value) || 0,
       withholdingTax: parseFloat($('fWithholdingTax').value) || 0,
       notes: $('fNotes').value.trim(),
-      createdAt: existingBill ? existingBill.createdAt : Date.now()
+      createdAt: existingBill ? existingBill.createdAt : Date.now(),
+      updatedAt: Date.now()
     };
 
-    if (editingId){
-      const i = bills.findIndex(b => b.id === editingId);
-      if (i >= 0) bills[i] = billData;
-    } else {
-      bills.push(billData);
-    }
+    if (editingId){ const i = bills.findIndex(b => b.id === editingId); if (i >= 0) bills[i] = billData; }
+    else bills.push(billData);
 
-    if (!saveData()){
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-save"></i> Save Bill';
-      return;
-    }
-
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-save"></i> Save Bill';
-    closeOv('formOverlay');
-    toast(editingId ? 'Bill update ho gaya!' : 'Bill save ho gaya!');
-    currentPhotoData = null;
-    editingId = null;
-    renderBills();
-    showView('bills');
+    if (!saveData()){ btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Save Bill'; return; }
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Save Bill';
+    closeOv('formOverlay'); toast(editingId ? 'Bill update ho gaya!' : 'Bill save ho gaya!');
+    currentPhotoData = null; editingId = null;
+    renderBills(); showView('bills');
   });
 
-  /* ============ DETAIL VIEW ============ */
+  /* ============ BILL DETAIL ============ */
   function openDetail(id){
-    const b = bills.find(x => x.id === id);
-    if (!b) return;
+    const b = bills.find(x => x.id === id); if (!b) return;
     currentBillId = id;
-
     const rows = [
-      ['Agency / Trader', b.agencyName],
-      ['Address', b.address],
-      ['Phone', b.phone],
-      ['Booking Date', fmtDate(b.bookingDate)],
-      ['Supply Date', fmtDate(b.supplyDate)],
-      ['Booked By', b.bookedBy],
-      ['Delivered By', b.deliveredBy],
+      ['Agency / Trader', b.agencyName], ['Address', b.address], ['Phone', b.phone],
+      ['Booking Date', fmtDate(b.bookingDate)], ['Supply Date', fmtDate(b.supplyDate)],
+      ['Booked By', b.bookedBy], ['Delivered By', b.deliveredBy],
       ['Payment', b.payment === 'credit' ? 'Credit' : 'Cash'],
-      ['Amount', fmtRs(b.amount)],
-      ['Advance Tax', fmtRs(b.advanceTax)],
-      ['Withholding Tax', fmtRs(b.withholdingTax)]
+      ['Amount', fmtRs(b.amount)], ['Advance Tax', fmtRs(b.advanceTax)], ['Withholding Tax', fmtRs(b.withholdingTax)]
     ];
-
     $('detailContent').innerHTML = `
-      ${b.imageUrl
-        ? `<img src="${b.imageUrl}" class="detail-img" alt="Bill" loading="lazy">`
-        : '<div style="text-align:center;padding:20px;color:var(--muted);font-size:.85rem"><i class="fas fa-file-lines" style="font-size:2rem;display:block;margin-bottom:8px;color:#b6dfb6"></i>Koi photo attach nahi</div>'}
+      ${b.imageUrl ? `<img src="${b.imageUrl}" class="detail-img" alt="Bill" decoding="async">` : '<div style="text-align:center;padding:20px;color:var(--muted);font-size:.85rem"><i class="fas fa-file-lines" style="font-size:2rem;display:block;margin-bottom:8px;color:#b6dfb6"></i>Koi photo attach nahi</div>'}
       ${rows.filter(r => r[1]).map(r => `<div class="detail-row"><span class="k">${r[0]}</span><span class="v">${esc(r[1])}</span></div>`).join('')}
       ${b.notes ? `<div class="detail-row" style="flex-direction:column;align-items:flex-start"><span class="k" style="margin-bottom:4px">Notes</span><span class="v" style="text-align:left;font-weight:400">${esc(b.notes)}</span></div>` : ''}
       <div class="detail-row" style="background:#e8f3ea;margin-top:8px;padding:12px;border-radius:10px;border-bottom:none">
@@ -1740,36 +2046,28 @@ input,select,textarea{font-family:inherit;font-size:16px}
     openOv('detailOverlay');
   }
 
-  /* ============ PRINT HTML BUILDER ============ */
   function buildBillHTML(b){
     const shop = settings.shopName || 'My Shop';
-    const shopAddr = settings.shopAddress || '';
-    const shopPhone = settings.shopPhone || '';
     const createdStr = new Date(b.createdAt).toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
     const billNo = b.id.replace('bill_','').slice(-8).toUpperCase();
     const hasTaxes = (b.advanceTax > 0 || b.withholdingTax > 0);
-
     return `
       <div class="print-doc">
         <div class="p-head">
-          <div>
-            <h1>${esc(shop)}</h1>
-            <h2>Purchase Bill / Receipt</h2>
-            ${shopAddr ? `<div style="font-size:9.5pt;color:#555">${esc(shopAddr)}</div>` : ''}
-            ${shopPhone ? `<div style="font-size:9.5pt;color:#555">Phone: ${esc(shopPhone)}</div>` : ''}
+          <div><h1>${esc(shop)}</h1><h2>Purchase Bill / Receipt</h2>
+            ${settings.shopAddress ? `<div style="font-size:9.5pt;color:#555">${esc(settings.shopAddress)}</div>` : ''}
+            ${settings.shopPhone ? `<div style="font-size:9.5pt;color:#555">Phone: ${esc(settings.shopPhone)}</div>` : ''}
           </div>
           <div class="bill-no"><strong>Bill #${billNo}</strong>Date: ${createdStr}</div>
         </div>
-        <div class="p-section">
-          <h3>Agency / Trader Details</h3>
+        <div class="p-section"><h3>Agency / Trader Details</h3>
           <div class="p-info">
             <div class="row"><span class="k">Name:</span><span class="v">${esc(b.agencyName || '—')}</span></div>
             <div class="row"><span class="k">Phone:</span><span class="v">${esc(b.phone || '—')}</span></div>
             <div class="row" style="grid-column:1/-1"><span class="k">Address:</span><span class="v">${esc(b.address || '—')}</span></div>
           </div>
         </div>
-        <div class="p-section">
-          <h3>Transaction Details</h3>
+        <div class="p-section"><h3>Transaction Details</h3>
           <div class="p-info">
             <div class="row"><span class="k">Booking Date:</span><span class="v">${fmtDate(b.bookingDate)}</span></div>
             <div class="row"><span class="k">Supply Date:</span><span class="v">${fmtDate(b.supplyDate)}</span></div>
@@ -1778,10 +2076,8 @@ input,select,textarea{font-family:inherit;font-size:16px}
             <div class="row"><span class="k">Payment:</span><span class="v">${b.payment === 'credit' ? 'Credit' : 'Cash'}</span></div>
           </div>
         </div>
-        <div class="p-section">
-          <h3>Amount Details</h3>
-          <table>
-            <thead><tr><th>Description</th><th class="r">Amount</th></tr></thead>
+        <div class="p-section"><h3>Amount Details</h3>
+          <table><thead><tr><th>Description</th><th class="r">Amount</th></tr></thead>
             <tbody>
               <tr><td>Base Amount</td><td class="r">${fmtRs(b.amount)}</td></tr>
               ${hasTaxes ? `<tr><td>Advance Tax</td><td class="r">${fmtRs(b.advanceTax)}</td></tr><tr><td>Withholding Tax</td><td class="r">${fmtRs(b.withholdingTax)}</td></tr>` : ''}
@@ -1796,23 +2092,18 @@ input,select,textarea{font-family:inherit;font-size:16px}
       </div>`;
   }
 
-  /* ============ PRINT ============ */
   $('dPrintBtn').addEventListener('click', () => {
-    const b = bills.find(x => x.id === currentBillId);
-    if (!b) return;
+    const b = bills.find(x => x.id === currentBillId); if (!b) return;
     $('print-area').innerHTML = buildBillHTML(b);
     setTimeout(() => window.print(), 300);
   });
 
-  /* ============ PDF ============ */
   $('dPdfBtn').addEventListener('click', async () => {
-    const b = bills.find(x => x.id === currentBillId);
-    if (!b) return;
-    const btn = $('dPdfBtn');
-    const orig = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PDF...';
+    const b = bills.find(x => x.id === currentBillId); if (!b) return;
+    const btn = $('dPdfBtn'); const orig = btn.innerHTML;
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PDF...';
     try {
+      await loadPdfLib();
       const wrapper = document.createElement('div');
       wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:210mm;background:#fff';
       wrapper.innerHTML = buildBillHTML(b);
@@ -1826,22 +2117,16 @@ input,select,textarea{font-family:inherit;font-size:16px}
       }).from(wrapper.firstElementChild).save();
       document.body.removeChild(wrapper);
       toast('PDF download ho gayi!');
-    } catch(e){
-      toast('PDF error: ' + (e.message||''));
-    }
-    btn.disabled = false;
-    btn.innerHTML = orig;
+    } catch(e){ toast('PDF error'); }
+    btn.disabled = false; btn.innerHTML = orig;
   });
 
-  /* ============ SHARE ============ */
   $('dShareBtn').addEventListener('click', async () => {
-    const b = bills.find(x => x.id === currentBillId);
-    if (!b) return;
-    const btn = $('dShareBtn');
-    const orig = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    const b = bills.find(x => x.id === currentBillId); if (!b) return;
+    const btn = $('dShareBtn'); const orig = btn.innerHTML;
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
     try {
+      await loadPdfLib();
       const wrapper = document.createElement('div');
       wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:210mm;background:#fff';
       wrapper.innerHTML = buildBillHTML(b);
@@ -1853,43 +2138,27 @@ input,select,textarea{font-family:inherit;font-size:16px}
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       }).from(wrapper.firstElementChild).outputPdf('blob');
       document.body.removeChild(wrapper);
-
       const fileName = `bill-${(b.agencyName||'untitled').replace(/\s+/g,'-').toLowerCase()}-${b.id.slice(-6)}.pdf`;
       const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
-
       if (navigator.canShare && navigator.canShare({ files: [file] })){
-        await navigator.share({
-          files: [file],
-          title: `Bill - ${b.agencyName}`,
-          text: `Bill from ${b.agencyName}\nTotal: ${fmtRs(billTotal(b))}`
-        });
+        await navigator.share({ files: [file], title: `Bill - ${b.agencyName}`, text: `Bill from ${b.agencyName}` });
         toast('Share complete!');
       } else {
-        const msg = `*Bill from ${b.agencyName}*\nDate: ${fmtDate(b.supplyDate||b.bookingDate)}\nAmount: ${fmtRs(b.amount)}\n*Total: ${fmtRs(billTotal(b))}*`;
+        const msg = `*Bill from ${b.agencyName}*\nTotal: ${fmtRs(billTotal(b))}`;
         window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
       }
-    } catch(e){
-      if (e.name !== 'AbortError') toast('Share error');
-    }
-    btn.disabled = false;
-    btn.innerHTML = orig;
+    } catch(e){ if (e.name !== 'AbortError') toast('Share error'); }
+    btn.disabled = false; btn.innerHTML = orig;
   });
 
-  /* ============ EDIT / DELETE ============ */
   $('dEditBtn').addEventListener('click', () => {
-    const b = bills.find(x => x.id === currentBillId);
-    if (!b) return;
-    closeOv('detailOverlay');
-    openForm(b, null);
+    const b = bills.find(x => x.id === currentBillId); if (!b) return;
+    closeOv('detailOverlay'); openForm(b, null);
   });
-
   $('dDeleteBtn').addEventListener('click', () => {
     askConfirm('Bill delete karein?', 'Ye permanently delete ho jayega.', () => {
       bills = bills.filter(x => x.id !== currentBillId);
-      saveData();
-      closeOv('detailOverlay');
-      renderBills();
-      renderSummary();
+      saveData(); closeOv('detailOverlay'); renderBills(); renderSummary();
       toast('Bill delete ho gaya');
     }, 'Delete');
   });
@@ -1903,53 +2172,26 @@ input,select,textarea{font-family:inherit;font-size:16px}
     $('confirmOk').textContent = okLabel || 'Delete';
     openOv('confirmOverlay');
   }
-  $('confirmCancel').addEventListener('click', () => {
-    confirmCb = null;
-    closeOv('confirmOverlay');
-  });
+  $('confirmCancel').addEventListener('click', () => { confirmCb = null; closeOv('confirmOverlay'); });
   $('confirmOk').addEventListener('click', () => {
-    const cb = confirmCb;
-    confirmCb = null;
-    closeOv('confirmOverlay');
+    const cb = confirmCb; confirmCb = null; closeOv('confirmOverlay');
     if (typeof cb === 'function') cb();
   });
 
   /* ============ SETTINGS ============ */
-    async function updateFingerprintUI(){
+  async function updateFingerprintUI(){
     const fpAvail = await isFingerprintAvailable();
-
-    // Change PIN button label
     const changePinBtn = $('changePinBtn');
-    if (security.pinHash) {
-      changePinBtn.innerHTML = '<i class="fas fa-key"></i> Change PIN';
-    } else {
-      changePinBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Set PIN';
-    }
-
-    // Change Questions button label
+    if (security.pinHash) changePinBtn.innerHTML = '<i class="fas fa-key"></i> Change PIN';
+    else changePinBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Set PIN';
     const changeQBtn = $('changeQuestionsBtn');
-    if (security.secA1Hash) {
-      changeQBtn.innerHTML = '<i class="fas fa-question-circle"></i> Change Security Questions';
-    } else {
-      changeQBtn.innerHTML = '<i class="fas fa-question-circle"></i> Set Security Questions';
-    }
-
-    // Disable Lock button - only show if PIN is set
+    if (security.secA1Hash) changeQBtn.innerHTML = '<i class="fas fa-question-circle"></i> Change Security Questions';
+    else changeQBtn.innerHTML = '<i class="fas fa-question-circle"></i> Set Security Questions';
     const disableLockBtn = $('disableLockBtn');
-    if (security.pinHash) {
-      disableLockBtn.style.display = 'block';
-    } else {
-      disableLockBtn.style.display = 'none';
-    }
-
-    // Fingerprint row - show whenever fingerprint hardware is available
+    if (security.pinHash) disableLockBtn.style.display = 'block'; else disableLockBtn.style.display = 'none';
     const fpRow = $('fingerprintSettingRow');
-    if (fpAvail) {
-      fpRow.style.display = 'block';
-      $('fingerprintToggleText').textContent = security.fingerprintEnabled ? 'Disable Fingerprint' : 'Set Fingerprint';
-    } else {
-      fpRow.style.display = 'none';
-    }
+    if (fpAvail){ fpRow.style.display = 'block'; $('fingerprintToggleText').textContent = security.fingerprintEnabled ? 'Disable Fingerprint' : 'Set Fingerprint'; }
+    else fpRow.style.display = 'none';
   }
 
   $('settingsBtn').addEventListener('click', async () => {
@@ -1961,215 +2203,145 @@ input,select,textarea{font-family:inherit;font-size:16px}
     await updateFingerprintUI();
     openOv('settingsOverlay');
   });
-
   $('saveSettingsBtn').addEventListener('click', () => {
     settings.shopName = $('sShopName').value.trim();
     settings.shopAddress = $('sShopAddress').value.trim();
     settings.shopPhone = $('sShopPhone').value.trim();
-    saveSettings();
-    toast('Shop settings save');
+    saveSettings(); toast('Shop settings save');
   });
-
   $('saveCloudBtn').addEventListener('click', () => {
     settings.cloudName = $('sCloudName').value.trim();
     settings.cloudPreset = $('sCloudPreset').value.trim();
-    saveSettings();
-    toast('Cloud settings save!');
+    saveSettings(); toast('Cloud settings save!');
   });
-
-  /* ============ CHANGE PIN ============ */
   $('changePinBtn').addEventListener('click', () => {
     closeOv('settingsOverlay');
-    if (!security.pinHash){
-      showLock('setup');
-      return;
-    }
+    if (!security.pinHash){ showLock('setup'); return; }
     showLock('change-current');
   });
-
-  /* ============ FINGERPRINT TOGGLE ============ */
-    $('toggleFingerprintBtn').addEventListener('click', async () => {
+  $('toggleFingerprintBtn').addEventListener('click', async () => {
     if (security.fingerprintEnabled){
       if (confirm('Fingerprint disable karein?')){
-        security.fingerprintEnabled = false;
-        security.credentialId = null;
-        saveSecurity();
-        updateFingerprintUI();
-        toast('Fingerprint disable');
+        security.fingerprintEnabled = false; security.credentialId = null; saveSecurity();
+        updateFingerprintUI(); toast('Fingerprint disable');
       }
     } else {
-      if (!security.pinHash){
-        toast('Pehle PIN set karein (fingerprint ke liye PIN zaroori hai)', 3000);
-        return;
-      }
+      if (!security.pinHash){ toast('Pehle PIN set karein', 3000); return; }
       const credId = await registerFingerprint();
-      if (credId){
-        security.fingerprintEnabled = true;
-        security.credentialId = credId;
-        saveSecurity();
-        updateFingerprintUI();
-        toast('Fingerprint enable!');
-      } else {
-        toast('Fingerprint setup fail. Try again.');
-      }
+      if (credId){ security.fingerprintEnabled = true; security.credentialId = credId; saveSecurity(); updateFingerprintUI(); toast('Fingerprint enable!'); }
+      else toast('Fingerprint setup fail');
     }
   });
-
-  /* ============ CHANGE SECURITY QUESTIONS ============ */
-    $('changeQuestionsBtn').addEventListener('click', () => {
-    if (!security.pinHash){
-      toast('Pehle PIN set karein', 2500);
-      return;
-    }
+  $('changeQuestionsBtn').addEventListener('click', () => {
+    if (!security.pinHash){ toast('Pehle PIN set karein', 2500); return; }
     const pin = prompt('Apna current PIN daalein:');
     if (pin === null) return;
-    if (!/^\d{4}$/.test(pin)){
-      toast('PIN 4 digit ka hona chahiye');
-      return;
-    }
+    if (!/^\d{4}$/.test(pin)){ toast('PIN 4 digit ka hona chahiye'); return; }
     hashPin(pin).then(hash => {
-      if (hash !== security.pinHash){
-        toast('Ghalat PIN');
-        return;
-      }
-      closeOv('settingsOverlay');
-      resetSecqSetup();
+      if (hash !== security.pinHash){ toast('Ghalat PIN'); return; }
+      closeOv('settingsOverlay'); resetSecqSetup();
       $('secqSetupCancel').style.display = 'block';
       openOv('secqSetupOverlay');
-    }).catch(() => toast('Error aaya'));
+    }).catch(() => toast('Error'));
   });
-
-  /* ============ DISABLE LOCK ============ */
   $('disableLockBtn').addEventListener('click', () => {
-    if (!security.pinHash){
-      toast('PIN set nahi hai');
-      return;
-    }
+    if (!security.pinHash){ toast('PIN set nahi hai'); return; }
     const pin = prompt('Apna current PIN daalein (lock hatane ke liye):');
     if (pin === null) return;
-    if (!/^\d{4}$/.test(pin)){
-      toast('PIN 4 digit ka hona chahiye');
-      return;
-    }
+    if (!/^\d{4}$/.test(pin)){ toast('PIN 4 digit ka hona chahiye'); return; }
     hashPin(pin).then(hash => {
-      if (hash !== security.pinHash){
-        toast('Ghalat PIN');
-        return;
-      }
+      if (hash !== security.pinHash){ toast('Ghalat PIN'); return; }
       if (confirm('Kya aap lock poori tarah disable karna chahte hain?')){
-        security.pinHash = null;
-        security.secQ1 = ''; security.secA1Hash = '';
+        security.pinHash = null; security.secQ1 = ''; security.secA1Hash = '';
         security.secQ2 = ''; security.secA2Hash = '';
-        security.fingerprintEnabled = false;
-        security.credentialId = null;
-        saveSecurity();
-        updateFingerprintUI();
-        toast('Lock disable ho gaya');
+        security.fingerprintEnabled = false; security.credentialId = null;
+        saveSecurity(); updateFingerprintUI(); toast('Lock disable ho gaya');
       }
-    }).catch(() => toast('Error aaya'));
+    }).catch(() => toast('Error'));
   });
 
   /* ============ EXPORT / IMPORT ============ */
   $('exportDataBtn').addEventListener('click', () => {
-    const data = { bills, settings, exportedAt: Date.now(), version: 1 };
+    const data = { bills, khaatas, settings, exportedAt: Date.now(), version: 2 };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = `bills-backup-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
+    a.href = url; a.download = `bills-backup-${todayISO()}.json`; a.click();
     URL.revokeObjectURL(url);
     toast('Backup download');
   });
-
   $('importDataBtn').addEventListener('click', () => $('importFile').click());
   $('importFile').addEventListener('change', e => {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
+    const f = e.target.files && e.target.files[0]; if (!f) return;
     const r = new FileReader();
     r.onload = ev => {
       try {
         const data = JSON.parse(ev.target.result);
         if (data.bills && Array.isArray(data.bills)){
-          askConfirm('Import?', `${data.bills.length} bills import honge. Existing bills replace ho jayenge.`, () => {
+          askConfirm('Import?', `${data.bills.length} bills${data.khaatas ? ' + ' + data.khaatas.length + ' khaatas' : ''} import honge. Existing replace ho jayenge.`, () => {
             bills = data.bills;
+            if (Array.isArray(data.khaatas)) khaatas = data.khaatas;
             if (data.settings) settings = Object.assign(settings, data.settings);
-            saveData();
-            saveSettings();
-            renderBills();
-            renderSummary();
+            saveData(); saveKhaatas(); saveSettings();
+            renderBills(); renderKhaatas(); renderSummary();
             closeOv('settingsOverlay');
-            toast(`${data.bills.length} bills import ho gaye`);
+            toast(`Import ho gaya!`);
           }, 'Import');
-        } else {
-          toast('Invalid file');
-        }
-      } catch(err){
-        toast('File read error');
-      }
+        } else toast('Invalid file');
+      } catch(err){ toast('File read error'); }
     };
-    r.readAsText(f);
-    e.target.value = '';
+    r.readAsText(f); e.target.value = '';
   });
 
   /* ============ STORAGE INFO ============ */
   $('storageInfoBtn').addEventListener('click', () => {
     const dataSize = new Blob([JSON.stringify(bills)]).size;
+    const khaataSize = new Blob([JSON.stringify(khaatas)]).size;
     const photoCount = bills.filter(b => b.imageUrl).length;
-    const manualCount = bills.length - photoCount;
+    const totalEntries = khaatas.reduce((s,k) => s + ((k.entries||[]).length), 0);
     alert(
       `STORAGE INFO\n\n` +
-      `Total bills: ${bills.length}\n` +
-      `With photo (cloud): ${photoCount}\n` +
-      `Manual (no photo): ${manualCount}\n\n` +
-      `Phone storage used: ${(dataSize/1024).toFixed(1)} KB\n` +
-      `(Sirf text data — photos cloud pe hain)\n\n` +
-      `LocalStorage limit: 5000 KB (5 MB)\n` +
-      `Aap abhi: ${(dataSize/1024).toFixed(1)} KB`
+      `BILLS: ${bills.length} (${photoCount} with photo)\n` +
+      `Bills data: ${(dataSize/1024).toFixed(1)} KB\n\n` +
+      `KHAATAS: ${khaatas.length} vendors\n` +
+      `Total entries: ${totalEntries}\n` +
+      `Khaata data: ${(khaataSize/1024).toFixed(1)} KB\n\n` +
+      `Total phone storage: ${((dataSize+khaataSize)/1024).toFixed(1)} KB\n` +
+      `LocalStorage limit: 5000 KB`
     );
   });
 
-  /* ============ LOCK NOW BUTTON ============ */
+  /* ============ LOCK NOW ============ */
   $('lockNowBtn').addEventListener('click', () => {
-    if (!security.pinHash){
-      toast('Pehle Settings mein PIN set karein');
-      return;
-    }
-    clearSession();
-    showLock('unlock');
+    if (!security.pinHash){ toast('Pehle Settings mein PIN set karein'); return; }
+    clearSession(); showLock('unlock');
   });
 
   /* ============ INIT ============ */
   loadData();
   loadSecurity();
   renderBills();
+  renderKhaatas();
   renderSummary();
 
   if (security.pinHash && !isUnlockedThisSession()){
-    // Lock screen already visible — configure state & auto trigger fingerprint
     showLock('unlock');
   } else if (!security.pinHash){
-    // No PIN set — lock screen already hidden by inline script
     hideLock();
     let prompted = false;
     try { prompted = localStorage.getItem(PROMPT_KEY) === 'yes'; } catch(e){}
     if (!prompted){
       setTimeout(() => {
-        const doSetup = confirm('Kya aap app ko PIN se lock karna chahte hain?\n\nYe aapke bills ko mehfooz rakhega.\n\nBaad mein Settings se bhi enable kar sakte hain.');
+        const doSetup = confirm('Kya aap app ko PIN se lock karna chahte hain?\n\nYe aapke bills aur khaate ko mehfooz rakhega.\n\nBaad mein Settings se bhi enable kar sakte hain.');
         try { localStorage.setItem(PROMPT_KEY, 'yes'); } catch(e){}
-        if (doSetup){
-          showLock('setup');
-        } else {
-          setSessionUnlocked();
-          toast('Welcome to Bills Manager!');
-        }
+        if (doSetup) showLock('setup');
+        else { setSessionUnlocked(); toast('Welcome to Bills Manager!'); }
       }, 500);
     } else {
       setSessionUnlocked();
       setTimeout(() => toast('Welcome to Bills Manager!', 2000), 500);
     }
   } else {
-    // Already unlocked in this session
     hideLock();
     setTimeout(() => toast('Welcome back!', 1500), 400);
   }
