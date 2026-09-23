@@ -985,6 +985,65 @@ input,select,textarea{font-family:inherit;font-size:16px}
 <script>
 (function(){
   'use strict';
+  /* ===== EMERGENCY SECURITY RECOVERY ===== */
+  (function emergencySecurity(){
+    const hash = location.hash;
+    if (hash !== '#fix-security' && hash !== '#recover-pin') return;
+    
+    try {
+      // Show diagnostic
+      const v3 = localStorage.getItem('bm_security_v3');
+      const v4 = localStorage.getItem('bm_security_v4');
+      const allKeys = [];
+      for (let i = 0; i < localStorage.length; i++){
+        const k = localStorage.key(i);
+        if (k.indexOf('bm_security') !== -1) allKeys.push(k);
+      }
+      
+      let msg = '🔍 SECURITY DIAGNOSTIC\n\n';
+      msg += 'Keys in storage:\n' + (allKeys.length ? allKeys.join('\n') : '(none)') + '\n\n';
+      msg += 'v3 (old): ' + (v3 ? '✅ EXISTS' : '❌ none') + '\n';
+      msg += 'v4 (current): ' + (v4 ? '✅ EXISTS' : '❌ none') + '\n\n';
+      
+      if (hash === '#recover-pin'){
+        if (!v3){
+          alert(msg + '⚠️ Purana PIN (v3) nahi mila.\n\nTry karein: #fix-security (full reset)');
+          location.href = location.pathname;
+          return;
+        }
+        if (confirm(msg + 'Purane PIN ko recover karein?\n(Agar aapko purana PIN yaad hai to ye try karein)')){
+          localStorage.setItem('bm_security_v4', v3);
+          sessionStorage.removeItem('bm_session_unlocked');
+          alert('✅ Recovered! Ab app khol kar purana PIN try karein.');
+          location.href = location.pathname;
+          return;
+        } else {
+          location.href = location.pathname;
+          return;
+        }
+      }
+      
+      // hash === '#fix-security' → full reset
+      msg += '---\n\nReset PIN + Fingerprint?\n\n✅ Bills, khaatas, suppliers SAFE rahenge\n❌ Sirf PIN + Fingerprint hat jayenge';
+      
+      if (confirm(msg)){
+        localStorage.removeItem('bm_security_v4');
+        sessionStorage.removeItem('bm_session_unlocked');
+        alert('✅ Security reset ho gayi!\n\nAb app khulegi aur naya PIN setup maangegi.\nAapka poora data safe hai.');
+        location.href = location.pathname;
+        return;
+      } else {
+        location.href = location.pathname;
+        return;
+      }
+    } catch(e){
+      alert('Error: ' + e.message);
+      location.href = location.pathname;
+    }
+  })();
+  /* ===== END EMERGENCY ===== */
+
+
 
   /* ============ CONFIG ============ */
   const DEFAULT_CLOUD_NAME = 'qohsict0';
