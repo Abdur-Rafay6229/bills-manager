@@ -2029,7 +2029,8 @@ body{padding:0!important;background:#fff}
       });
     });
   }
-  $('manageCatBtn').addEventListener('click', () => { renderCatList(); openOv('catOverlay'); });
+    const _mcb = $('manageCatBtn');
+  if (_mcb) _mcb.addEventListener('click', () => { renderCatList(); openOv('catOverlay'); });
   $('addCatBtn').addEventListener('click', () => {
     const c = $('newCatInput').value.trim();
     if (!c) return;
