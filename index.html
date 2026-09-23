@@ -985,6 +985,21 @@ input,select,textarea{font-family:inherit;font-size:16px}
 <script>
 (function(){
   'use strict';
+  /* ===== FIX BUSINESS ===== */
+  (function(){
+    if (location.hash !== '#fix-biz') return;
+    try {
+      const old = localStorage.getItem('bm_current_biz');
+      localStorage.removeItem('bm_current_biz');
+      sessionStorage.removeItem('bm_session_unlocked');
+      alert('✅ Business reset to default!\n\nPurana: ' + (old || '(none)') + '\nAb: default\n\nBills wapas aayenge. Reloading...');
+      location.href = location.pathname;
+    } catch(e){
+      alert('Error: ' + e.message);
+    }
+  })();
+  /* ===== END FIX BUSINESS ===== */
+
   /* ===== SAFE DATA RECOVERY (hash-triggered, no auto-delete) ===== */
   (function safeRecover(){
     const h = location.hash;

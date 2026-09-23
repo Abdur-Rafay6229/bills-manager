@@ -1,4 +1,4 @@
-const CACHE = 'bills-app-v18';
+const CACHE = 'bills-app-v19';
 const ASSETS = [
   './',
   './index.html',
