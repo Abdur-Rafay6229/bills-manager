@@ -985,6 +985,230 @@ input,select,textarea{font-family:inherit;font-size:16px}
 <script>
 (function(){
   'use strict';
+  /* ===== SAFE DATA RECOVERY (hash-triggered, no auto-delete) ===== */
+  (function safeRecover(){
+    const h = location.hash;
+    if (h !== '#recover-data' && h !== '#show-data') return;
+
+    try {
+      const allKeys = [];
+      for (let i = 0; i < localStorage.length; i++) allKeys.push(localStorage.key(i));
+      const bmKeys = allKeys.filter(k => k.startsWith('bm_')).sort();
+
+      let msg = '🔍 STORAGE DIAGNOSTIC\n\n';
+      bmKeys.forEach(k => {
+        const v = localStorage.getItem(k) || '';
+        let info = '';
+        try {
+          const j = JSON.parse(v);
+          if (Array.isArray(j)) info = j.length + ' items';
+          else if (j && typeof j === 'object') info = Object.keys(j).length + ' fields';
+          else info = typeof j;
+        } catch(e){ info = 'text (' + v.length + ' chars)'; }
+        msg += '• ' + k + '\n  → ' + info + '\n';
+      });
+      if (bmKeys.length === 0) msg += '(no bm_ keys found)\n';
+
+      if (h === '#show-data'){
+        alert(msg);
+        location.href = location.pathname;
+        return;
+      }
+
+      msg += '\n---\n\nRECOVERY chalayein?\n\nPurane data ko naye keys mein copy karega.\nKuch DELETE nahi hoga.';
+
+      if (!confirm(msg)){ location.href = location.pathname; return; }
+
+      const result = [];
+
+      // ===== 1. BILLS =====
+      const newBillsKey = 'bm_bills_v3';
+      const newBillsRaw = localStorage.getItem(newBillsKey);
+      let newBillsCount = 0;
+      try { newBillsCount = newBillsRaw ? (JSON.parse(newBillsRaw) || []).length : 0; } catch(e){}
+
+      if (newBillsCount === 0){
+        const sources = ['bm_bills_v2', 'bm_bills_cloud_v1', 'bm_khaatas_v1'];
+        for (const src of sources){
+          const raw = localStorage.getItem(src);
+          if (!raw) continue;
+          let arr = [];
+          try { arr = JSON.parse(raw) || []; } catch(e){ continue; }
+          if (!Array.isArray(arr) || arr.length === 0) continue;
+
+          if (src === 'bm_bills_v2'){
+            // Convert v2 format (if needed) and copy
+            const converted = arr.map(b => ({
+              id: b.id || ('bill_' + Date.now() + '_' + Math.random().toString(36).slice(2,7)),
+              supplierId: b.supplierId || null,
+              supplierName: b.supplierName || 'Unknown',
+              billNumber: b.billNumber || '',
+              billDate: b.billDate || b.supplyDate || b.bookingDate || new Date(b.createdAt || Date.now()).toISOString().split('T')[0],
+              dueDate: b.dueDate || '',
+              amount: Number(b.amount) || 0,
+              tax: Number(b.tax) || ((Number(b.advanceTax)||0) + (Number(b.withholdingTax)||0)),
+              paymentType: b.paymentType || (b.payment === 'cash' ? 'cash' : 'credit'),
+              category: b.category || '',
+              phone: b.phone || '',
+              bookedBy: b.bookedBy || '',
+              notes: b.notes || '',
+              imageUrl: b.imageUrl || null,
+              attachments: Array.isArray(b.attachments) ? b.attachments : [],
+              payments: Array.isArray(b.payments) ? b.payments : [],
+              returnedAmount: Number(b.returnedAmount) || 0,
+              isRecurring: !!b.isRecurring,
+              recurFreq: b.recurFreq || '',
+              recurNext: b.recurNext || '',
+              recurLast: b.recurLast || '',
+              createdAt: b.createdAt || Date.now(),
+              updatedAt: Date.now()
+            }));
+            localStorage.setItem(newBillsKey, JSON.stringify(converted));
+            result.push('✅ Bills: ' + converted.length + ' copied from ' + src);
+            break;
+          }
+
+          if (src === 'bm_bills_cloud_v1'){
+            const converted = arr.map(b => ({
+              id: b.id || ('bill_' + Date.now() + '_' + Math.random().toString(36).slice(2,7)),
+              supplierId: null,
+              supplierName: b.agencyName || 'Unknown',
+              billNumber: '',
+              billDate: b.supplyDate || b.bookingDate || new Date(b.createdAt || Date.now()).toISOString().split('T')[0],
+              dueDate: '',
+              amount: Number(b.amount) || 0,
+              tax: (Number(b.advanceTax)||0) + (Number(b.withholdingTax)||0),
+              paymentType: b.payment === 'cash' ? 'cash' : 'credit',
+              category: '',
+              phone: b.phone || '',
+              bookedBy: b.bookedBy || '',
+              notes: b.notes || '',
+              imageUrl: b.imageUrl || null,
+              attachments: [],
+              payments: [],
+              returnedAmount: 0,
+              isRecurring: false,
+              recurFreq: '', recurNext: '', recurLast: '',
+              createdAt: b.createdAt || Date.now(),
+              updatedAt: Date.now()
+            }));
+            localStorage.setItem(newBillsKey, JSON.stringify(converted));
+            result.push('✅ Bills: ' + converted.length + ' copied from ' + src);
+            break;
+          }
+
+          if (src === 'bm_khaatas_v1'){
+            // Convert khaatas to bills
+            const billsArr = [];
+            arr.forEach(k => {
+              (k.entries || []).forEach(e => {
+                if (e.type === 'purchase'){
+                  billsArr.push({
+                    id: 'bill_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+                    supplierId: null,
+                    supplierName: k.agencyName || 'Unknown',
+                    billNumber: '',
+                    billDate: e.date || new Date().toISOString().split('T')[0],
+                    dueDate: '',
+                    amount: Number(e.amount) || 0,
+                    tax: 0,
+                    paymentType: 'credit',
+                    category: '',
+                    phone: k.phone || '',
+                    bookedBy: '',
+                    notes: e.notes || '',
+                    imageUrl: null,
+                    attachments: [],
+                    payments: [],
+                    returnedAmount: 0,
+                    isRecurring: false,
+                    recurFreq: '', recurNext: '', recurLast: '',
+                    createdAt: e.createdAt || Date.now(),
+                    updatedAt: Date.now()
+                  });
+                }
+              });
+            });
+            if (billsArr.length > 0){
+              localStorage.setItem(newBillsKey, JSON.stringify(billsArr));
+              result.push('✅ Bills: ' + billsArr.length + ' converted from khaatas');
+              break;
+            }
+          }
+        }
+        if (result.length === 0) result.push('❌ Koi bills data nahi mila');
+      } else {
+        result.push('ℹ️ Bills already present: ' + newBillsCount);
+      }
+
+      // ===== 2. SUPPLIERS =====
+      const newSupKey = 'bm_suppliers_v3';
+      const newSupRaw = localStorage.getItem(newSupKey);
+      let newSupCount = 0;
+      try { newSupCount = newSupRaw ? (JSON.parse(newSupRaw) || []).length : 0; } catch(e){}
+
+      if (newSupCount === 0){
+        const supSources = ['bm_suppliers_v2', 'bm_khaatas_v1'];
+        for (const src of supSources){
+          const raw = localStorage.getItem(src);
+          if (!raw) continue;
+          let arr = [];
+          try { arr = JSON.parse(raw) || []; } catch(e){ continue; }
+          if (!Array.isArray(arr) || arr.length === 0) continue;
+
+          if (src === 'bm_suppliers_v2'){
+            localStorage.setItem(newSupKey, JSON.stringify(arr));
+            result.push('✅ Suppliers: ' + arr.length + ' copied');
+            break;
+          }
+          if (src === 'bm_khaatas_v1'){
+            const sups = arr.map(k => ({
+              id: 'sup_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+              name: k.agencyName || 'Unknown',
+              phone: k.phone || '',
+              address: k.address || '',
+              notes: 'Recovered from old Khata',
+              createdAt: k.createdAt || Date.now(),
+              updatedAt: Date.now()
+            }));
+            localStorage.setItem(newSupKey, JSON.stringify(sups));
+            result.push('✅ Suppliers: ' + sups.length + ' converted from khaatas');
+            break;
+          }
+        }
+      } else {
+        result.push('ℹ️ Suppliers already present: ' + newSupCount);
+      }
+
+      // ===== 3. SETTINGS =====
+      const newStKey = 'bm_settings_v3';
+      if (!localStorage.getItem(newStKey)){
+        const stSources = ['bm_settings_v2', 'bm_settings_cloud_v1'];
+        for (const src of stSources){
+          const raw = localStorage.getItem(src);
+          if (raw){ localStorage.setItem(newStKey, raw); result.push('✅ Settings copied from ' + src); break; }
+        }
+      } else {
+        result.push('ℹ️ Settings already present');
+      }
+
+      // ===== 4. CATEGORIES =====
+      const newCatKey = 'bm_categories_v2';
+      if (!localStorage.getItem(newCatKey)){
+        const raw = localStorage.getItem('bm_categories_v1');
+        if (raw){ localStorage.setItem(newCatKey, raw); result.push('✅ Categories copied'); }
+      }
+
+      alert(result.join('\n') + '\n\n✅ Ab app reload hoga. Bills wapas aa jayenge.');
+      location.href = location.pathname;
+
+    } catch(err){
+      alert('❌ Error: ' + err.message + '\n\nLine: ' + (err.stack || '').split('\n')[1]);
+      location.href = location.pathname;
+    }
+  })();
+  /* ===== END SAFE RECOVERY ===== */
+
   /* ===== EMERGENCY SECURITY RECOVERY ===== */
   (function emergencySecurity(){
     const hash = location.hash;
