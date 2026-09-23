@@ -322,6 +322,61 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .confirm-title{text-align:center;font-size:1.05rem;font-weight:700;margin-bottom:6px;color:var(--text)}
 .confirm-msg{text-align:center;font-size:.86rem;color:var(--muted);margin-bottom:16px;line-height:1.5}
 
+/* ============ AI CHAT ============ */
+.chat-fab{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom));right:16px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;font-size:1.4rem;box-shadow:0 6px 20px rgba(124,58,237,.4);z-index:45;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.chat-fab:active{transform:scale(.92)}
+.chat-fab .badge{position:absolute;top:-2px;right:-2px;background:#dc2626;color:#fff;font-size:.55rem;font-weight:700;padding:2px 6px;border-radius:10px;border:2px solid #fff}
+
+.chat-container{display:flex;flex-direction:column;height:70vh;max-height:600px}
+.chat-messages{flex:1;overflow-y:auto;padding:12px;background:#f9fbf8;border-radius:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:10px}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:16px;font-size:.88rem;line-height:1.5;word-wrap:break-word}
+.chat-msg.user{align-self:flex-end;background:var(--primary);color:#fff;border-bottom-right-radius:4px}
+.chat-msg.ai{align-self:flex-start;background:#fff;border:1px solid var(--border);border-bottom-left-radius:4px;box-shadow:var(--shadow)}
+.chat-msg.error{align-self:flex-start;background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.chat-msg.loading{align-self:flex-start;background:#fff;border:1px solid var(--border);color:var(--muted)}
+.chat-typing{display:inline-flex;gap:3px}
+.chat-typing span{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:typing 1.2s infinite}
+.chat-typing span:nth-child(2){animation-delay:.2s}
+.chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+.chat-input-row{display:flex;gap:8px}
+.chat-input{flex:1;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:12px;font-size:.9rem;background:#fff}
+.chat-input:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,58,237,.12)}
+.chat-send-btn{background:var(--purple);color:#fff;border:none;width:46px;height:46px;border-radius:12px;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.chat-send-btn:active{transform:scale(.94)}
+.chat-send-btn:disabled{background:#b8a8dd;cursor:not-allowed}
+.chat-quick{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px;scrollbar-width:none}
+.chat-quick::-webkit-scrollbar{display:none}
+.chat-quick-btn{flex-shrink:0;background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd;padding:.4rem .8rem;border-radius:20px;font-size:.72rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.chat-quick-btn:active{transform:scale(.96)}
+
+/* ============ OCR ============ */
+.ocr-scanning{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border-radius:16px;padding:20px;text-align:center;margin-bottom:12px}
+.ocr-scanning i{font-size:2.2rem;margin-bottom:10px;display:block}
+.ocr-scanning .spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;margin:0 auto 12px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ocr-result{background:#f0f7ec;border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
+.ocr-result .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--border);font-size:.86rem}
+.ocr-result .row:last-child{border-bottom:none}
+.ocr-result .row .k{color:var(--muted);font-weight:600}
+.ocr-result .row .v{font-weight:700;color:var(--text);text-align:right}
+
+/* ============ CHARTS ============ */
+.chart-pie-wrap{display:flex;justify-content:center;padding:16px;background:#fff;border-radius:12px;border:1px solid var(--border);margin-bottom:10px}
+.chart-pie{width:180px;height:180px;border-radius:50%;position:relative;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.chart-pie-legend{display:flex;flex-direction:column;gap:6px;margin-left:16px;justify-content:center}
+.chart-pie-legend-item{display:flex;align-items:center;gap:8px;font-size:.78rem}
+.chart-pie-legend-item .color-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.chart-pie-legend-item .label{font-weight:600;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart-pie-legend-item .value{font-weight:700;color:var(--primary);font-size:.74rem}
+
+/* ============ VOICE ============ */
+.mic-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#f0f5f1;border:none;width:32px;height:32px;border-radius:50%;color:var(--accent);font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mic-btn.listening{background:#dc2626;color:#fff;animation:pulse-mic 1s infinite}
+@keyframes pulse-mic{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.6)}50%{box-shadow:0 0 0 8px rgba(220,38,38,0)}}
+.has-mic{position:relative}
+.has-mic input{padding-right:44px}
+
 /* ===== PROGRESS ===== */
 .upload-progress{position:fixed;inset:0;background:rgba(15,30,20,.7);display:none;align-items:center;justify-content:center;z-index:10001;padding:20px}
 .upload-progress.show{display:flex}
@@ -425,6 +480,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
     <div class="header-actions">
       <button class="install-btn" id="installBtn"><i class="fas fa-download"></i> Install</button>
       <button class="icon-btn" id="notifBtn"><i class="fas fa-bell"></i><span class="dot" id="notifDot" style="display:none"></span></button>
+      <button class="icon-btn" id="aiChatBtn" title="AI Assistant"><i class="fas fa-robot"></i></button>
       <button class="icon-btn" id="lockNowBtn"><i class="fas fa-lock"></i></button>
       <button class="icon-btn" id="settingsBtn"><i class="fas fa-cog"></i></button>
     </div>
@@ -758,6 +814,49 @@ input,select,textarea{font-family:inherit;font-size:16px}
     </div>
   </div>
 </div>
+<!-- AI CHAT OVERLAY -->
+<div class="overlay" id="chatOverlay">
+  <div class="sheet">
+    <div class="sheet-header"><h2><i class="fas fa-robot" style="color:#7c3aed"></i> AI Assistant</h2><button class="close-btn" data-close="chatOverlay"><i class="fas fa-times"></i></button></div>
+    <div class="chat-container">
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-quick" id="chatQuick">
+        <button class="chat-quick-btn" data-q="Is mahine ka total kharcha kitna hai?">This month total?</button>
+        <button class="chat-quick-btn" data-q="Kitna outstanding baqaya hai?">Outstanding?</button>
+        <button class="chat-quick-btn" data-q="Kis supplier ko sabse zyada dena hai?">Top pending?</button>
+        <button class="chat-quick-btn" data-q="Agle 7 din mein kaunse bills due hain?">Due soon?</button>
+        <button class="chat-quick-btn" data-q="Is mahine kis category mein sabse zyada kharcha hua?">Top category?</button>
+        <button class="chat-quick-btn" data-q="Overdue bills ki summary do">Overdue?</button>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Poochein kuch bhi...">
+        <button class="chat-send-btn" id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OCR RESULT OVERLAY -->
+<div class="overlay" id="ocrOverlay">
+  <div class="sheet">
+    <div class="sheet-header"><h2><i class="fas fa-magic"></i> Bill Scan Result</h2><button class="close-btn" data-close="ocrOverlay"><i class="fas fa-times"></i></button></div>
+    <div id="ocrContent"></div>
+    <div class="btn-row">
+      <button class="btn btn-outline" id="ocrRetryBtn"><i class="fas fa-redo"></i> Retry</button>
+      <button class="btn btn-primary" id="ocrConfirmBtn" disabled><i class="fas fa-check"></i> Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- AUTO-LOCK OVERLAY -->
+<div class="overlay center" id="autoLockOverlay" style="z-index:10005">
+  <div class="sheet" style="max-width:300px;text-align:center">
+    <i class="fas fa-lock" style="font-size:2.5rem;color:var(--primary);display:block;margin-bottom:12px"></i>
+    <div style="font-weight:700;margin-bottom:8px">App Locked</div>
+    <div style="font-size:.85rem;color:var(--muted);margin-bottom:16px">Inactivity ke wajah se</div>
+    <button class="btn btn-primary btn-block" id="autoUnlockBtn"><i class="fas fa-unlock"></i> Unlock Now</button>
+  </div>
+</div>
 
 <!-- CONFIRM -->
 <div class="overlay center" id="confirmOverlay">
@@ -789,6 +888,15 @@ input,select,textarea{font-family:inherit;font-size:16px}
     <div class="fg"><label><i class="fas fa-phone"></i> Shop Phone</label><input type="tel" id="sShopPhone"></div>
     <div class="fg"><label><i class="fas fa-wallet"></i> Monthly Budget (Rs.)</label><input type="number" id="sBudget" placeholder="0" step="100" min="0" inputmode="decimal"></div>
     <button class="btn btn-primary btn-block" id="saveSettingsBtn"><i class="fas fa-save"></i> Save Shop Settings</button>
+
+    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
+      <div class="section-title" style="margin-top:0"><i class="fas fa-robot"></i> AI Assistant (Gemini)</div>
+      <div class="fg"><label>Gemini API Key</label><input type="password" id="sGeminiKey" placeholder="AIzaSy..."><small style="color:var(--muted);font-size:.7rem;display:block;margin-top:4px">Free: <b>aistudio.google.com</b> → Get API key</small></div>
+      <div class="fg-row">
+        <button class="btn btn-accent" id="saveAiKeyBtn"><i class="fas fa-save"></i> Save Key</button>
+        <button class="btn btn-outline" id="testAiBtn"><i class="fas fa-flask"></i> Test</button>
+      </div>
+    </div>
 
     <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
       <div class="section-title" style="margin-top:0"><i class="fas fa-shield-halved"></i> Security</div>
@@ -1988,7 +2096,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
   function populateSupplierDatalist(){
     $('supplierList').innerHTML = suppliers.map(s => `<option value="${esc(s.name)}">${esc(s.phone||'')}</option>`).join('');
   }
-  function openForm(bill, photo){
+    function openForm(bill, photo, prefill){
     editingId = bill ? bill.id : null;
     $('formTitle').innerHTML = `<i class="fas fa-file-invoice"></i> ${bill ? 'Edit Bill' : 'New Bill'}`;
     $('formImagePreview').style.display = photo ? 'block' : 'none';
@@ -2014,7 +2122,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
       $('recurringFields').style.display = bill.isRecurring ? 'block' : 'none';
       currentPhotoData = null;
       if (bill.imageUrl){ $('formImage').src = bill.imageUrl; $('formImagePreview').style.display='block'; }
-    } else {
+        } else {
       $('billForm').reset();
       $('fPaymentType').value = 'credit';
       $('fBillDate').value = todayISO();
@@ -2022,6 +2130,16 @@ input,select,textarea{font-family:inherit;font-size:16px}
       $('fIsRecurring').checked = false;
       $('recurringFields').style.display = 'none';
       currentPhotoData = photo || null;
+      if (prefill){
+        if (prefill.supplier) $('fSupplier').value = prefill.supplier;
+        if (prefill.billNumber) $('fBillNumber').value = prefill.billNumber;
+        if (prefill.billDate) $('fBillDate').value = prefill.billDate;
+        if (prefill.dueDate) $('fDueDate').value = prefill.dueDate;
+        if (prefill.amount) $('fAmount').value = prefill.amount;
+        if (prefill.tax) $('fTax').value = prefill.tax;
+        if (prefill.category) populateCatSelect(prefill.category);
+        if (prefill.notes) $('fNotes').value = prefill.notes;
+      }
     }
     openOv('formOverlay');
   }
@@ -2297,6 +2415,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
       catTotals[c] = (catTotals[c]||0) + billTotal(b);
     });
     const catSorted = Object.entries(catTotals).sort((a,b) => b[1]-a[1]);
+    window.__renderPieChartData = catSorted.map(([label, value]) => ({ label, value }));
 
     // Top suppliers
     const supTotals = {};
@@ -2342,12 +2461,13 @@ input,select,textarea{font-family:inherit;font-size:16px}
       <div class="stat-row"><div class="lbl"><i class="fas fa-money-bill-1"></i> Cash</div><div class="val">${hideAmt(fmtRs(cash))}</div></div>
       <div class="stat-row"><div class="lbl"><i class="fas fa-credit-card"></i> Credit</div><div class="val">${hideAmt(fmtRs(credit))}</div></div>
 
-      ${catSorted.length > 0 ? `
+            ${catSorted.length > 0 ? `
+        <div class="section-title"><i class="fas fa-chart-pie"></i> Category Distribution</div>
+        <div id="catPieChart"></div>
         <div class="section-title"><i class="fas fa-tags"></i> Category Breakdown</div>
         ${catSorted.slice(0, 10).map(([cat, amt]) => `
           <div class="cat-bar"><span class="cat-name">${esc(cat)}</span><span class="cat-amt">${hideAmt(fmtRs(amt))}</span></div>`).join('')}
       ` : ''}
-
       ${supSorted.length > 0 ? `
         <div class="section-title"><i class="fas fa-trophy"></i> Top Suppliers</div>
         ${supSorted.map(([name, amt]) => `
@@ -2360,6 +2480,16 @@ input,select,textarea{font-family:inherit;font-size:16px}
       <div class="stat-row"><div class="lbl"><i class="fas fa-arrows-rotate"></i> Recurring Bills</div><div class="val">${bills.filter(b => b.isRecurring).length}</div></div>
     `;
   }
+  // Attach pie chart after summary render — override renderSummary
+  const _origRenderSummaryFn = renderSummary;
+  window.renderSummary = function(){
+    _origRenderSummaryFn();
+    const chartEl = document.getElementById('catPieChart');
+    if (chartEl && window.__renderPieChartData){
+      renderPieChart(chartEl, window.__renderPieChartData);
+    }
+  };
+
   $('summaryMonth').addEventListener('change', renderSummary);
 
   /* ============ CATEGORIES ============ */
@@ -3073,7 +3203,8 @@ input,select,textarea{font-family:inherit;font-size:16px}
     $('sBudget').value = settings.monthlyBudget || '';
     $('sCloudName').value = settings.cloudName || '';
     $('sCloudPreset').value = settings.cloudPreset || '';
-    $('hideAmountsToggle').checked = !!settings.hideAmounts;
+        $('hideAmountsToggle').checked = !!settings.hideAmounts;
+    $('sGeminiKey').value = (settings.geminiKey || '').trim();
     await updateFpUI();
     openOv('settingsOverlay');
   });
@@ -3085,6 +3216,28 @@ input,select,textarea{font-family:inherit;font-size:16px}
     saveSettings(); renderBills();
     toast('Settings saved');
   });
+  $('saveAiKeyBtn').addEventListener('click', () => {
+    settings.geminiKey = $('sGeminiKey').value.trim();
+    saveSettings();
+    toast('AI key saved!');
+  });
+  $('testAiBtn').addEventListener('click', async () => {
+    const key = $('sGeminiKey').value.trim();
+    if (!key){ toast('Key daalein pehle', 2000, true); return; }
+    const btn = $('testAiBtn'); const orig = btn.innerHTML;
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    try {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(key)}`, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ contents:[{ parts:[{text:'Reply with just: OK'}] }] })
+      });
+      const data = await res.json();
+      if (res.ok && data.candidates && data.candidates[0]){ toast('AI working! ✓'); settings.geminiKey = key; saveSettings(); }
+      else toast('Key galat hai', 2500, true);
+    } catch(e){ toast('Network error', 2000, true); }
+    btn.disabled = false; btn.innerHTML = orig;
+  });
+
   $('saveCloudBtn').addEventListener('click', () => {
     settings.cloudName = $('sCloudName').value.trim();
     settings.cloudPreset = $('sCloudPreset').value.trim();
@@ -3231,6 +3384,25 @@ input,select,textarea{font-family:inherit;font-size:16px}
     } catch(e){ toast('Report error', 2000, true); }
     btn.disabled=false; btn.innerHTML=orig;
   });
+  // Voice input on key fields
+  ['fSupplier','fNotes','fPayNotes','fPayRef','sfName','sfAddress'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) attachVoiceInput(el);
+  });
+
+  // Excel export button (replaces old CSV button)
+  const oldCsvBtn = $('exportCsvBtn');
+  if (oldCsvBtn){
+    oldCsvBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      exportExcel();
+    }, true);
+  }
+
+  // Initialize auto-lock
+  resetAutoLock();
+
   $('storageInfoBtn').addEventListener('click', () => {
     const billSize = new Blob([JSON.stringify(bills)]).size;
     const supSize = new Blob([JSON.stringify(suppliers)]).size;
@@ -3241,6 +3413,411 @@ input,select,textarea{font-family:inherit;font-size:16px}
       `STORAGE INFO\n\nBILLS: ${bills.length} (${withPhoto} photos)\nSUPPLIERS: ${suppliers.length}\nTotal Purchases: ${fmtRs(totalAmt)}\nTotal Paid: ${fmtRs(totalPaid)}\n\nBills: ${(billSize/1024).toFixed(1)} KB\nSuppliers: ${(supSize/1024).toFixed(1)} KB\nTotal: ${((billSize+supSize)/1024).toFixed(1)} KB\nLimit: ~5000 KB`
     );
   });
+
+  /* ================================================================
+     PART 2 — AI ASSISTANT + OCR + VOICE + AUTO-LOCK + ADVANCED CHARTS
+     ================================================================ */
+
+  /* ============ AI / GEMINI ============ */
+  let chatHistory = [];
+  const GEMINI_MODEL = 'gemini-2.5-flash';
+  const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/';
+
+  function getAiKey(){ return (settings.geminiKey || '').trim(); }
+
+  async function callGemini(parts, opts){
+    const key = getAiKey();
+    if (!key) throw new Error('NO_KEY');
+    const body = { contents: [{ parts: parts }] };
+    if (opts && opts.system){
+      body.systemInstruction = { parts: [{ text: opts.system }] };
+    }
+    body.generationConfig = { temperature: opts && opts.temp != null ? opts.temp : 0.4, maxOutputTokens: opts && opts.max ? opts.max : 800 };
+    const res = await fetch(`${GEMINI_ENDPOINT}${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(key)}`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    if (!res.ok){ const err = await res.json().catch(()=>({})); throw new Error((err.error && err.error.message) || ('HTTP ' + res.status)); }
+    const data = await res.json();
+    const text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts.map(p => p.text || '').join('');
+    if (!text) throw new Error('Empty response');
+    return text;
+  }
+
+  function buildAppContext(){
+    const totalP = bills.reduce((s,b) => s + billTotal(b), 0);
+    const totalPaid = bills.reduce((s,b) => s + billPaid(b), 0);
+    const totalOut = bills.reduce((s,b) => s + billRemaining(b), 0);
+    const over = bills.filter(overdue);
+    const soon = bills.filter(dueSoon);
+
+    const supSummaries = suppliers.map(s => {
+      const t = supplierTotals(s.id);
+      if (t.billCount === 0) return null;
+      return `- ${s.name}: purchases ${fmtRs(t.totalPurchases)}, paid ${fmtRs(t.totalPaid)}, outstanding ${fmtRs(t.outstanding)} (${t.billCount} bills)`;
+    }).filter(Boolean).slice(0, 30).join('\n');
+
+    const recentBills = bills.slice().sort((a,b) => (b.createdAt||0)-(a.createdAt||0)).slice(0, 20).map(b => 
+      `- ${b.supplierName}: ${fmtRs(billTotal(b))} | paid ${fmtRs(billPaid(b))} | rem ${fmtRs(billRemaining(b))} | ${billStatus(b)} | ${fmtDate(b.billDate)}`
+    ).join('\n');
+
+    const catTotals = {};
+    bills.forEach(b => { const c = b.category || 'Uncategorized'; catTotals[c] = (catTotals[c]||0) + billTotal(b); });
+    const catLines = Object.entries(catTotals).sort((a,b) => b[1]-a[1]).slice(0,10).map(([c,a]) => `- ${c}: ${fmtRs(a)}`).join('\n');
+
+    return `
+APP DATA (current state):
+Total Purchases: ${fmtRs(totalP)}
+Total Paid: ${fmtRs(totalPaid)}
+Total Outstanding: ${fmtRs(totalOut)}
+Bills count: ${bills.length}
+Suppliers count: ${suppliers.length}
+Overdue bills: ${over.length} (${fmtRs(over.reduce((s,b)=>s+billRemaining(b),0))})
+Due within 7 days: ${soon.length} (${fmtRs(soon.reduce((s,b)=>s+billRemaining(b),0))})
+
+SUPPLIER SUMMARY:
+${supSummaries || '(none)'}
+
+RECENT 20 BILLS:
+${recentBills || '(none)'}
+
+TOP CATEGORIES:
+${catLines || '(none)'}
+
+Today: ${new Date().toLocaleDateString('en-GB')}
+Currency: PKR (Rs.)
+    `.trim();
+  }
+
+  function buildSystemPrompt(){
+    return `You are a helpful AI assistant inside a Pakistan-based shop owner's Bills Manager app.
+You help the user understand their business: purchases, payments, suppliers, khata (ledger), outstanding amounts, and due bills.
+Rules:
+- Answer ONLY using the provided APP DATA. Never invent numbers.
+- Use PKR currency format (Rs. XX,XXX).
+- Keep replies concise (2-4 lines usually). Friendly, professional Urdu/English mix is fine (Roman Urdu works).
+- If user asks something not in data, say "Ye info mere paas nahi hai".
+- When listing, use short bullet-like lines separated by newlines.`;
+  }
+
+  async function sendChatMessage(userText){
+    const msgs = $('chatMessages');
+    // Append user
+    const userEl = document.createElement('div');
+    userEl.className = 'chat-msg user';
+    userEl.textContent = userText;
+    msgs.appendChild(userEl);
+    msgs.scrollTop = msgs.scrollHeight;
+
+    // Loading
+    const loadEl = document.createElement('div');
+    loadEl.className = 'chat-msg loading';
+    loadEl.innerHTML = '<span class="chat-typing"><span></span><span></span><span></span></span>';
+    msgs.appendChild(loadEl);
+    msgs.scrollTop = msgs.scrollHeight;
+
+    $('chatSendBtn').disabled = true;
+
+    try {
+      if (!getAiKey()) throw new Error('NO_KEY');
+      const ctx = buildAppContext();
+      const fullPrompt = `USER QUESTION:\n${userText}\n\n${ctx}`;
+      const reply = await callGemini([{ text: fullPrompt }], { system: buildSystemPrompt(), temp: 0.4, max: 700 });
+      loadEl.remove();
+      const aiEl = document.createElement('div');
+      aiEl.className = 'chat-msg ai';
+      aiEl.innerHTML = esc(reply).replace(/\n/g, '<br>');
+      msgs.appendChild(aiEl);
+      chatHistory.push({ role:'user', text:userText });
+      chatHistory.push({ role:'ai', text:reply });
+    } catch(e){
+      loadEl.remove();
+      const errEl = document.createElement('div');
+      errEl.className = 'chat-msg error';
+      if (e.message === 'NO_KEY'){
+        errEl.innerHTML = '⚠️ Pehle Settings mein <b>Gemini API Key</b> daalein.<br><br>Free key: <b>aistudio.google.com</b>';
+      } else {
+        errEl.textContent = '⚠️ Error: ' + e.message;
+      }
+      msgs.appendChild(errEl);
+    }
+    msgs.scrollTop = msgs.scrollHeight;
+    $('chatSendBtn').disabled = false;
+  }
+
+  $('aiChatBtn').addEventListener('click', () => {
+    if ($('chatMessages').children.length === 0){
+      const el = document.createElement('div');
+      el.className = 'chat-msg ai';
+      el.innerHTML = '👋 Assalam-o-Alaikum!<br>Main aapka AI assistant hoon.<br><br>Poochein:<br>• Is mahine ka kharcha?<br>• Kis supplier ko kitna dena hai?<br>• Kaunse bills overdue hain?<br>• Top category?';
+      $('chatMessages').appendChild(el);
+    }
+    openOv('chatOverlay');
+    setTimeout(() => $('chatInput').focus(), 300);
+  });
+
+  $('chatSendBtn').addEventListener('click', () => {
+    const t = $('chatInput').value.trim();
+    if (!t) return;
+    $('chatInput').value = '';
+    sendChatMessage(t);
+  });
+  $('chatInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter'){ e.preventDefault(); $('chatSendBtn').click(); }
+  });
+  $('chatQuick').addEventListener('click', e => {
+    const b = e.target.closest('[data-q]'); if (!b) return;
+    sendChatMessage(b.dataset.q);
+  });
+
+  /* ============ OCR (Gemini Vision) ============ */
+  let ocrExtracted = null;
+
+  async function ocrBillImage(dataUrl){
+    const key = getAiKey();
+    if (!key) throw new Error('NO_KEY');
+    const base64 = dataUrl.split(',')[1];
+    const mimeMatch = dataUrl.match(/^data:([^;]+);/);
+    const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+
+    const prompt = `You are extracting data from a purchase bill/receipt image (Pakistan shop context).
+Extract and return ONLY a JSON object (no markdown, no backticks) with these fields:
+{
+  "supplierName": "vendor/agency name or empty string",
+  "billNumber": "invoice/bill number or empty",
+  "billDate": "YYYY-MM-DD format or empty",
+  "dueDate": "YYYY-MM-DD or empty",
+  "amount": number (subtotal before tax, or 0),
+  "tax": number (tax amount, or 0),
+  "totalAmount": number (grand total),
+  "category": "one of: Grocery, Vegetables, Fruits, Dairy, Meat, Bakery, Beverages, Electricity, Gas, Water, Internet, Mobile, Rent, Salaries, Transport, Maintenance, Taxes, Cosmetics, Household, Miscellaneous",
+  "notes": "short summary of items, max 100 chars"
+}
+Rules:
+- If a field cannot be read, use "" (empty string) or 0.
+- Amounts must be plain numbers (no "Rs." or commas).
+- Detect Urdu/English/Roman Urdu - both work.
+- Today's date: ${todayISO()}`;
+
+    const body = {
+      contents: [{
+        parts: [
+          { text: prompt },
+          { inline_data: { mime_type: mime, data: base64 } }
+        ]
+      }],
+      generationConfig: { temperature: 0.1, maxOutputTokens: 600 }
+    };
+
+    const res = await fetch(`${GEMINI_ENDPOINT}${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(key)}`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    if (!res.ok){ const err = await res.json().catch(()=>({})); throw new Error((err.error && err.error.message) || 'HTTP ' + res.status); }
+    const data = await res.json();
+    let text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts.map(p => p.text || '').join('');
+    if (!text) throw new Error('Empty OCR response');
+    // Strip markdown fences if any
+    text = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+    const startIdx = text.indexOf('{');
+    const endIdx = text.lastIndexOf('}');
+    if (startIdx === -1 || endIdx === -1) throw new Error('No JSON in response');
+    const json = JSON.parse(text.slice(startIdx, endIdx + 1));
+    return json;
+  }
+
+  async function processOcrPhoto(dataUrl, fromCamera){
+    closeOv('cameraOverlay');
+    stopCam();
+    // Show loading
+    $('ocrContent').innerHTML = `<div class="ocr-scanning"><div class="spinner"></div><b>AI bill scan kar raha hai...</b><br><small>5-10 second</small></div>`;
+    $('ocrConfirmBtn').disabled = true;
+    $('ocrConfirmBtn').textContent = 'Confirm';
+    openOv('ocrOverlay');
+
+    try {
+      const result = await ocrBillImage(dataUrl);
+      ocrExtracted = result;
+      ocrExtracted._photoDataUrl = dataUrl;
+      renderOcrResult(result);
+      $('ocrConfirmBtn').disabled = false;
+    } catch(e){
+      if (e.message === 'NO_KEY'){
+        $('ocrContent').innerHTML = '<div class="chat-msg error" style="margin:0">⚠️ Pehle Settings mein <b>Gemini API Key</b> daalein.<br><br>Free: <b>aistudio.google.com</b></div>';
+      } else {
+        $('ocrContent').innerHTML = '<div class="chat-msg error" style="margin:0">⚠️ OCR fail: ' + esc(e.message) + '</div>';
+      }
+    }
+  }
+
+  function renderOcrResult(r){
+    const rows = [
+      ['Supplier', r.supplierName || '—'],
+      ['Bill #', r.billNumber || '—'],
+      ['Bill Date', r.billDate || '—'],
+      ['Due Date', r.dueDate || '—'],
+      ['Subtotal', r.amount ? fmtRs(r.amount) : '—'],
+      ['Tax', r.tax ? fmtRs(r.tax) : '—'],
+      ['Total', r.totalAmount ? fmtRs(r.totalAmount) : '—'],
+      ['Category', r.category || '—'],
+      ['Notes', r.notes || '—']
+    ];
+    $('ocrContent').innerHTML = `
+      <div style="text-align:center;margin-bottom:12px"><i class="fas fa-check-circle" style="font-size:2rem;color:var(--success)"></i><div style="font-weight:700;margin-top:6px">Scan Complete!</div><div style="font-size:.78rem;color:var(--muted)">Review karke confirm karein</div></div>
+      <img src="${r._photoDataUrl}" style="width:100%;max-height:180px;object-fit:contain;border-radius:10px;border:1px solid var(--border);margin-bottom:12px;background:#f0f5f1">
+      <div class="ocr-result">
+        ${rows.map(rr => `<div class="row"><span class="k">${rr[0]}</span><span class="v">${esc(String(rr[1]))}</span></div>`).join('')}
+      </div>`;
+  }
+
+  $('ocrRetryBtn').addEventListener('click', () => {
+    closeOv('ocrOverlay');
+    ocrExtracted = null;
+    currentPhotoData = null;
+    startCamera();
+    openOv('cameraOverlay');
+  });
+
+  $('ocrConfirmBtn').addEventListener('click', () => {
+    if (!ocrExtracted) return;
+    const r = ocrExtracted;
+    closeOv('ocrOverlay');
+    currentPhotoData = r._photoDataUrl;
+    openForm(null, r._photoDataUrl, {
+      supplier: r.supplierName || '',
+      billNumber: r.billNumber || '',
+      billDate: r.billDate || todayISO(),
+      dueDate: r.dueDate || '',
+      amount: r.amount || r.totalAmount || '',
+      tax: r.tax || '',
+      category: r.category || '',
+      notes: r.notes || ''
+    });
+    ocrExtracted = null;
+  });
+
+  /* ============ ADVANCED PIE CHART (Summary) ============ */
+  function renderPieChart(container, data){
+    const total = data.reduce((s,d) => s + d.value, 0);
+    if (total === 0 || data.length === 0){ container.innerHTML = ''; return; }
+    const colors = ['#0f5132','#198754','#0891b2','#7c3aed','#d97706','#dc2626','#be185d','#4f46e5','#059669','#9333ea'];
+    let cumulative = 0;
+    const stops = data.slice(0, 8).map((d, i) => {
+      const pct = (d.value / total) * 100;
+      const start = cumulative;
+      cumulative += pct;
+      return `${colors[i % colors.length]} ${start}% ${cumulative}%`;
+    }).join(', ');
+
+    const legendHtml = data.slice(0, 8).map((d, i) => `
+      <div class="chart-pie-legend-item">
+        <div class="color-dot" style="background:${colors[i % colors.length]}"></div>
+        <div class="label">${esc(d.label)}</div>
+        <div class="value">${fmtRsShort(d.value)}</div>
+      </div>
+    `).join('');
+
+    container.innerHTML = `
+      <div class="chart-pie-wrap">
+        <div class="chart-pie" style="background:conic-gradient(${stops})"></div>
+        <div class="chart-pie-legend">${legendHtml}</div>
+      </div>`;
+  }
+
+  /* ============ VOICE INPUT ============ */
+  function attachVoiceInput(inputEl){
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) return;
+    const wrapper = inputEl.parentElement;
+    if (!wrapper) return;
+    wrapper.classList.add('has-mic');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'mic-btn';
+    btn.innerHTML = '<i class="fas fa-microphone"></i>';
+    wrapper.appendChild(btn);
+
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let rec = null;
+    let listening = false;
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (listening){ if (rec) rec.stop(); return; }
+      rec = new SR();
+      rec.lang = 'en-IN';
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      rec.onstart = () => { listening = true; btn.classList.add('listening'); };
+      rec.onend = () => { listening = false; btn.classList.remove('listening'); };
+      rec.onerror = () => { listening = false; btn.classList.remove('listening'); };
+      rec.onresult = (ev) => {
+        const t = ev.results[0][0].transcript;
+        inputEl.value = (inputEl.value ? inputEl.value + ' ' : '') + t;
+        inputEl.dispatchEvent(new Event('input'));
+      };
+      try { rec.start(); } catch(err){}
+    });
+  }
+
+  /* ============ AUTO-LOCK ============ */
+  let autoLockTimer = null;
+  let autoLocked = false;
+  const AUTO_LOCK_MS = 5 * 60 * 1000;
+
+  function resetAutoLock(){
+    if (autoLockTimer) clearTimeout(autoLockTimer);
+    if (!security.pinHash) return;
+    autoLockTimer = setTimeout(() => {
+      autoLocked = true;
+      openOv('autoLockOverlay');
+      clearSession();
+    }, AUTO_LOCK_MS);
+  }
+  ['touchstart','mousedown','keydown','scroll','click'].forEach(evt => {
+    document.addEventListener(evt, () => { if (!autoLocked) resetAutoLock(); }, { passive: true });
+  });
+  $('autoUnlockBtn').addEventListener('click', () => {
+    closeOv('autoLockOverlay');
+    autoLocked = false;
+    showLock('unlock');
+  });
+
+  /* ============ EXCEL EXPORT ============ */
+  async function exportExcel(){
+    if (bills.length === 0){ toast('No bills to export', 2000, true); return; }
+    try {
+      if (!window.XLSX){
+        await new Promise((res, rej) => {
+          const s = document.createElement('script');
+          s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+          s.onload = res; s.onerror = rej;
+          document.head.appendChild(s);
+        });
+      }
+      const rows = bills.map(b => ({
+        'Supplier': b.supplierName || '',
+        'Bill #': b.billNumber || '',
+        'Bill Date': b.billDate || '',
+        'Due Date': b.dueDate || '',
+        'Subtotal': Number(b.amount) || 0,
+        'Tax': Number(b.tax) || 0,
+        'Total': billTotal(b),
+        'Returned': billReturned(b),
+        'Paid': billPaid(b),
+        'Remaining': billRemaining(b),
+        'Status': billStatus(b),
+        'Type': b.paymentType || '',
+        'Category': b.category || '',
+        'Notes': b.notes || ''
+      }));
+      const ws = window.XLSX.utils.json_to_sheet(rows);
+      const wb = window.XLSX.utils.book_new();
+      window.XLSX.utils.book_append_sheet(wb, ws, 'Bills');
+      window.XLSX.writeFile(wb, `bills-${todayISO()}.xlsx`);
+      toast('Excel downloaded!');
+    } catch(e){ toast('Excel export fail', 2000, true); }
+  }
+
+  /* ============ RENDER PIE CHART IN SUMMARY ============ */
+  const _origRenderSummary = renderSummary;
 
   /* ============ LOCK NOW ============ */
   $('lockNowBtn').addEventListener('click', () => {
