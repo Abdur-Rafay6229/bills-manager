@@ -2,97 +2,109 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,viewport-fit=cover">
 <meta name="theme-color" content="#0f5132">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Bills Pro">
 <link rel="manifest" href="manifest.json">
 <title>Bills Manager Pro</title>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'; this.onload=null;">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all';this.onload=null;">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 <style>
-:root{--primary:#0f5132;--accent:#198754;--bg:#f5f7f5;--card:#fff;--text:#1a2e22;--muted:#6c7d72;--border:#e0e8dc;--danger:#dc2626;--danger-bg:#fee2e2;--warning:#d97706;--warning-bg:#fef3c7;--success:#059669;--success-bg:#d1e7dd;--info:#0891b2;--info-bg:#cffafe;--purple:#7c3aed;--purple-bg:#ede9fe;--shadow:0 2px 10px rgba(15,81,50,.06);--shadow-lg:0 8px 24px rgba(15,81,50,.12)}
+:root{--p:#0f5132;--a:#198754;--bg:#f5f7f5;--c:#fff;--t:#1a2e22;--m:#6c7d72;--b:#e0e8dc;--d:#dc2626;--db:#fee2e2;--w:#d97706;--wb:#fef3c7;--s:#059669;--sb:#d1e7dd;--i:#0891b2;--ib:#cffafe;--pu:#7c3aed;--pub:#ede9fe;--sh:0 2px 10px rgba(15,81,50,.06);--shl:0 8px 24px rgba(15,81,50,.12)}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{overscroll-behavior-y:none}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:calc(78px + env(safe-area-inset-bottom));line-height:1.5}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--t);min-height:100vh;padding-bottom:calc(78px + env(safe-area-inset-bottom));line-height:1.5}
 button{font-family:inherit;cursor:pointer}
 input,select,textarea{font-family:inherit;font-size:16px}
-.app-header{background:var(--primary);color:#fff;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.app-header{background:var(--p);color:#fff;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .app-header-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .app-title{font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:8px}
 .app-title i{color:#7ee0a5}
 .header-actions{display:flex;gap:6px}
 .icon-btn{background:rgba(255,255,255,.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;position:relative}
 .icon-btn:active{transform:scale(.94)}
-.icon-btn .dot{position:absolute;top:5px;right:5px;width:8px;height:8px;background:#ff5c5c;border-radius:50%;border:1.5px solid var(--primary)}
-.install-btn{background:#fff;color:var(--primary);border:none;padding:.45rem .85rem;border-radius:40px;font-weight:700;font-size:.74rem;display:none;align-items:center;gap:5px}
+.icon-btn .dot{position:absolute;top:5px;right:5px;width:8px;height:8px;background:#ff5c5c;border-radius:50%;border:1.5px solid var(--p)}
+.install-btn{background:#fff;color:var(--p);border:none;padding:.45rem .85rem;border-radius:40px;font-weight:700;font-size:.74rem;display:none;align-items:center;gap:5px}
 .install-btn.show{display:inline-flex}
-.view{display:none;padding:14px;contain:layout style}
-.view.active{display:block;contain:layout style paint}
-.section-title{font-size:.95rem;font-weight:700;color:var(--primary);margin:14px 0 10px;display:flex;align-items:center;gap:8px}
-.section-title i{color:var(--accent)}
-.section-title .right{margin-left:auto;font-weight:600;font-size:.75rem;color:var(--muted)}
+.view{display:none;padding:14px}
+.view.active{display:block}
+.section-title{font-size:.95rem;font-weight:700;color:var(--p);margin:14px 0 10px;display:flex;align-items:center;gap:8px}
+.section-title i{color:var(--a)}
 .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
-.metric-card{background:var(--card);border-radius:14px;padding:12px;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
+.metric-card{background:var(--c);border-radius:14px;padding:12px;box-shadow:var(--sh);border:1px solid var(--b);position:relative;overflow:hidden}
 .metric-card.primary{background:linear-gradient(135deg,#0f5132,#198754);color:#fff;grid-column:1/-1;padding:16px 14px}
-.metric-card .m-label{font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.metric-card .m-label{font-size:.68rem;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .metric-card.primary .m-label{color:rgba(255,255,255,.85)}
-.metric-card .m-value{font-size:1.15rem;font-weight:800;color:var(--primary);word-break:break-word}
+.metric-card .m-value{font-size:1.15rem;font-weight:800;color:var(--p);word-break:break-word}
 .metric-card.primary .m-value{font-size:1.6rem;color:#fff;margin-bottom:8px}
-.metric-card .m-sub{font-size:.68rem;color:var(--muted);margin-top:2px}
+.metric-card .m-sub{font-size:.68rem;color:var(--m);margin-top:2px}
 .metric-card .m-icon{position:absolute;top:10px;right:10px;font-size:1.3rem;opacity:.15}
 .metric-card.primary .m-icon{opacity:.2;font-size:1.8rem}
-.metric-card.danger .m-value{color:var(--danger)}
-.metric-card.warning .m-value{color:var(--warning)}
-.metric-card.success .m-value{color:var(--success)}
+.metric-card.danger .m-value{color:var(--d)}
+.metric-card.warning .m-value{color:var(--w)}
+.metric-card.success .m-value{color:var(--s)}
 .metric-card.primary .m-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.2)}
 .metric-card.primary .m-row .item{text-align:center}
 .metric-card.primary .m-row .item .v{font-size:.9rem;font-weight:700}
 .metric-card.primary .m-row .item .l{font-size:.62rem;opacity:.85;text-transform:uppercase;margin-top:2px}
-.alert-card{background:var(--danger-bg);border-left:4px solid var(--danger);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer}
-.alert-card.warning{background:var(--warning-bg);border-left-color:var(--warning)}
-.alert-card .a-icon{font-size:1.3rem;color:var(--danger);flex-shrink:0}
-.alert-card.warning .a-icon{color:var(--warning)}
+.alert-card{background:var(--db);border-left:4px solid var(--d);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.alert-card.warning{background:var(--wb);border-left-color:var(--w)}
+.alert-card .a-icon{font-size:1.3rem;color:var(--d);flex-shrink:0}
+.alert-card.warning .a-icon{color:var(--w)}
 .alert-card .a-text{flex:1;min-width:0}
-.alert-card .a-title{font-weight:700;font-size:.83rem;color:var(--text)}
-.alert-card .a-sub{font-size:.72rem;color:var(--muted);margin-top:1px}
+.alert-card .a-title{font-weight:700;font-size:.83rem}
+.alert-card .a-sub{font-size:.72rem;color:var(--m);margin-top:1px}
+.budget-card{background:linear-gradient(135deg,#0f5132,#198754);color:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:var(--shl)}
+.budget-card .label{font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;opacity:.85;font-weight:600}
+.budget-card .amount{font-size:1.4rem;font-weight:800;margin:3px 0 8px}
+.budget-progress{width:100%;height:8px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden;margin:6px 0}
+.budget-progress .bar{height:100%;background:#7ee0a5;border-radius:6px;transition:width .3s}
+.budget-progress .bar.warn{background:#fbbf24}
+.budget-progress .bar.over{background:#f87171}
+.budget-info{display:flex;justify-content:space-between;font-size:.76rem}
+.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.quick-btn{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:var(--sh)}
+.quick-btn:active{transform:scale(.96);background:#fafcf9}
+.quick-btn i{font-size:1.05rem;color:var(--a)}
+.quick-btn span{font-size:.66rem;font-weight:600;color:var(--t)}
 .search-wrap{position:relative;margin-bottom:8px}
-.search-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.88rem;pointer-events:none}
-.search-input{width:100%;padding:.7rem 14px .7rem 38px;border:1.5px solid var(--border);border-radius:12px;font-size:.9rem;background:#fff}
-.search-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(25,135,84,.1)}
-.filter-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.search-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--m);font-size:.88rem;pointer-events:none}
+.search-input{width:100%;padding:.7rem 14px .7rem 38px;border:1.5px solid var(--b);border-radius:12px;font-size:.9rem;background:#fff}
+.search-input:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 3px rgba(25,135,84,.1)}
+.filter-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px;scrollbar-width:none}
 .filter-row::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;background:#fff;border:1.5px solid var(--border);color:var(--muted);padding:.4rem .8rem;border-radius:30px;font-size:.76rem;font-weight:600;cursor:pointer;transition:.12s;white-space:nowrap}
-.chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.chip{flex-shrink:0;background:#fff;border:1.5px solid var(--b);color:var(--m);padding:.4rem .8rem;border-radius:30px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip.active{background:var(--p);color:#fff;border-color:var(--p)}
 .chip:active{transform:scale(.96)}
-.bill-list{display:flex;flex-direction:column;gap:9px;contain:layout style}
-.bill-card{background:var(--card);border-radius:14px;padding:11px 13px;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;display:flex;gap:11px;align-items:center}
+.bill-list{display:flex;flex-direction:column;gap:9px}
+.bill-card{background:var(--c);border-radius:14px;padding:11px 13px;box-shadow:var(--sh);border:1px solid var(--b);cursor:pointer;display:flex;gap:11px;align-items:center}
 .bill-card:active{transform:scale(.99);background:#fafcf9}
-.bill-thumb{width:46px;height:46px;border-radius:11px;flex-shrink:0;background:linear-gradient(135deg,#e8f3ea,#d1e7dd);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.25rem;overflow:hidden;position:relative}
+.bill-thumb{width:46px;height:46px;border-radius:11px;flex-shrink:0;background:linear-gradient(135deg,#e8f3ea,#d1e7dd);display:flex;align-items:center;justify-content:center;color:var(--a);font-size:1.25rem;overflow:hidden;position:relative}
 .bill-thumb.supplier{background:linear-gradient(135deg,#e0e7ff,#c7d2fe);color:#4338ca}
 .bill-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .bill-info{flex:1;min-width:0}
 .bill-info .name{font-weight:700;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bill-info .meta{font-size:.7rem;color:var(--muted);display:flex;gap:6px;margin-top:3px;flex-wrap:wrap;align-items:center}
-.badge{padding:1.5px 7px;border-radius:20px;font-weight:700;font-size:.62rem;text-transform:uppercase;white-space:nowrap}
-.badge.paid{background:var(--success-bg);color:var(--success)}
-.badge.unpaid{background:var(--warning-bg);color:#92400e}
-.badge.partial{background:var(--info-bg);color:#0e7490}
-.badge.overdue{background:var(--danger-bg);color:var(--danger)}
+.bill-info .meta{font-size:.7rem;color:var(--m);display:flex;gap:6px;margin-top:3px;flex-wrap:wrap;align-items:center}
+.badge{padding:1.5px 7px;border-radius:20px;font-weight:700;font-size:.62rem;text-transform:uppercase;white-space:nowrap;display:inline-block}
+.badge.paid{background:var(--sb);color:var(--s)}
+.badge.unpaid{background:var(--wb);color:#92400e}
+.badge.partial{background:var(--ib);color:#0e7490}
+.badge.overdue{background:var(--db);color:var(--d)}
 .badge.cash{background:#e5e7eb;color:#374151}
-.badge.credit{background:var(--purple-bg);color:#5b21b6}
+.badge.credit{background:var(--pub);color:#5b21b6}
+.badge.recurring{background:#fce7f3;color:#be185d}
 .bill-amount{text-align:right;flex-shrink:0;min-width:76px}
-.bill-amount .amt{font-weight:800;color:var(--primary);font-size:.95rem;display:block}
-.bill-amount .sub{font-size:.66rem;color:var(--muted);margin-top:2px;display:block}
-.bill-amount .sub.owe{color:var(--danger);font-weight:700}
-.bill-amount .sub.adv{color:var(--success);font-weight:700}
-.empty{text-align:center;padding:40px 18px;color:var(--muted);background:var(--card);border-radius:16px;border:2px dashed var(--border)}
+.bill-amount .amt{font-weight:800;color:var(--p);font-size:.95rem;display:block}
+.bill-amount .sub{font-size:.66rem;color:var(--m);margin-top:2px;display:block}
+.bill-amount .sub.owe{color:var(--d);font-weight:700}
+.bill-amount .sub.adv{color:var(--s);font-weight:700}
+.empty{text-align:center;padding:40px 18px;color:var(--m);background:var(--c);border-radius:16px;border:2px dashed var(--b)}
 .empty i{font-size:2.6rem;color:#b6dfb6;display:block;margin-bottom:10px}
 .empty h3{font-size:.98rem;color:#4a6b56;margin-bottom:5px}
 .empty p{font-size:.82rem}
 .add-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:8px}
-.opt-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 10px;cursor:pointer;box-shadow:var(--shadow);text-align:center;display:flex;flex-direction:column;align-items:center;gap:7px}
+.opt-card{background:var(--c);border:1px solid var(--b);border-radius:14px;padding:14px 10px;cursor:pointer;box-shadow:var(--sh);text-align:center;display:flex;flex-direction:column;align-items:center;gap:7px}
 .opt-card:active{transform:scale(.97);background:#fafcf9}
 .opt-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;color:#fff}
 .opt-icon.cam{background:linear-gradient(135deg,#0f5132,#198754)}
@@ -100,97 +112,101 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .opt-icon.pay{background:linear-gradient(135deg,#059669,#10b981)}
 .opt-icon.sup{background:linear-gradient(135deg,#4338ca,#6366f1)}
 .opt-icon.ai{background:linear-gradient(135deg,#7c3aed,#a855f7)}
-.opt-icon.set{background:linear-gradient(135deg,#0891b2,#0e7490)}
+.opt-icon.ret{background:linear-gradient(135deg,#dc2626,#ef4444)}
+.opt-icon.rec{background:linear-gradient(135deg,#be185d,#ec4899)}
+.opt-icon.cal{background:linear-gradient(135deg,#0891b2,#0e7490)}
 .opt-text h4{font-size:.82rem;font-weight:700}
-.opt-text p{font-size:.68rem;color:var(--muted)}
-.khata-summary{background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow-lg)}
+.opt-text p{font-size:.68rem;color:var(--m)}
+.khata-summary{background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:var(--shl)}
 .khata-summary .label{font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;opacity:.85;font-weight:600}
 .khata-summary .amount{font-size:1.6rem;font-weight:800;margin:3px 0 10px}
 .khata-summary .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.2)}
 .khata-summary .grid .item{text-align:center}
 .khata-summary .grid .item .v{font-size:.9rem;font-weight:700}
 .khata-summary .grid .item .l{font-size:.62rem;opacity:.85;text-transform:uppercase;margin-top:2px}
-.summary-range{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;background:#fff;padding:8px 12px;border-radius:12px;border:1px solid var(--border)}
-.summary-range select{padding:.38rem .55rem;border:1px solid var(--border);border-radius:8px;font-size:.8rem;font-weight:600;background:#fafcf9}
-.stat-row{background:var(--card);border-radius:12px;padding:11px 13px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.stat-row .lbl{font-size:.82rem;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:8px}
-.stat-row .lbl i{color:var(--accent);width:16px}
-.stat-row .val{font-size:.98rem;font-weight:800;color:var(--primary);text-align:right}
+.summary-range{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;background:#fff;padding:8px 12px;border-radius:12px;border:1px solid var(--b)}
+.summary-range select{padding:.38rem .55rem;border:1px solid var(--b);border-radius:8px;font-size:.8rem;font-weight:600;background:#fafcf9}
+.stat-row{background:var(--c);border-radius:12px;padding:11px 13px;box-shadow:var(--sh);border:1px solid var(--b);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.stat-row .lbl{font-size:.82rem;color:var(--m);font-weight:600;display:flex;align-items:center;gap:8px}
+.stat-row .lbl i{color:var(--a);width:16px}
+.stat-row .val{font-size:.98rem;font-weight:800;color:var(--p);text-align:right}
 .stat-row.total{background:linear-gradient(135deg,#0f5132,#198754);color:#fff}
 .stat-row.total .lbl,.stat-row.total .lbl i{color:rgba(255,255,255,.9)}
 .stat-row.total .val{color:#fff;font-size:1.2rem}
-.cat-bar{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;background:#fff;border-radius:10px;border:1px solid var(--border);margin-bottom:6px;font-size:.83rem}
+.stat-row.danger{background:var(--db)}
+.stat-row.danger .lbl,.stat-row.danger .val{color:var(--d)}
+.cat-bar{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;background:#fff;border-radius:10px;border:1px solid var(--b);margin-bottom:6px;font-size:.83rem}
 .cat-bar .cat-name{font-weight:600}
-.cat-bar .cat-amt{font-weight:700;color:var(--primary)}
+.cat-bar .cat-amt{font-weight:700;color:var(--p)}
 .overlay{position:fixed;inset:0;background:rgba(15,30,20,.62);display:flex;align-items:flex-end;justify-content:center;z-index:10000;opacity:0;pointer-events:none;transition:opacity .15s}
 .overlay.active{opacity:1;pointer-events:auto}
 .overlay.center{align-items:center;padding:20px}
-.sheet{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;max-height:92vh;overflow-y:auto;padding:18px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(20px);transition:transform .18s cubic-bezier(.2,.8,.3,1)}
+.sheet{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;max-height:92vh;overflow-y:auto;padding:18px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(20px);transition:transform .18s}
 .overlay.active .sheet{transform:translateY(0)}
 .overlay.center .sheet{border-radius:22px}
-.sheet-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;position:sticky;top:-18px;background:#fff;padding:6px 0 10px;z-index:5;border-bottom:1px solid var(--border)}
-.sheet-header h2{font-size:1rem;display:flex;align-items:center;gap:8px;color:var(--primary)}
-.sheet-header h2 i{color:var(--accent)}
-.close-btn{background:#f0f5f1;border:none;width:34px;height:34px;border-radius:50%;color:var(--muted);font-size:.95rem;display:flex;align-items:center;justify-content:center}
+.sheet-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;position:sticky;top:-18px;background:#fff;padding:6px 0 10px;z-index:5;border-bottom:1px solid var(--b)}
+.sheet-header h2{font-size:1rem;display:flex;align-items:center;gap:8px;color:var(--p)}
+.sheet-header h2 i{color:var(--a)}
+.close-btn{background:#f0f5f1;border:none;width:34px;height:34px;border-radius:50%;color:var(--m);font-size:.95rem;display:flex;align-items:center;justify-content:center}
 .fg{margin-bottom:11px}
-.fg label{display:block;font-size:.74rem;font-weight:700;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
-.fg label i{color:var(--accent);margin-right:4px}
-.fg input,.fg textarea,.fg select{width:100%;padding:.7rem .85rem;border:1.5px solid var(--border);border-radius:11px;font-size:.92rem;background:#fafcf9;transition:.15s}
-.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(25,135,84,.12)}
+.fg label{display:block;font-size:.74rem;font-weight:700;color:var(--m);margin-bottom:4px;text-transform:uppercase}
+.fg label i{color:var(--a);margin-right:4px}
+.fg input,.fg textarea,.fg select{width:100%;padding:.7rem .85rem;border:1.5px solid var(--b);border-radius:11px;font-size:.92rem;background:#fafcf9}
+.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--a);background:#fff;box-shadow:0 0 0 3px rgba(25,135,84,.12)}
 .fg textarea{resize:vertical;min-height:56px}
 .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.fg-err{color:var(--danger);font-size:.72rem;margin-top:3px;font-weight:600;display:none}
+.fg-err{color:var(--d);font-size:.72rem;margin-top:3px;font-weight:600;display:none}
 .fg-err.show{display:block}
 .chk-row{display:flex;align-items:center;gap:8px;padding:8px 0}
 .chk-row input{width:18px;height:18px}
-.chk-row label{font-size:.85rem;font-weight:600;text-transform:none;letter-spacing:0;margin:0}
+.chk-row label{font-size:.85rem;font-weight:600;text-transform:none;margin:0}
 .cam-area{background:#0d1a12;border-radius:14px;overflow:hidden;position:relative;width:100%;aspect-ratio:4/3;margin-bottom:12px;display:flex;align-items:center;justify-content:center}
 .cam-area video,.cam-area img{width:100%;height:100%;object-fit:cover;display:block}
 .cam-placeholder{color:#7a9a85;text-align:center;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.83rem}
 .cam-placeholder i{font-size:2.2rem;opacity:.6}
 .cam-controls{display:flex;gap:9px;justify-content:center;align-items:center;margin-bottom:12px;flex-wrap:wrap}
-.capture{background:var(--accent);color:#fff;border:none;width:60px;height:60px;border-radius:50%;font-size:1.4rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(25,135,84,.35)}
+.capture{background:var(--a);color:#fff;border:none;width:60px;height:60px;border-radius:50%;font-size:1.4rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(25,135,84,.35)}
 .capture:active{transform:scale(.94)}
 .capture:disabled{background:#b8cdb1;box-shadow:none}
-.btn{border:none;padding:.7rem 1rem;border-radius:11px;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:46px;white-space:nowrap;transition:transform .1s}
+.btn{border:none;padding:.7rem 1rem;border-radius:11px;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:46px;white-space:nowrap}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-accent{background:var(--accent);color:#fff}
-.btn-success{background:var(--success);color:#fff}
-.btn-danger{background:var(--danger);color:#fff}
-.btn-outline{background:#fff;border:1.5px solid var(--border);color:var(--text)}
+.btn-primary{background:var(--p);color:#fff}
+.btn-accent{background:var(--a);color:#fff}
+.btn-success{background:var(--s);color:#fff}
+.btn-danger{background:var(--d);color:#fff}
+.btn-outline{background:#fff;border:1.5px solid var(--b);color:var(--t)}
 .btn-block{width:100%}
 .btn-row{display:flex;gap:9px;margin-top:12px}
 .btn-row .btn{flex:1}
 .btn-sm{padding:.45rem .75rem;font-size:.78rem;min-height:38px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:8px 0 calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.06);z-index:40;border-top:1px solid var(--border)}
-.nav-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--muted);font-size:.64rem;font-weight:600;padding:5px 6px;position:relative;flex:1}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:8px 0 calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.06);z-index:40;border-top:1px solid var(--b)}
+.nav-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--m);font-size:.64rem;font-weight:600;padding:5px 6px;position:relative;flex:1}
 .nav-btn i{font-size:1.1rem}
-.nav-btn.active{color:var(--primary)}
-.nav-btn.active::after{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:22px;height:3px;background:var(--accent);border-radius:3px}
-.nav-badge{position:absolute;top:1px;right:10px;background:var(--accent);color:#fff;border-radius:10px;font-size:.56rem;padding:1px 5px;font-weight:700;min-width:15px;text-align:center}
-.detail-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:.88rem;gap:10px}
+.nav-btn.active{color:var(--p)}
+.nav-btn.active::after{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:22px;height:3px;background:var(--a);border-radius:3px}
+.nav-badge{position:absolute;top:1px;right:10px;background:var(--a);color:#fff;border-radius:10px;font-size:.56rem;padding:1px 5px;font-weight:700;min-width:15px;text-align:center}
+.detail-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--b);font-size:.88rem;gap:10px}
 .detail-row:last-child{border-bottom:none}
-.detail-row .k{color:var(--muted);font-weight:600;flex-shrink:0}
-.detail-row .v{color:var(--text);font-weight:700;text-align:right;word-break:break-word}
+.detail-row .k{color:var(--m);font-weight:600;flex-shrink:0}
+.detail-row .v{font-weight:700;text-align:right;word-break:break-word}
 .pay-hist{background:#f9fbf8;border-radius:12px;padding:10px;margin-top:8px}
-.pay-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border);gap:10px}
+.pay-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--b);gap:10px}
 .pay-item:last-child{border-bottom:none}
 .pay-item .pi-left{flex:1}
-.pay-item .pi-date{font-size:.7rem;color:var(--muted);font-weight:600}
-.pay-item .pi-method{font-size:.68rem;color:var(--muted)}
-.pay-item .pi-amt{font-weight:800;color:var(--success);font-size:.88rem}
-.pay-item .pi-del{background:none;border:none;color:var(--danger);font-size:.72rem;padding:4px 6px}
+.pay-item .pi-date{font-size:.7rem;color:var(--m);font-weight:600}
+.pay-item .pi-method{font-size:.68rem;color:var(--m)}
+.pay-item .pi-amt{font-weight:800;color:var(--s);font-size:.88rem}
+.pay-item .pi-del{background:none;border:none;color:var(--d);font-size:.72rem;padding:4px 6px}
 .pay-progress{width:100%;height:6px;background:#e5e7eb;border-radius:6px;overflow:hidden;margin-top:6px}
-.pay-progress .bar{height:100%;background:var(--success);border-radius:6px;transition:width .3s}
-.ledger-entry{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:10px;position:relative;margin-bottom:8px}
-.ledger-entry.purchase{border-left:4px solid var(--danger)}
-.ledger-entry.payment{border-left:4px solid var(--success)}
+.pay-progress .bar{height:100%;background:var(--s);border-radius:6px;transition:width .3s}
+.ledger-entry{background:#fff;border:1.5px solid var(--b);border-radius:12px;padding:10px;position:relative;margin-bottom:8px}
+.ledger-entry.purchase{border-left:4px solid var(--d)}
+.ledger-entry.payment{border-left:4px solid var(--s)}
 .ledger-entry-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .toast{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:#1a2e22;color:#fff;padding:11px 20px;border-radius:60px;font-weight:600;font-size:.85rem;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:10002;opacity:0;transition:opacity .25s;pointer-events:none;display:flex;align-items:center;gap:9px;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast i{color:#7ee0a5}
-.toast.error{background:var(--danger)}
+.toast.error{background:var(--d)}
 .toast.error i{color:#fff}
 #lockScreen{position:fixed;inset:0;background:linear-gradient(160deg,#0f5132 0%,#0a3b24 100%);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;color:#fff;text-align:center;overflow-y:auto}
 #lockScreen.hidden{display:none}
@@ -201,63 +217,89 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .lock-dot{width:15px;height:15px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.35);transition:background .08s,transform .08s}
 .lock-dot.filled{background:#7ee0a5;border-color:#7ee0a5;transform:scale(1.1)}
 .lock-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:290px;width:100%}
-.key-btn{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-size:1.4rem;font-weight:600;padding:15px 0;border-radius:50%;cursor:pointer;user-select:none;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.key-btn{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-size:1.4rem;font-weight:600;padding:15px 0;border-radius:50%;user-select:none;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
 .key-btn:active{transform:scale(.93);background:rgba(255,255,255,.35)}
 .key-btn.action{font-size:1.1rem}
 .key-btn.empty{visibility:hidden;pointer-events:none}
 .lock-error{color:#ff9b9b;font-size:.83rem;min-height:20px;margin-top:14px;font-weight:500}
-.lock-fingerprint{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);color:#fff;width:60px;height:60px;border-radius:50%;font-size:1.5rem;display:none;align-items:center;justify-content:center;cursor:pointer;margin-top:14px}
+.lock-fingerprint{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);color:#fff;width:60px;height:60px;border-radius:50%;font-size:1.5rem;display:none;align-items:center;justify-content:center;margin-top:14px}
 .lock-fingerprint.show{display:flex}
 #fingerprintHint{display:none;color:#b1e6b1;font-size:.8rem;margin-top:10px;max-width:280px}
-.lock-link{background:none;border:none;color:#b1e6b1;font-size:.83rem;margin-top:12px;text-decoration:underline;cursor:pointer;padding:8px}
+.lock-link{background:none;border:none;color:#b1e6b1;font-size:.83rem;margin-top:12px;text-decoration:underline;padding:8px}
 .lock-shake{animation:shake .4s}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-.confirm-icon{font-size:2.4rem;color:var(--warning);text-align:center;display:block;margin:0 auto 10px}
+.confirm-icon{font-size:2.4rem;color:var(--w);text-align:center;display:block;margin:0 auto 10px}
 .confirm-title{text-align:center;font-size:1.05rem;font-weight:700;margin-bottom:6px}
-.confirm-msg{text-align:center;font-size:.86rem;color:var(--muted);margin-bottom:16px;line-height:1.5}
+.confirm-msg{text-align:center;font-size:.86rem;color:var(--m);margin-bottom:16px;line-height:1.5}
 .upload-progress{position:fixed;inset:0;background:rgba(15,30,20,.7);display:none;align-items:center;justify-content:center;z-index:10001;padding:20px}
 .upload-progress.show{display:flex}
 .upload-box{background:#fff;border-radius:16px;padding:26px;text-align:center;max-width:280px;width:100%}
-.upload-box i{font-size:2.2rem;color:var(--accent);display:block;margin-bottom:10px}
+.upload-box i{font-size:2.2rem;color:var(--a);display:block;margin-bottom:10px}
 .chat-container{display:flex;flex-direction:column;height:70vh;max-height:600px}
 .chat-messages{flex:1;overflow-y:auto;padding:12px;background:#f9fbf8;border-radius:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:10px}
 .chat-msg{max-width:85%;padding:10px 14px;border-radius:16px;font-size:.88rem;line-height:1.5;word-wrap:break-word}
-.chat-msg.user{align-self:flex-end;background:var(--primary);color:#fff;border-bottom-right-radius:4px}
-.chat-msg.ai{align-self:flex-start;background:#fff;border:1px solid var(--border);border-bottom-left-radius:4px;box-shadow:var(--shadow)}
+.chat-msg.user{align-self:flex-end;background:var(--p);color:#fff;border-bottom-right-radius:4px}
+.chat-msg.ai{align-self:flex-start;background:#fff;border:1px solid var(--b);border-bottom-left-radius:4px;box-shadow:var(--sh)}
 .chat-msg.error{align-self:flex-start;background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
-.chat-msg.loading{align-self:flex-start;background:#fff;border:1px solid var(--border);color:var(--muted)}
+.chat-msg.loading{align-self:flex-start;background:#fff;border:1px solid var(--b);color:var(--m)}
 .chat-typing{display:inline-flex;gap:3px}
-.chat-typing span{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:typing 1.2s infinite}
+.chat-typing span{width:6px;height:6px;background:var(--m);border-radius:50%;animation:typing 1.2s infinite}
 .chat-typing span:nth-child(2){animation-delay:.2s}
 .chat-typing span:nth-child(3){animation-delay:.4s}
 @keyframes typing{0%,60%,100%{opacity:.3}30%{opacity:1}}
 .chat-input-row{display:flex;gap:8px}
-.chat-input{flex:1;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:12px;font-size:.9rem;background:#fff}
-.chat-input:focus{outline:none;border-color:var(--purple)}
-.chat-send-btn{background:var(--purple);color:#fff;border:none;width:46px;height:46px;border-radius:12px;font-size:1rem;display:flex;align-items:center;justify-content:center}
-.chat-send-btn:disabled{background:#b8a8dd;cursor:not-allowed}
+.chat-input{flex:1;padding:.75rem .9rem;border:1.5px solid var(--b);border-radius:12px;font-size:.9rem;background:#fff}
+.chat-input:focus{outline:none;border-color:var(--pu)}
+.chat-send-btn{background:var(--pu);color:#fff;border:none;width:46px;height:46px;border-radius:12px;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.chat-send-btn:disabled{background:#b8a8dd}
 .chat-quick{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px;scrollbar-width:none}
 .chat-quick::-webkit-scrollbar{display:none}
-.chat-quick-btn{flex-shrink:0;background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd;padding:.4rem .8rem;border-radius:20px;font-size:.72rem;font-weight:600;white-space:nowrap}
+.chat-quick-btn{flex-shrink:0;background:var(--pub);color:#5b21b6;border:1px solid #c4b5fd;padding:.4rem .8rem;border-radius:20px;font-size:.72rem;font-weight:600;white-space:nowrap}
 .ocr-scanning{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border-radius:16px;padding:20px;text-align:center;margin-bottom:12px}
 .ocr-scanning .spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;margin:0 auto 12px;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.ocr-result{background:#f0f7ec;border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
-.ocr-result .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--border);font-size:.86rem}
+.ocr-result{background:#f0f7ec;border:1px solid var(--b);border-radius:12px;padding:14px;margin-bottom:12px}
+.ocr-result .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--b);font-size:.86rem}
 .ocr-result .row:last-child{border-bottom:none}
-.ocr-result .row .k{color:var(--muted);font-weight:600}
+.ocr-result .row .k{color:var(--m);font-weight:600}
 .ocr-result .row .v{font-weight:700;text-align:right}
+.calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;background:#fff;padding:10px 14px;border-radius:12px;border:1px solid var(--b)}
+.calendar-header .month-label{font-weight:800;color:var(--p);font-size:1rem}
+.calendar-header button{background:#f0f5f1;border:none;width:34px;height:34px;border-radius:50%;color:var(--p);font-size:.9rem}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#fff;padding:10px;border-radius:12px;border:1px solid var(--b)}
+.cal-day-label{text-align:center;font-size:.68rem;font-weight:700;color:var(--m);padding:4px 0}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;font-size:.78rem;font-weight:600;background:#fafcf9;border:1px solid transparent}
+.cal-day.empty{background:transparent;cursor:default}
+.cal-day.today{background:var(--p);color:#fff}
+.cal-day.has-bills{background:#fef3c7;border-color:var(--w)}
+.cal-day.has-overdue{background:var(--db);border-color:var(--d)}
+.cal-day .dot-row{display:flex;gap:2px;margin-top:2px}
+.cal-day .dot-row .d{width:4px;height:4px;border-radius:50%;background:var(--p)}
+.cal-day .dot-row .d.red{background:var(--d)}
+.cal-day .dot-row .d.green{background:var(--s)}
+.attach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.attach-item{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#f0f5f1;border:1px solid var(--b);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.attach-item img{width:100%;height:100%;object-fit:cover}
+.attach-item .file-icon{font-size:1.8rem;color:var(--m)}
+.attach-item .del-btn{position:absolute;top:3px;right:3px;background:rgba(255,255,255,.9);border:none;width:22px;height:22px;border-radius:50%;color:var(--d);font-size:.65rem;display:flex;align-items:center;justify-content:center}
+.attach-add{aspect-ratio:1;border:2px dashed var(--b);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:var(--m);font-size:.68rem;font-weight:600;background:#fafcf9}
+.attach-add i{font-size:1.3rem;color:var(--a)}
+.audit-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--b);font-size:.82rem}
+.audit-item:last-child{border-bottom:none}
+.audit-item .a-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f0f5f1;color:var(--p);font-size:.85rem;flex-shrink:0}
+.audit-item .a-content{flex:1}
+.audit-item .a-text{font-weight:600}
+.audit-item .a-time{color:var(--m);font-size:.7rem;margin-top:2px}
 #print-area{display:none}
 @media print{
 body>*:not(#print-area){display:none!important}
 body{padding:0!important;background:#fff}
-#print-area{display:block!important;background:#fff;padding:0;color:#000}
-.print-doc{padding:15mm;max-width:210mm;font-family:'Segoe UI',Arial,sans-serif;color:#000}
+#print-area{display:block!important;padding:15mm;font-family:'Segoe UI',Arial,sans-serif;color:#000}
 .print-doc h1{font-size:22pt;color:#0f5132;margin-bottom:4px}
 .print-doc h2{font-size:11pt;color:#333;font-weight:500;margin-bottom:20px}
 .print-doc .p-head{border-bottom:3px solid #0f5132;padding-bottom:14px;margin-bottom:20px;display:flex;justify-content:space-between}
 .print-doc .p-section{margin-bottom:18px}
-.print-doc .p-section h3{font-size:11pt;color:#0f5132;background:#e8f3ea;padding:6px 10px;border-radius:4px;margin-bottom:10px;text-transform:uppercase}
+.print-doc .p-section h3{font-size:11pt;color:#0f5132;background:#e8f3ea;padding:6px 10px;border-radius:4px;margin-bottom:10px}
 .print-doc table{width:100%;border-collapse:collapse;font-size:10pt}
 .print-doc table th{background:#0f5132;color:#fff;padding:8px 12px;text-align:left}
 .print-doc table th.r{text-align:right}
@@ -270,10 +312,11 @@ body{padding:0!important;background:#fff}
 </head>
 <body>
 
-<div id="lockScreen">
+<!-- LOCK SCREEN -->
+<div id="lockScreen" class="hidden">
   <div class="lock-logo"><i class="fas fa-lock"></i></div>
   <div class="lock-title" id="lockTitle">Enter PIN</div>
-  <div class="lock-subtitle" id="lockSubtitle">Apna 4-digit PIN daalein</div>
+  <div class="lock-subtitle" id="lockSubtitle">4-digit PIN</div>
   <div class="lock-dots" id="lockDots"><div class="lock-dot"></div><div class="lock-dot"></div><div class="lock-dot"></div><div class="lock-dot"></div></div>
   <div class="lock-keys" id="lockKeys">
     <button class="key-btn" data-key="1">1</button><button class="key-btn" data-key="2">2</button><button class="key-btn" data-key="3">3</button>
@@ -289,23 +332,12 @@ body{padding:0!important;background:#fff}
   <button class="lock-link" id="lockCancelBtn" style="display:none">Cancel</button>
 </div>
 
-<script>
-(function(){
-  try{
-    var unlocked = sessionStorage.getItem('bm_session_unlocked') === 'yes';
-    var secRaw = localStorage.getItem('bm_security_v5') || localStorage.getItem('bm_security_v4') || localStorage.getItem('bm_security_v3');
-    var hasPin = false;
-    if (secRaw){ try { var sec = JSON.parse(secRaw); hasPin = !!(sec && sec.pinHash); } catch(e){} }
-    if (unlocked || !hasPin){ var ls = document.getElementById('lockScreen'); if (ls) ls.classList.add('hidden'); }
-  }catch(e){}
-})();
-</script>
-
 <header class="app-header">
   <div class="app-header-row">
-    <div class="app-title"><i class="fas fa-file-invoice-dollar"></i> <span>Bills Manager Pro</span></div>
+    <div class="app-title"><i class="fas fa-file-invoice-dollar"></i> <span>Bills Pro</span></div>
     <div class="header-actions">
       <button class="install-btn" id="installBtn"><i class="fas fa-download"></i> Install</button>
+      <button class="icon-btn" id="aiChatBtn"><i class="fas fa-robot"></i></button>
       <button class="icon-btn" id="notifBtn"><i class="fas fa-bell"></i><span class="dot" id="notifDot" style="display:none"></span></button>
       <button class="icon-btn" id="lockNowBtn"><i class="fas fa-lock"></i></button>
       <button class="icon-btn" id="settingsBtn"><i class="fas fa-cog"></i></button>
@@ -314,6 +346,7 @@ body{padding:0!important;background:#fff}
 </header>
 
 <main>
+  <!-- BILLS -->
   <section class="view active" id="view-bills">
     <div class="metrics-grid">
       <div class="metric-card primary">
@@ -331,7 +364,14 @@ body{padding:0!important;background:#fff}
       <div class="metric-card danger"><div class="m-label">Overdue</div><div class="m-value" id="mOverdue">Rs. 0</div><i class="fas fa-exclamation-triangle m-icon"></i></div>
       <div class="metric-card"><div class="m-label">Due Soon (7d)</div><div class="m-value" id="mDueSoon">Rs. 0</div><i class="fas fa-calendar-day m-icon"></i></div>
     </div>
+    <div id="budgetCardHolder"></div>
     <div id="alertsContainer"></div>
+    <div class="quick-actions">
+      <button class="quick-btn" id="qaRecurring"><i class="fas fa-arrows-rotate"></i><span>Recurring</span></button>
+      <button class="quick-btn" id="qaReturn"><i class="fas fa-rotate-left"></i><span>Return</span></button>
+      <button class="quick-btn" id="qaCalendar"><i class="fas fa-calendar"></i><span>Calendar</span></button>
+      <button class="quick-btn" id="qaAudit"><i class="fas fa-history"></i><span>Log</span></button>
+    </div>
     <div class="search-wrap"><i class="fas fa-search"></i><input type="text" class="search-input" id="searchInput" placeholder="Search supplier, bill #, amount..."></div>
     <div class="filter-row" id="filterRow">
       <button class="chip active" data-filter="all">All</button>
@@ -341,11 +381,13 @@ body{padding:0!important;background:#fff}
       <button class="chip" data-filter="unpaid">Unpaid</button>
       <button class="chip" data-filter="partial">Partial</button>
       <button class="chip" data-filter="overdue">Overdue</button>
+      <button class="chip" data-filter="recurring">Recurring</button>
     </div>
-    <div class="section-title"><i class="fas fa-receipt"></i> <span id="billsListTitle">All Bills</span><span class="right" id="billsCount"></span></div>
+    <div class="section-title"><i class="fas fa-receipt"></i> <span id="billsListTitle">All Bills</span><span style="margin-left:auto;font-weight:600;font-size:.75rem;color:var(--m)" id="billsCount"></span></div>
     <div class="bill-list" id="billList"></div>
   </section>
 
+  <!-- KHATA -->
   <section class="view" id="view-khaata">
     <div class="khata-summary">
       <div class="label">Total Outstanding (You Owe)</div>
@@ -360,6 +402,7 @@ body{padding:0!important;background:#fff}
     <div class="bill-list" id="khataList"></div>
   </section>
 
+  <!-- ADD -->
   <section class="view" id="view-add">
     <div class="section-title"><i class="fas fa-plus-circle"></i> Add New</div>
     <div class="add-options">
@@ -368,13 +411,16 @@ body{padding:0!important;background:#fff}
       <button class="opt-card" id="optPayment"><div class="opt-icon pay"><i class="fas fa-money-bill-transfer"></i></div><div class="opt-text"><h4>Payment</h4><p>Record</p></div></button>
       <button class="opt-card" id="optSupplier"><div class="opt-icon sup"><i class="fas fa-user-plus"></i></div><div class="opt-text"><h4>Supplier</h4><p>Add vendor</p></div></button>
       <button class="opt-card" id="optAI"><div class="opt-icon ai"><i class="fas fa-robot"></i></div><div class="opt-text"><h4>AI Chat</h4><p>Ask anything</p></div></button>
-      <button class="opt-card" id="manageCatBtn"><div class="opt-icon set"><i class="fas fa-tags"></i></div><div class="opt-text"><h4>Categories</h4><p>Manage</p></div></button>
+      <button class="opt-card" id="optReturn2"><div class="opt-icon ret"><i class="fas fa-rotate-left"></i></div><div class="opt-text"><h4>Return</h4><p>Purchase return</p></div></button>
+      <button class="opt-card" id="optRecurring2"><div class="opt-icon rec"><i class="fas fa-arrows-rotate"></i></div><div class="opt-text"><h4>Recurring</h4><p>Auto-repeat</p></div></button>
+      <button class="opt-card" id="optCalendar2"><div class="opt-icon cal"><i class="fas fa-calendar"></i></div><div class="opt-text"><h4>Calendar</h4><p>Due dates</p></div></button>
     </div>
   </section>
 
+  <!-- SUMMARY -->
   <section class="view" id="view-summary">
     <div class="summary-range">
-      <span class="label"><i class="fas fa-calendar"></i> Period</span>
+      <span style="font-size:.76rem;color:var(--m);font-weight:600"><i class="fas fa-calendar"></i> Period</span>
       <select id="summaryMonth">
         <option value="all">All Time</option>
         <option value="0">January</option><option value="1">February</option><option value="2">March</option>
@@ -409,12 +455,22 @@ body{padding:0!important;background:#fff}
   <button class="btn btn-accent btn-block" id="camUseBtn" style="display:none"><i class="fas fa-check"></i> Use this photo</button>
 </div></div>
 
+<!-- OCR RESULT -->
+<div class="overlay" id="ocrOverlay"><div class="sheet">
+  <div class="sheet-header"><h2><i class="fas fa-magic"></i> AI Scan Result</h2><button class="close-btn" data-close="ocrOverlay"><i class="fas fa-times"></i></button></div>
+  <div id="ocrContent"></div>
+  <div class="btn-row">
+    <button class="btn btn-outline" id="ocrRetryBtn"><i class="fas fa-redo"></i> Retry</button>
+    <button class="btn btn-primary" id="ocrConfirmBtn" disabled><i class="fas fa-check"></i> Confirm</button>
+  </div>
+</div></div>
+
 <!-- BILL FORM -->
 <div class="overlay" id="formOverlay"><div class="sheet">
   <div class="sheet-header"><h2 id="formTitle"><i class="fas fa-file-invoice"></i> Bill</h2><button class="close-btn" data-close="formOverlay"><i class="fas fa-times"></i></button></div>
   <form id="billForm" onsubmit="return false">
     <div id="formImagePreview" style="display:none;margin-bottom:10px">
-      <img id="formImage" style="width:100%;border-radius:12px;border:1px solid var(--border);max-height:160px;object-fit:contain;background:#f0f5f1">
+      <img id="formImage" style="width:100%;border-radius:12px;border:1px solid var(--b);max-height:160px;object-fit:contain;background:#f0f5f1">
       <button type="button" class="btn btn-outline btn-sm" style="margin-top:6px" id="removeImageBtn"><i class="fas fa-times"></i> Remove</button>
     </div>
     <div class="fg-row">
@@ -436,6 +492,13 @@ body{padding:0!important;background:#fff}
       <div class="fg"><label><i class="fas fa-user-check"></i> Booked By</label><input type="text" id="fBookedBy"></div>
     </div>
     <div class="fg"><label><i class="fas fa-note-sticky"></i> Notes</label><textarea id="fNotes" placeholder="Optional..."></textarea></div>
+    <div class="chk-row"><input type="checkbox" id="fIsRecurring"><label for="fIsRecurring">Recurring bill</label></div>
+    <div id="recurringFields" style="display:none;background:#f9fbf8;border-radius:10px;padding:10px;margin-bottom:11px">
+      <div class="fg-row">
+        <div class="fg"><label>Frequency</label><select id="fRecurFreq"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option><option value="quarterly">Quarterly</option><option value="yearly">Yearly</option></select></div>
+        <div class="fg"><label>Next Date</label><input type="date" id="fRecurNext"></div>
+      </div>
+    </div>
     <div class="btn-row">
       <button type="button" class="btn btn-outline" data-close="formOverlay">Cancel</button>
       <button type="submit" class="btn btn-primary" id="saveBillBtn"><i class="fas fa-save"></i> Save</button>
@@ -448,7 +511,7 @@ body{padding:0!important;background:#fff}
   <div class="sheet-header"><h2><i class="fas fa-file-invoice"></i> Bill Detail</h2><button class="close-btn" data-close="detailOverlay"><i class="fas fa-times"></i></button></div>
   <div id="detailContent"></div>
   <div class="btn-row" style="margin-top:12px">
-    <button class="btn btn-success btn-sm" id="dAddPayBtn"><i class="fas fa-plus"></i> Add Payment</button>
+    <button class="btn btn-success btn-sm" id="dAddPayBtn"><i class="fas fa-plus"></i> Payment</button>
     <button class="btn btn-outline btn-sm" id="dMarkPaidBtn"><i class="fas fa-check"></i> Mark Paid</button>
   </div>
   <div class="btn-row">
@@ -465,8 +528,8 @@ body{padding:0!important;background:#fff}
   <div class="sheet-header"><h2><i class="fas fa-money-bill-transfer"></i> Payment</h2><button class="close-btn" data-close="paymentOverlay"><i class="fas fa-times"></i></button></div>
   <div id="payBillInfo" style="background:#f0f7ec;border-radius:12px;padding:12px;margin-bottom:12px;font-size:.83rem">
     <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Bill Total</span><span style="font-weight:800" id="payBillTotal">Rs. 0</span></div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Paid</span><span style="font-weight:800;color:var(--success)" id="payBillPaid">Rs. 0</span></div>
-    <div style="display:flex;justify-content:space-between;padding-top:6px;border-top:1px dashed var(--border)"><span style="color:var(--danger);font-weight:700">Remaining</span><span style="font-weight:800;color:var(--danger)" id="payBillRemaining">Rs. 0</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Paid</span><span style="font-weight:800;color:var(--s)" id="payBillPaid">Rs. 0</span></div>
+    <div style="display:flex;justify-content:space-between;padding-top:6px;border-top:1px dashed var(--b)"><span style="color:var(--d);font-weight:700">Remaining</span><span style="font-weight:800;color:var(--d)" id="payBillRemaining">Rs. 0</span></div>
   </div>
   <form id="paymentForm" onsubmit="return false">
     <div class="fg"><label><i class="fas fa-money-bill-wave"></i> Amount *</label><input type="number" id="fPayAmount" placeholder="0.00" step="0.01" min="0" inputmode="decimal"><div class="fg-err" id="errPayAmount">Required</div></div>
@@ -530,6 +593,7 @@ body{padding:0!important;background:#fff}
       <button class="chat-quick-btn" data-q="Kitna outstanding baqaya hai?">Outstanding?</button>
       <button class="chat-quick-btn" data-q="Kis supplier ko sabse zyada dena hai?">Top pending?</button>
       <button class="chat-quick-btn" data-q="Agle 7 din mein kaunse bills due hain?">Due soon?</button>
+      <button class="chat-quick-btn" data-q="Is mahine kis category mein sabse zyada kharcha hua?">Top category?</button>
     </div>
     <div class="chat-input-row">
       <input type="text" class="chat-input" id="chatInput" placeholder="Poochein kuch bhi...">
@@ -538,20 +602,62 @@ body{padding:0!important;background:#fff}
   </div>
 </div></div>
 
-<!-- OCR -->
-<div class="overlay" id="ocrOverlay"><div class="sheet">
-  <div class="sheet-header"><h2><i class="fas fa-magic"></i> AI Scan Result</h2><button class="close-btn" data-close="ocrOverlay"><i class="fas fa-times"></i></button></div>
-  <div id="ocrContent"></div>
+<!-- RECURRING -->
+<div class="overlay" id="recurringOverlay"><div class="sheet">
+  <div class="sheet-header"><h2><i class="fas fa-arrows-rotate"></i> Recurring Bills</h2><button class="close-btn" data-close="recurringOverlay"><i class="fas fa-times"></i></button></div>
+  <div id="recurringContent"></div>
+</div></div>
+
+<!-- RETURN -->
+<div class="overlay" id="returnOverlay"><div class="sheet">
+  <div class="sheet-header"><h2><i class="fas fa-rotate-left"></i> Purchase Return</h2><button class="close-btn" data-close="returnOverlay"><i class="fas fa-times"></i></button></div>
+  <div class="fg"><label><i class="fas fa-file-invoice"></i> Select Bill</label><select id="retBillSelect"></select></div>
+  <div class="fg"><label><i class="fas fa-money-bill-wave"></i> Return Amount</label><input type="number" id="retAmount" placeholder="0.00" step="0.01" min="0" inputmode="decimal"></div>
+  <div class="fg"><label><i class="fas fa-calendar"></i> Date</label><input type="date" id="retDate"></div>
+  <div class="fg"><label><i class="fas fa-note-sticky"></i> Reason</label><textarea id="retNotes" placeholder="Damaged / Wrong item"></textarea></div>
   <div class="btn-row">
-    <button class="btn btn-outline" id="ocrRetryBtn"><i class="fas fa-redo"></i> Retry</button>
-    <button class="btn btn-primary" id="ocrConfirmBtn" disabled><i class="fas fa-check"></i> Confirm</button>
+    <button class="btn btn-outline" data-close="returnOverlay">Cancel</button>
+    <button class="btn btn-danger" id="saveReturnBtn"><i class="fas fa-check"></i> Confirm</button>
   </div>
+</div></div>
+
+<!-- CALENDAR -->
+<div class="overlay" id="calendarOverlay"><div class="sheet">
+  <div class="sheet-header"><h2><i class="fas fa-calendar"></i> Bill Calendar</h2><button class="close-btn" data-close="calendarOverlay"><i class="fas fa-times"></i></button></div>
+  <div class="calendar-header">
+    <button id="calPrev"><i class="fas fa-chevron-left"></i></button>
+    <div class="month-label" id="calMonth"></div>
+    <button id="calNext"><i class="fas fa-chevron-right"></i></button>
+  </div>
+  <div class="calendar-grid" id="calendarGrid"></div>
+  <div id="calDayDetails" style="margin-top:14px"></div>
+</div></div>
+
+<!-- ATTACHMENTS -->
+<div class="overlay" id="attachOverlay"><div class="sheet">
+  <div class="sheet-header"><h2><i class="fas fa-paperclip"></i> Attachments</h2><button class="close-btn" data-close="attachOverlay"><i class="fas fa-times"></i></button></div>
+  <input type="file" id="attachInput" accept="image/*,application/pdf" multiple style="display:none">
+  <div class="attach-grid" id="attachGrid"></div>
+  <button class="btn btn-accent btn-block" id="addAttachBtn2" style="margin-top:12px"><i class="fas fa-plus"></i> Add File</button>
+  <p style="font-size:.72rem;color:var(--m);margin-top:8px;text-align:center">Photos Cloudinary pe, PDFs local</p>
+</div></div>
+
+<!-- AUDIT -->
+<div class="overlay" id="auditOverlay"><div class="sheet">
+  <div class="sheet-header"><h2><i class="fas fa-history"></i> Activity Log</h2><button class="close-btn" data-close="auditOverlay"><i class="fas fa-times"></i></button></div>
+  <div class="filter-row" style="margin-bottom:10px">
+    <button class="chip active" data-audit-filter="all">All</button>
+    <button class="chip" data-audit-filter="bill">Bills</button>
+    <button class="chip" data-audit-filter="payment">Payments</button>
+    <button class="chip" data-audit-filter="supplier">Suppliers</button>
+  </div>
+  <div id="auditContent"></div>
 </div></div>
 
 <!-- CONFIRM -->
 <div class="overlay center" id="confirmOverlay"><div class="sheet" style="max-width:340px">
   <i class="fas fa-triangle-exclamation confirm-icon"></i>
-  <div class="confirm-title" id="confirmTitle">Are you sure?</div>
+  <div class="confirm-title" id="confirmTitle">Sure?</div>
   <div class="confirm-msg" id="confirmMsg"></div>
   <div class="btn-row">
     <button class="btn btn-outline" id="confirmCancel">Cancel</button>
@@ -569,11 +675,12 @@ body{padding:0!important;background:#fff}
 <div class="overlay center" id="settingsOverlay"><div class="sheet" style="max-width:440px">
   <div class="sheet-header"><h2><i class="fas fa-cog"></i> Settings</h2><button class="close-btn" data-close="settingsOverlay"><i class="fas fa-times"></i></button></div>
   <div class="fg"><label><i class="fas fa-store"></i> Shop Name</label><input type="text" id="sShopName"></div>
-  <div class="fg"><label><i class="fas fa-location-dot"></i> Shop Address</label><input type="text" id="sShopAddress"></div>
-  <div class="fg"><label><i class="fas fa-phone"></i> Shop Phone</label><input type="tel" id="sShopPhone"></div>
+  <div class="fg"><label><i class="fas fa-location-dot"></i> Address</label><input type="text" id="sShopAddress"></div>
+  <div class="fg"><label><i class="fas fa-phone"></i> Phone</label><input type="tel" id="sShopPhone"></div>
+  <div class="fg"><label><i class="fas fa-wallet"></i> Monthly Budget (Rs.)</label><input type="number" id="sBudget" placeholder="0" step="100" min="0" inputmode="decimal"></div>
   <button class="btn btn-primary btn-block" id="saveSettingsBtn"><i class="fas fa-save"></i> Save Shop</button>
 
-  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
+  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--b)">
     <div class="section-title" style="margin-top:0"><i class="fas fa-shield-halved"></i> Security</div>
     <button class="btn btn-outline btn-block" id="changePinBtn"><i class="fas fa-key"></i> Change PIN</button>
     <div id="fingerprintSettingRow" style="margin-top:8px;display:none">
@@ -582,37 +689,37 @@ body{padding:0!important;background:#fff}
     <div class="chk-row" style="margin-top:10px"><input type="checkbox" id="hideAmountsToggle"><label for="hideAmountsToggle">Hide amounts</label></div>
   </div>
 
-  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
-    <div class="section-title" style="margin-top:0"><i class="fas fa-robot"></i> AI Assistant</div>
-    <div class="fg"><label>Gemini API Key</label><input type="password" id="sGeminiKey" placeholder="AIzaSy..."><small style="color:var(--muted);font-size:.7rem;display:block;margin-top:4px">Free: aistudio.google.com</small></div>
+  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--b)">
+    <div class="section-title" style="margin-top:0"><i class="fas fa-robot"></i> AI (Gemini)</div>
+    <div class="fg"><label>Gemini API Key</label><input type="password" id="sGeminiKey" placeholder="AIzaSy..."><small style="color:var(--m);font-size:.7rem;display:block;margin-top:4px">Free: aistudio.google.com</small></div>
     <div class="fg-row">
       <button class="btn btn-accent" id="saveAiKeyBtn"><i class="fas fa-save"></i> Save</button>
       <button class="btn btn-outline" id="testAiBtn"><i class="fas fa-flask"></i> Test</button>
     </div>
   </div>
 
-  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
+  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--b)">
     <div class="section-title" style="margin-top:0"><i class="fas fa-cloud"></i> Cloudinary</div>
     <div class="fg"><label>Cloud Name</label><input type="text" id="sCloudName"></div>
     <div class="fg"><label>Upload Preset</label><input type="text" id="sCloudPreset"></div>
     <button class="btn btn-accent btn-block" id="saveCloudBtn"><i class="fas fa-cloud-upload-alt"></i> Save</button>
   </div>
 
-  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
+  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--b)">
     <div class="section-title" style="margin-top:0"><i class="fas fa-database"></i> Backup</div>
     <button class="btn btn-outline btn-block" id="exportDataBtn"><i class="fas fa-download"></i> Export Backup (JSON)</button>
     <button class="btn btn-outline btn-block" style="margin-top:8px" id="importDataBtn"><i class="fas fa-upload"></i> Import Backup</button>
     <input type="file" id="importFile" accept=".json" style="display:none">
-    <button class="btn btn-outline btn-block" style="margin-top:8px" id="exportCsvBtn"><i class="fas fa-file-csv"></i> Export Bills (CSV)</button>
+    <button class="btn btn-outline btn-block" style="margin-top:8px" id="exportCsvBtn"><i class="fas fa-file-csv"></i> Export CSV</button>
     <button class="btn btn-outline btn-block" style="margin-top:8px" id="storageInfoBtn"><i class="fas fa-database"></i> Storage Info</button>
-    <button class="btn btn-outline btn-block" style="margin-top:8px;color:var(--danger)" id="clearAllBtn"><i class="fas fa-trash"></i> Clear All Data</button>
+    <button class="btn btn-outline btn-block" style="margin-top:8px;color:var(--d)" id="clearAllBtn"><i class="fas fa-trash"></i> Clear All Data</button>
   </div>
 </div></div>
 
 <!-- SECURITY Q -->
 <div class="overlay center" id="secqSetupOverlay"><div class="sheet" style="max-width:440px">
   <div class="sheet-header"><h2><i class="fas fa-shield-halved"></i> Security Questions</h2></div>
-  <p style="font-size:.83rem;color:var(--muted);margin-bottom:14px;text-align:center">PIN reset ke liye</p>
+  <p style="font-size:.83rem;color:var(--m);margin-bottom:14px;text-align:center">PIN reset ke liye</p>
   <div class="fg"><label>Sawaal 1</label><select id="secq1Select" style="margin-bottom:6px">
     <option value="">-- Chunein --</option><option>Aapki maa ka naam?</option><option>Aapke pehle school ka naam?</option><option>Aapki pehli job kahan thi?</option><option>Aapka bachpan ka best friend?</option><option>Aapki pehli gaadi ka number?</option><option>Aapka favorite color?</option><option>Aapki shaadi ki tareekh?</option><option value="__custom__">+ Custom</option>
   </select><input type="text" id="secq1Custom" placeholder="Sawaal" style="display:none;margin-bottom:6px"><input type="text" id="secq1Answer" placeholder="Jawab"></div>
@@ -653,7 +760,6 @@ body{padding:0!important;background:#fff}
   const $ = id => document.getElementById(id);
   const $$ = sel => document.querySelectorAll(sel);
 
-  // FIXED KEYS — no suffix, works reliably
   const KEYS = {
     bills: 'bm_bills_v3',
     suppliers: 'bm_suppliers_v3',
@@ -663,17 +769,9 @@ body{padding:0!important;background:#fff}
     security: 'bm_security_v5'
   };
 
-  const OLD_KEYS = {
-    bills: ['bm_bills_v2', 'bm_bills_cloud_v1'],
-    suppliers: ['bm_suppliers_v2'],
-    khaatas: ['bm_khaatas_v1'],
-    settings: ['bm_settings_v2', 'bm_settings_cloud_v1'],
-    categories: ['bm_categories_v1'],
-    security: ['bm_security_v4', 'bm_security_v3']
-  };
-
   const SESSION_KEY = 'bm_session_unlocked';
-  const PROMPT_KEY = 'bm_pin_prompt_v5';
+  const PROMPT_KEY = 'bm_pin_prompt_v6';
+  const MIGRATION_FLAG = 'bm_migrated_v7';
 
   const DEFAULT_CATEGORIES = [
     'Grocery','Vegetables','Fruits','Dairy','Meat','Bakery','Beverages',
@@ -688,7 +786,7 @@ body{padding:0!important;background:#fff}
   let settings = {
     shopName:'', shopAddress:'', shopPhone:'',
     cloudName:'', cloudPreset:'', geminiKey:'',
-    hideAmounts: false
+    hideAmounts: false, monthlyBudget: 0
   };
   let security = {
     pinHash: null, secQ1:'', secA1Hash:'', secQ2:'', secA2Hash:'',
@@ -699,19 +797,23 @@ body{padding:0!important;background:#fff}
   let currentBillId = null;
   let currentSupplierId = null;
   let currentPaymentBillId = null;
+  let currentAttachBillId = null;
   let editingId = null;
   let editingSupplierId = null;
   let currentPhotoData = null;
   let currentFilter = 'all';
   let currentSearch = '';
   let khataSearch = '';
+  let currentAuditFilter = 'all';
+  let calendarDate = new Date();
+  let selectedCalDate = null;
   let ocrExtracted = null;
 
-  /* ============ UTILS ============ */
+  /* ============ HELPERS ============ */
   function uid(p){ return p + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,7); }
-  function fmtRs(n){ const v = Number(n)||0; return 'Rs. ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function fmtRs(n){ const v = Number(n) || 0; return 'Rs. ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
   function fmtRsShort(n){
-    const v = Number(n)||0;
+    const v = Number(n) || 0;
     if (Math.abs(v) >= 100000) return 'Rs. ' + (v/100000).toFixed(1) + 'L';
     if (Math.abs(v) >= 1000) return 'Rs. ' + (v/1000).toFixed(1) + 'k';
     return 'Rs. ' + v.toFixed(0);
@@ -721,12 +823,12 @@ body{padding:0!important;background:#fff}
     try { const dt = new Date(d); if (isNaN(dt.getTime())) return d; return dt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); } catch(e){ return d; }
   }
   function todayISO(){ return new Date().toISOString().split('T')[0]; }
-  function esc(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function esc(s){ return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
   function hideAmt(s){ return settings.hideAmounts ? '••••••' : s; }
 
   /* ============ BILL MATH ============ */
-  function billTotal(b){ return (Number(b.amount)||0) + (Number(b.tax)||0); }
-  function billPaid(b){ if (!Array.isArray(b.payments)) return 0; return b.payments.reduce((s,p) => s + (Number(p.amount)||0), 0); }
+  function billTotal(b){ return (Number(b.amount) || 0) + (Number(b.tax) || 0); }
+  function billPaid(b){ if (!Array.isArray(b.payments)) return 0; return b.payments.reduce((s, p) => s + (Number(p.amount) || 0), 0); }
   function billRemaining(b){ return Math.max(0, billTotal(b) - billPaid(b)); }
   function billStatus(b){
     const total = billTotal(b);
@@ -747,22 +849,25 @@ body{padding:0!important;background:#fff}
   function overdue(b){ return billStatus(b) === 'overdue'; }
 
   /* ============ MIGRATION ============ */
-  function migrateIfNeeded(){
+  function migrateData(){
     try {
-      const flag = 'bm_migrated_v6';
-      if (localStorage.getItem(flag) === 'yes') return;
+      if (localStorage.getItem(MIGRATION_FLAG) === 'yes') return;
 
-      // Bills
-      let newBills = [];
-      const newRaw = localStorage.getItem(KEYS.bills);
-      if (newRaw){ try { newBills = JSON.parse(newRaw) || []; } catch(e){} }
-      if (!Array.isArray(newBills) || newBills.length === 0){
-        // Try v2
+      // Check if new bills already exist
+      const existingNew = localStorage.getItem(KEYS.bills);
+      let newBillsArr = [];
+      if (existingNew){
+        try { newBillsArr = JSON.parse(existingNew) || []; } catch(e){}
+      }
+
+      // If no new bills, migrate from old
+      if (!Array.isArray(newBillsArr) || newBillsArr.length === 0){
+        // Try bm_bills_v2 first
         const v2 = localStorage.getItem('bm_bills_v2');
         if (v2){
           try {
             const arr = JSON.parse(v2) || [];
-            newBills = arr.map(b => ({
+            newBillsArr = arr.map(b => ({
               id: b.id || uid('bill'),
               supplierId: b.supplierId || null,
               supplierName: b.supplierName || 'Unknown',
@@ -777,19 +882,25 @@ body{padding:0!important;background:#fff}
               bookedBy: b.bookedBy || '',
               notes: b.notes || '',
               imageUrl: b.imageUrl || null,
+              attachments: Array.isArray(b.attachments) ? b.attachments : [],
               payments: Array.isArray(b.payments) ? b.payments : [],
+              returnedAmount: Number(b.returnedAmount) || 0,
+              isRecurring: !!b.isRecurring,
+              recurFreq: b.recurFreq || '',
+              recurNext: b.recurNext || '',
               createdAt: b.createdAt || Date.now(),
               updatedAt: Date.now()
             }));
           } catch(e){}
         }
-        // Try cloud v1
-        if (newBills.length === 0){
+
+        // Try bm_bills_cloud_v1
+        if (newBillsArr.length === 0){
           const v1 = localStorage.getItem('bm_bills_cloud_v1');
           if (v1){
             try {
               const arr = JSON.parse(v1) || [];
-              newBills = arr.map(b => ({
+              newBillsArr = arr.map(b => ({
                 id: b.id || uid('bill'),
                 supplierId: null,
                 supplierName: b.agencyName || 'Unknown',
@@ -797,22 +908,27 @@ body{padding:0!important;background:#fff}
                 billDate: b.supplyDate || b.bookingDate || new Date(b.createdAt || Date.now()).toISOString().split('T')[0],
                 dueDate: '',
                 amount: Number(b.amount) || 0,
-                tax: (Number(b.advanceTax)||0) + (Number(b.withholdingTax)||0),
+                tax: (Number(b.advanceTax) || 0) + (Number(b.withholdingTax) || 0),
                 paymentType: b.payment === 'cash' ? 'cash' : 'credit',
                 category: '',
                 phone: b.phone || '',
                 bookedBy: b.bookedBy || '',
                 notes: b.notes || '',
                 imageUrl: b.imageUrl || null,
+                attachments: [],
                 payments: [],
+                returnedAmount: 0,
+                isRecurring: false,
+                recurFreq: '', recurNext: '',
                 createdAt: b.createdAt || Date.now(),
                 updatedAt: Date.now()
               }));
             } catch(e){}
           }
         }
+
         // Try khaatas
-        if (newBills.length === 0){
+        if (newBillsArr.length === 0){
           const kh = localStorage.getItem('bm_khaatas_v1');
           if (kh){
             try {
@@ -820,7 +936,7 @@ body{padding:0!important;background:#fff}
               arr.forEach(k => {
                 (k.entries || []).forEach(e => {
                   if (e.type === 'purchase'){
-                    newBills.push({
+                    newBillsArr.push({
                       id: uid('bill'),
                       supplierId: null,
                       supplierName: k.agencyName || 'Unknown',
@@ -835,7 +951,11 @@ body{padding:0!important;background:#fff}
                       bookedBy: '',
                       notes: e.notes || '',
                       imageUrl: null,
+                      attachments: [],
                       payments: [],
+                      returnedAmount: 0,
+                      isRecurring: false,
+                      recurFreq: '', recurNext: '',
                       createdAt: e.createdAt || Date.now(),
                       updatedAt: Date.now()
                     });
@@ -845,24 +965,25 @@ body{padding:0!important;background:#fff}
             } catch(e){}
           }
         }
-        if (newBills.length > 0){
-          localStorage.setItem(KEYS.bills, JSON.stringify(newBills));
+
+        if (newBillsArr.length > 0){
+          localStorage.setItem(KEYS.bills, JSON.stringify(newBillsArr));
         }
       }
 
       // Suppliers
-      let newSups = [];
-      const supRaw = localStorage.getItem(KEYS.suppliers);
-      if (supRaw){ try { newSups = JSON.parse(supRaw) || []; } catch(e){} }
-      if (!Array.isArray(newSups) || newSups.length === 0){
-        const v2 = localStorage.getItem('bm_suppliers_v2');
-        if (v2){ try { newSups = JSON.parse(v2) || []; } catch(e){} }
-        if (newSups.length === 0){
+      const existingSups = localStorage.getItem(KEYS.suppliers);
+      let newSupsArr = [];
+      if (existingSups){ try { newSupsArr = JSON.parse(existingSups) || []; } catch(e){} }
+      if (!Array.isArray(newSupsArr) || newSupsArr.length === 0){
+        const v2s = localStorage.getItem('bm_suppliers_v2');
+        if (v2s){ try { newSupsArr = JSON.parse(v2s) || []; } catch(e){} }
+        if (newSupsArr.length === 0){
           const kh = localStorage.getItem('bm_khaatas_v1');
           if (kh){
             try {
               const arr = JSON.parse(kh) || [];
-              newSups = arr.map(k => ({
+              newSupsArr = arr.map(k => ({
                 id: uid('sup'),
                 name: k.agencyName || 'Unknown',
                 phone: k.phone || '',
@@ -874,8 +995,8 @@ body{padding:0!important;background:#fff}
             } catch(e){}
           }
         }
-        if (newSups.length > 0){
-          localStorage.setItem(KEYS.suppliers, JSON.stringify(newSups));
+        if (newSupsArr.length > 0){
+          localStorage.setItem(KEYS.suppliers, JSON.stringify(newSupsArr));
         }
       }
 
@@ -894,7 +1015,8 @@ body{padding:0!important;background:#fff}
               cloudName: s.cloudName || DEFAULT_CLOUD_NAME,
               cloudPreset: s.cloudPreset || DEFAULT_UPLOAD_PRESET,
               geminiKey: s.geminiKey || '',
-              hideAmounts: !!s.hideAmounts
+              hideAmounts: !!s.hideAmounts,
+              monthlyBudget: Number(s.monthlyBudget) || 0
             }));
           } catch(e){}
         }
@@ -902,37 +1024,42 @@ body{padding:0!important;background:#fff}
 
       // Security
       if (!localStorage.getItem(KEYS.security)){
-        for (const k of OLD_KEYS.security){
+        ['bm_security_v4', 'bm_security_v3'].forEach(k => {
+          if (localStorage.getItem(KEYS.security)) return;
           const v = localStorage.getItem(k);
           if (v){
             try {
               const s = JSON.parse(v);
               if (s && s.pinHash){
                 localStorage.setItem(KEYS.security, JSON.stringify(s));
-                break;
               }
             } catch(e){}
           }
-        }
+        });
       }
 
-      // Clean up biz flag (was causing issues)
+      // Cleanup problematic flags
       localStorage.removeItem('bm_current_biz');
 
-      localStorage.setItem(flag, 'yes');
+      localStorage.setItem(MIGRATION_FLAG, 'yes');
     } catch(e){ console.warn('Migration:', e); }
   }
 
-  /* ============ LOAD/SAVE ============ */
-  let _saveBillsTimer = null;
-  let _saveSupsTimer = null;
+  /* ============ LOAD / SAVE ============ */
+  let _saveBillsT = null;
+  let _saveSupsT = null;
 
   function loadAll(){
     try {
       const b = localStorage.getItem(KEYS.bills);
       bills = b ? JSON.parse(b) : [];
       if (!Array.isArray(bills)) bills = [];
-      bills.forEach(x => { if (!Array.isArray(x.payments)) x.payments = []; });
+      bills.forEach(x => {
+        if (!Array.isArray(x.payments)) x.payments = [];
+        if (!Array.isArray(x.attachments)) x.attachments = [];
+        if (typeof x.returnedAmount !== 'number') x.returnedAmount = 0;
+        if (typeof x.isRecurring !== 'boolean') x.isRecurring = false;
+      });
     } catch(e){ bills = []; }
 
     try {
@@ -956,20 +1083,25 @@ body{padding:0!important;background:#fff}
       const st = localStorage.getItem(KEYS.settings);
       if (st) settings = Object.assign(settings, JSON.parse(st));
     } catch(e){}
+
+    try {
+      const sec = localStorage.getItem(KEYS.security);
+      if (sec) security = Object.assign(security, JSON.parse(sec));
+    } catch(e){}
   }
 
   function saveBills(){
-    if (_saveBillsTimer) clearTimeout(_saveBillsTimer);
-    _saveBillsTimer = setTimeout(() => {
-      _saveBillsTimer = null;
+    if (_saveBillsT) clearTimeout(_saveBillsT);
+    _saveBillsT = setTimeout(() => {
+      _saveBillsT = null;
       try { localStorage.setItem(KEYS.bills, JSON.stringify(bills)); }
       catch(e){ toast('Storage full!', 3000, true); }
     }, 50);
   }
   function saveSuppliers(){
-    if (_saveSupsTimer) clearTimeout(_saveSupsTimer);
-    _saveSupsTimer = setTimeout(() => {
-      _saveSupsTimer = null;
+    if (_saveSupsT) clearTimeout(_saveSupsT);
+    _saveSupsT = setTimeout(() => {
+      _saveSupsT = null;
       try { localStorage.setItem(KEYS.suppliers, JSON.stringify(suppliers)); }
       catch(e){ toast('Storage full!', 3000, true); }
     }, 50);
@@ -980,8 +1112,8 @@ body{padding:0!important;background:#fff}
   function saveSecurity(){ try { localStorage.setItem(KEYS.security, JSON.stringify(security)); } catch(e){} }
 
   window.addEventListener('beforeunload', () => {
-    if (_saveBillsTimer){ clearTimeout(_saveBillsTimer); try { localStorage.setItem(KEYS.bills, JSON.stringify(bills)); } catch(e){} }
-    if (_saveSupsTimer){ clearTimeout(_saveSupsTimer); try { localStorage.setItem(KEYS.suppliers, JSON.stringify(suppliers)); } catch(e){} }
+    if (_saveBillsT){ clearTimeout(_saveBillsT); try { localStorage.setItem(KEYS.bills, JSON.stringify(bills)); } catch(e){} }
+    if (_saveSupsT){ clearTimeout(_saveSupsT); try { localStorage.setItem(KEYS.suppliers, JSON.stringify(suppliers)); } catch(e){} }
   });
 
   function logAudit(action, type){
@@ -991,15 +1123,15 @@ body{padding:0!important;background:#fff}
   }
 
   /* ============ TOAST ============ */
-  let toastTimer;
+  let toastT;
   function toast(msg, dur, isErr){
     dur = dur || 2000;
     const t = $('toast');
     $('toastText').textContent = msg;
     t.classList.toggle('error', !!isErr);
     t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), dur);
+    clearTimeout(toastT);
+    toastT = setTimeout(() => t.classList.remove('show'), dur);
   }
 
   /* ============ SUPPLIER ============ */
@@ -1034,7 +1166,8 @@ body{padding:0!important;background:#fff}
     if (id === 'cameraOverlay') stopCam();
   }));
   ['cameraOverlay','formOverlay','detailOverlay','confirmOverlay','settingsOverlay','paymentOverlay',
-   'supplierOverlay','khataDetailOverlay','catOverlay','notifOverlay','chatOverlay','ocrOverlay'].forEach(id => {
+   'supplierOverlay','khataDetailOverlay','catOverlay','notifOverlay','chatOverlay','ocrOverlay',
+   'recurringOverlay','returnOverlay','calendarOverlay','attachOverlay','auditOverlay'].forEach(id => {
     const el = $(id);
     if (!el) return;
     el.addEventListener('click', e => {
@@ -1058,12 +1191,39 @@ body{padding:0!important;background:#fff}
   }
   $$('.nav-btn').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
 
+  /* ============ BUDGET ============ */
+  function renderBudgetCard(){
+    const holder = $('budgetCardHolder');
+    if (!holder) return;
+    const budget = Number(settings.monthlyBudget) || 0;
+    if (budget <= 0){ holder.innerHTML = ''; return; }
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    let used = 0;
+    bills.forEach(b => {
+      const cAt = new Date(b.createdAt || b.billDate);
+      if (cAt >= monthStart) used += billTotal(b);
+    });
+    const pct = Math.min(100, (used / budget) * 100);
+    const barCls = pct >= 100 ? 'over' : pct >= 80 ? 'warn' : '';
+    const label = pct >= 100 ? 'Over budget!' : 'Remaining: ' + hideAmt(fmtRs(budget - used));
+    holder.innerHTML = `
+      <div class="budget-card">
+        <div class="label">Monthly Budget</div>
+        <div class="amount">${hideAmt(fmtRs(used))} / ${hideAmt(fmtRs(budget))}</div>
+        <div class="budget-progress"><div class="bar ${barCls}" style="width:${pct}%"></div></div>
+        <div class="budget-info"><span>${pct.toFixed(0)}% used</span><span>${label}</span></div>
+      </div>`;
+  }
+
   /* ============ DASHBOARD ============ */
   function renderDashboard(){
     let tp = 0, tpaid = 0, tout = 0, tover = 0, dueSoonAmt = 0;
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-    const weekStart = new Date(now); weekStart.setDate(now.getDate() - 6); weekStart.setHours(0,0,0,0);
+    const weekStart = new Date(now);
+    weekStart.setDate(now.getDate() - 6);
+    weekStart.setHours(0, 0, 0, 0);
     let thisMonth = 0, thisWeek = 0;
 
     bills.forEach(b => {
@@ -1091,13 +1251,15 @@ body{padding:0!important;background:#fff}
     const overBills = bills.filter(overdue);
     const soonBills = bills.filter(dueSoon);
     if (overBills.length > 0){
-      alerts.push(`<div class="alert-card"><i class="fas fa-exclamation-triangle a-icon"></i><div class="a-text"><div class="a-title">${overBills.length} Overdue bill${overBills.length>1?'s':''}</div><div class="a-sub">Total ${hideAmt(fmtRs(tover))}</div></div></div>`);
+      alerts.push(`<div class="alert-card"><i class="fas fa-exclamation-triangle a-icon"></i><div class="a-text"><div class="a-title">${overBills.length} Overdue bill${overBills.length > 1 ? 's' : ''}</div><div class="a-sub">Total ${hideAmt(fmtRs(tover))}</div></div></div>`);
     }
     if (soonBills.length > 0){
       alerts.push(`<div class="alert-card warning"><i class="fas fa-clock a-icon"></i><div class="a-text"><div class="a-title">${soonBills.length} due within 7 days</div><div class="a-sub">Total ${hideAmt(fmtRs(dueSoonAmt))}</div></div></div>`);
     }
     $('alertsContainer').innerHTML = alerts.join('');
     $('notifDot').style.display = (overBills.length || soonBills.length) ? 'block' : 'none';
+
+    renderBudgetCard();
   }
 
   /* ============ RENDER BILLS ============ */
@@ -1116,6 +1278,7 @@ body{padding:0!important;background:#fff}
         if (currentFilter === 'unpaid') return st === 'unpaid';
         if (currentFilter === 'partial') return st === 'partial';
         if (currentFilter === 'overdue') return st === 'overdue';
+        if (currentFilter === 'recurring') return b.isRecurring;
         return true;
       });
     }
@@ -1134,7 +1297,7 @@ body{padding:0!important;background:#fff}
 
     const titleMap = {
       all: 'All Bills', cash: 'Cash', credit: 'Credit', paid: 'Paid',
-      unpaid: 'Unpaid', partial: 'Partial', overdue: 'Overdue'
+      unpaid: 'Unpaid', partial: 'Partial', overdue: 'Overdue', recurring: 'Recurring'
     };
     $('billsListTitle').textContent = titleMap[currentFilter] || 'All Bills';
     $('billsCount').textContent = filtered.length ? filtered.length + '' : '';
@@ -1163,13 +1326,14 @@ body{padding:0!important;background:#fff}
       let dateLine = fmtDate(b.billDate || b.createdAt);
       const dd = daysUntilDue(b.dueDate);
       if (b.dueDate && st !== 'paid'){
-        if (dd < 0) dateLine += ` · <span style="color:var(--danger);font-weight:700">Overdue ${Math.abs(dd)}d</span>`;
-        else if (dd === 0) dateLine += ` · <span style="color:var(--warning);font-weight:700">Due today</span>`;
-        else if (dd <= 7) dateLine += ` · <span style="color:var(--warning);font-weight:700">in ${dd}d</span>`;
+        if (dd < 0) dateLine += ` · <span style="color:var(--d);font-weight:700">Overdue ${Math.abs(dd)}d</span>`;
+        else if (dd === 0) dateLine += ` · <span style="color:var(--w);font-weight:700">Due today</span>`;
+        else if (dd <= 7) dateLine += ` · <span style="color:var(--w);font-weight:700">in ${dd}d</span>`;
       }
 
       const badges = [`<span class="badge ${st}">${st}</span>`];
       if (b.paymentType) badges.push(`<span class="badge ${b.paymentType === 'credit' ? 'credit' : 'cash'}">${b.paymentType}</span>`);
+      if (b.isRecurring) badges.push(`<span class="badge recurring"><i class="fas fa-arrows-rotate"></i></span>`);
 
       let amountHtml;
       if (st === 'paid') amountHtml = `<span class="amt">${hideAmt(fmtRs(total))}</span><span class="sub">Paid ✓</span>`;
@@ -1214,7 +1378,7 @@ body{padding:0!important;background:#fff}
 
     const list = $('khataList');
     if (suppliers.length === 0){
-      list.innerHTML = `<div class="empty"><i class="fas fa-users"></i><h3>No suppliers yet</h3><p>Suppliers auto-create hote hain jab aap bill add karte hain</p></div>`;
+      list.innerHTML = `<div class="empty"><i class="fas fa-users"></i><h3>No suppliers yet</h3><p>Auto-create hote hain jab bill add karein</p></div>`;
       return;
     }
     if (filtered.length === 0){
@@ -1233,7 +1397,7 @@ body{padding:0!important;background:#fff}
         <div class="bill-thumb supplier"><i class="fas fa-store"></i></div>
         <div class="bill-info">
           <div class="name">${esc(s.name)}</div>
-          <div class="meta"><span>${t.billCount} bill${t.billCount!==1?'s':''}</span><span>${fmtRsShort(t.totalPurchases)}</span>${badge}</div>
+          <div class="meta"><span>${t.billCount} bill${t.billCount !== 1 ? 's' : ''}</span><span>${fmtRsShort(t.totalPurchases)}</span>${badge}</div>
         </div>
         <div class="bill-amount">
           <span class="amt">${hideAmt(fmtRs(Math.abs(t.outstanding)))}</span>
@@ -1271,23 +1435,26 @@ body{padding:0!important;background:#fff}
     ];
 
     const payList = (b.payments || []).slice().sort((x, y) => new Date(y.date || 0) - new Date(x.date || 0));
+    const atts = b.attachments || [];
+    const rets = b.returnedHistory || [];
 
     $('detailContent').innerHTML = `
-      ${b.imageUrl ? `<img src="${b.imageUrl}" style="width:100%;border-radius:12px;margin:12px 0;border:1px solid var(--border);background:#f0f5f1" decoding="async">` : ''}
+      ${b.imageUrl ? `<img src="${b.imageUrl}" style="width:100%;border-radius:12px;margin:12px 0;border:1px solid var(--b);background:#f0f5f1" decoding="async">` : ''}
       <div style="background:#f0f7ec;border-radius:12px;padding:12px;margin-bottom:12px">
-        <div style="font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">${esc(b.supplierName || 'Unknown')}</div>
-        <div style="font-size:1.4rem;font-weight:800;color:var(--primary);margin-bottom:6px">${hideAmt(fmtRs(total))}</div>
+        <div style="font-size:.7rem;color:var(--m);font-weight:700;text-transform:uppercase;margin-bottom:4px">${esc(b.supplierName || 'Unknown')}</div>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--p);margin-bottom:6px">${hideAmt(fmtRs(total))}</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           <span class="badge ${st}">${st}</span>
           ${b.paymentType ? `<span class="badge ${b.paymentType === 'credit' ? 'credit' : 'cash'}">${b.paymentType}</span>` : ''}
           ${b.category ? `<span class="badge cash">${esc(b.category)}</span>` : ''}
+          ${b.isRecurring ? `<span class="badge recurring">Recurring</span>` : ''}
         </div>
-        ${total > 0 ? `<div class="pay-progress"><div class="bar" style="width:${pct}%"></div></div><div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:4px"><span>Paid: ${fmtRs(paid)}</span><span>Remaining: ${fmtRs(rem)}</span></div>` : ''}
+        ${total > 0 ? `<div class="pay-progress"><div class="bar" style="width:${pct}%"></div></div><div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--m);margin-top:4px"><span>Paid: ${fmtRs(paid)}</span><span>Remaining: ${fmtRs(rem)}</span></div>` : ''}
       </div>
       ${rows.filter(r => r[1]).map(r => `<div class="detail-row"><span class="k">${r[0]}</span><span class="v">${esc(r[1])}</span></div>`).join('')}
       ${b.notes ? `<div class="detail-row" style="flex-direction:column;align-items:flex-start"><span class="k" style="margin-bottom:4px">Notes</span><span class="v" style="text-align:left;font-weight:400">${esc(b.notes)}</span></div>` : ''}
       <div class="section-title" style="margin-top:12px"><i class="fas fa-money-bill-transfer"></i> Payments (${payList.length})</div>
-      ${payList.length === 0 ? '<div style="text-align:center;padding:10px;color:var(--muted);font-size:.8rem">No payments yet</div>' : `
+      ${payList.length === 0 ? '<div style="text-align:center;padding:10px;color:var(--m);font-size:.8rem">No payments yet</div>' : `
         <div class="pay-hist">
           ${payList.map(p => `
             <div class="pay-item">
@@ -1299,6 +1466,29 @@ body{padding:0!important;background:#fff}
               <button class="pi-del" data-pay-del="${p.id}"><i class="fas fa-times"></i></button>
             </div>
           `).join('')}
+        </div>
+      `}
+      ${rets.length > 0 ? `
+        <div class="section-title" style="margin-top:12px"><i class="fas fa-rotate-left"></i> Returns (${rets.length})</div>
+        <div class="pay-hist">
+          ${rets.map(r => `<div class="pay-item">
+            <div class="pi-left">
+              <div class="pi-date">${fmtDate(r.date)}</div>
+              <div class="pi-method">${esc(r.reason || 'Return')}</div>
+            </div>
+            <div class="pi-amt" style="color:var(--d)">− ${hideAmt(fmtRs(r.amount))}</div>
+          </div>`).join('')}
+        </div>
+      ` : ''}
+      <div class="section-title" style="margin-top:12px;display:flex;align-items:center;gap:8px">
+        <i class="fas fa-paperclip"></i> Attachments (${atts.length})
+        <button class="btn btn-outline btn-sm" id="dAddAttachBtn" style="margin-left:auto"><i class="fas fa-plus"></i></button>
+      </div>
+      ${atts.length === 0 ? '<div style="text-align:center;padding:10px;color:var(--m);font-size:.78rem">No files attached</div>' : `
+        <div class="attach-grid">
+          ${atts.map(a => `<div class="attach-item" data-d-att="${esc(a.url)}">
+            ${(a.type || '').startsWith('image') ? `<img src="${a.url}" alt="">` : `<i class="fas fa-file-pdf file-icon" style="color:var(--d)"></i>`}
+          </div>`).join('')}
         </div>
       `}
     `;
@@ -1322,13 +1512,22 @@ body{padding:0!important;background:#fff}
       });
     });
 
+    const addBtn = $('dAddAttachBtn');
+    if (addBtn) addBtn.addEventListener('click', () => {
+      closeOv('detailOverlay');
+      openAttachModal(id);
+    });
+    $('detailContent').querySelectorAll('[data-d-att]').forEach(el => {
+      el.addEventListener('click', () => window.open(el.dataset.dAtt, '_blank'));
+    });
+
     $('dMarkPaidBtn').style.display = (st === 'paid' || total === 0) ? 'none' : 'inline-flex';
     $('dAddPayBtn').style.display = (st === 'paid' || total === 0) ? 'none' : 'inline-flex';
 
     openOv('detailOverlay');
   }
 
-  /* ============ PAYMENT MODAL ============ */
+  /* ============ PAYMENT ============ */
   function openPaymentModal(billId){
     const b = bills.find(x => x.id === billId);
     if (!b) return;
@@ -1352,6 +1551,7 @@ body{padding:0!important;background:#fff}
     closeOv('detailOverlay');
     openPaymentModal(currentBillId);
   });
+
   $('dMarkPaidBtn').addEventListener('click', () => {
     const b = bills.find(x => x.id === currentBillId);
     if (!b) return;
@@ -1362,7 +1562,7 @@ body{padding:0!important;background:#fff}
       b.payments.push({ id: uid('pay'), date: todayISO(), amount: rem, method: 'cash', reference: '', notes: 'Marked paid', createdAt: Date.now() });
       b.updatedAt = Date.now();
       saveBills();
-      logAudit(`Marked ${b.supplierName} as paid`, 'payment');
+      logAudit(`Marked ${b.supplierName} paid`, 'payment');
       closeOv('detailOverlay');
       renderBills();
       renderKhaatas();
@@ -1427,6 +1627,10 @@ body{padding:0!important;background:#fff}
       $('fPhone').value = bill.phone || '';
       $('fBookedBy').value = bill.bookedBy || '';
       $('fNotes').value = bill.notes || '';
+      $('fIsRecurring').checked = !!bill.isRecurring;
+      $('fRecurFreq').value = bill.recurFreq || 'monthly';
+      $('fRecurNext').value = bill.recurNext || '';
+      $('recurringFields').style.display = bill.isRecurring ? 'block' : 'none';
       currentPhotoData = null;
       if (bill.imageUrl){ $('formImage').src = bill.imageUrl; $('formImagePreview').style.display = 'block'; }
     } else {
@@ -1434,6 +1638,8 @@ body{padding:0!important;background:#fff}
       $('fPaymentType').value = 'credit';
       $('fBillDate').value = todayISO();
       $('fDueDate').value = '';
+      $('fIsRecurring').checked = false;
+      $('recurringFields').style.display = 'none';
       currentPhotoData = photo || null;
       if (prefill){
         if (prefill.supplier) $('fSupplier').value = prefill.supplier;
@@ -1453,6 +1659,11 @@ body{padding:0!important;background:#fff}
     currentPhotoData = null;
     $('formImagePreview').style.display = 'none';
     $('formImage').src = '';
+  });
+
+  $('fIsRecurring').addEventListener('change', e => {
+    $('recurringFields').style.display = e.target.checked ? 'block' : 'none';
+    if (e.target.checked && !$('fRecurNext').value) $('fRecurNext').value = todayISO();
   });
 
   /* ============ CLOUDINARY ============ */
@@ -1522,6 +1733,7 @@ body{padding:0!important;background:#fff}
 
     const phone = $('fPhone').value.trim();
     const supplier = findOrCreateSupplier(supplierName, phone);
+    const isRecurring = $('fIsRecurring').checked;
 
     const billData = {
       id: editingId || uid('bill'),
@@ -1538,7 +1750,13 @@ body{padding:0!important;background:#fff}
       bookedBy: $('fBookedBy').value.trim(),
       notes: $('fNotes').value.trim(),
       imageUrl: imageUrl,
+      attachments: existing ? (existing.attachments || []) : [],
       payments: existing ? (existing.payments || []) : [],
+      returnedAmount: existing ? (existing.returnedAmount || 0) : 0,
+      returnedHistory: existing ? (existing.returnedHistory || []) : [],
+      isRecurring: isRecurring,
+      recurFreq: isRecurring ? $('fRecurFreq').value : '',
+      recurNext: isRecurring ? $('fRecurNext').value : '',
       createdAt: existing ? existing.createdAt : Date.now(),
       updatedAt: Date.now()
     };
@@ -1565,7 +1783,7 @@ body{padding:0!important;background:#fff}
     showView('bills');
   });
 
-  /* ============ EDIT/DELETE BILL ============ */
+  /* ============ EDIT / DELETE ============ */
   $('dEditBtn').addEventListener('click', () => {
     const b = bills.find(x => x.id === currentBillId);
     if (!b) return;
@@ -1587,7 +1805,7 @@ body{padding:0!important;background:#fff}
     }, 'Delete');
   });
 
-  /* ============ SUPPLIER FORM ============ */
+  /* ============ SUPPLIER ============ */
   function openSupplierModal(s){
     editingSupplierId = s ? s.id : null;
     $('supFormTitle').innerHTML = `<i class="fas fa-user-${s ? 'edit' : 'plus'}"></i> ${s ? 'Edit' : 'New'} Supplier`;
@@ -1628,8 +1846,7 @@ body{padding:0!important;background:#fff}
       const dup = suppliers.find(x => x.name.toLowerCase() === name.toLowerCase());
       if (dup){ toast('Supplier exists', 2500, true); return; }
       suppliers.push({
-        id: uid('sup'),
-        name, phone: $('sfPhone').value.trim(),
+        id: uid('sup'), name, phone: $('sfPhone').value.trim(),
         address: $('sfAddress').value.trim(),
         notes: $('sfNotes').value.trim(),
         createdAt: Date.now(), updatedAt: Date.now()
@@ -1677,9 +1894,9 @@ body{padding:0!important;background:#fff}
           return `<div class="ledger-entry ${isBill ? 'purchase' : 'payment'}" data-bill="${item.billId || ''}" style="cursor:pointer">
             <div class="ledger-entry-top">
               <div>
-                <div style="font-size:.7rem;color:var(--muted);font-weight:600">${fmtDate(item.date)}</div>
+                <div style="font-size:.7rem;color:var(--m);font-weight:600">${fmtDate(item.date)}</div>
                 <span class="badge ${isBill ? 'credit' : 'paid'}" style="margin-top:4px;display:inline-block">${isBill ? '📦 Bill' : '💵 Payment'}${item.billNumber ? ' #' + esc(item.billNumber) : ''}</span>
-                ${item.method ? `<div style="font-size:.68rem;color:var(--muted);margin-top:2px">${esc(item.method)}${item.reference ? ' · ' + esc(item.reference) : ''}</div>` : ''}
+                ${item.method ? `<div style="font-size:.68rem;color:var(--m);margin-top:2px">${esc(item.method)}${item.reference ? ' · ' + esc(item.reference) : ''}</div>` : ''}
               </div>
               <div style="font-size:.95rem;font-weight:800;color:${isBill ? '#dc2626' : '#059669'}">${isBill ? '+' : '−'} ${fmtRs(amt)}</div>
             </div>
@@ -1768,9 +1985,9 @@ body{padding:0!important;background:#fff}
 
     $('summaryContent').innerHTML = `
       <div class="stat-row total"><div class="lbl"><i class="fas fa-calculator"></i> Total</div><div class="val">${hideAmt(fmtRs(tp))}</div></div>
-      <div class="stat-row"><div class="lbl"><i class="fas fa-circle-check"></i> Paid</div><div class="val" style="color:var(--success)">${hideAmt(fmtRs(tpaid))}</div></div>
-      <div class="stat-row"><div class="lbl"><i class="fas fa-hourglass-half"></i> Outstanding</div><div class="val" style="color:var(--warning)">${hideAmt(fmtRs(tout))}</div></div>
-      ${overAmt > 0 ? `<div class="stat-row" style="background:var(--danger-bg)"><div class="lbl" style="color:var(--danger)"><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i> Overdue</div><div class="val" style="color:var(--danger)">${hideAmt(fmtRs(overAmt))}</div></div>` : ''}
+      <div class="stat-row"><div class="lbl"><i class="fas fa-circle-check"></i> Paid</div><div class="val" style="color:var(--s)">${hideAmt(fmtRs(tpaid))}</div></div>
+      <div class="stat-row"><div class="lbl"><i class="fas fa-hourglass-half"></i> Outstanding</div><div class="val" style="color:var(--w)">${hideAmt(fmtRs(tout))}</div></div>
+      ${overAmt > 0 ? `<div class="stat-row danger"><div class="lbl"><i class="fas fa-exclamation-triangle"></i> Overdue</div><div class="val">${hideAmt(fmtRs(overAmt))}</div></div>` : ''}
       <div class="section-title"><i class="fas fa-wallet"></i> Payment Split</div>
       <div class="stat-row"><div class="lbl"><i class="fas fa-money-bill-1"></i> Cash</div><div class="val">${hideAmt(fmtRs(cash))}</div></div>
       <div class="stat-row"><div class="lbl"><i class="fas fa-credit-card"></i> Credit</div><div class="val">${hideAmt(fmtRs(credit))}</div></div>
@@ -1794,9 +2011,9 @@ body{padding:0!important;background:#fff}
     $('catList').innerHTML = categories.map(c => `
       <div class="cat-bar">
         <span class="cat-name">${esc(c)}</span>
-        <button style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:.85rem" data-cat-del="${esc(c)}"><i class="fas fa-trash"></i></button>
+        <button style="background:none;border:none;color:var(--d);cursor:pointer;font-size:.85rem" data-cat-del="${esc(c)}"><i class="fas fa-trash"></i></button>
       </div>
-    `).join('') || '<div style="text-align:center;padding:20px;color:var(--muted);font-size:.83rem">No categories</div>';
+    `).join('') || '<div style="text-align:center;padding:20px;color:var(--m);font-size:.83rem">No categories</div>';
 
     $('catList').querySelectorAll('[data-cat-del]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1862,7 +2079,7 @@ body{padding:0!important;background:#fff}
     $('camUseBtn').style.display = 'none';
 
     if (location.protocol === 'file:'){ camFallback('file:// blocked'); return; }
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ camFallback('No support'); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ camFallback('Not supported'); return; }
     try {
       camStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { ideal: camFacing }, width: {ideal:1920}, height: {ideal:1440} },
@@ -1914,12 +2131,10 @@ body{padding:0!important;background:#fff}
     if (!currentPhotoData) return;
     const key = (settings.geminiKey || '').trim();
     if (key){
-      // AI OCR path
       closeOv('cameraOverlay');
       stopCam();
       await doOCR(currentPhotoData);
     } else {
-      // Plain photo path
       const p = currentPhotoData;
       closeOv('cameraOverlay');
       stopCam();
@@ -1942,7 +2157,7 @@ body{padding:0!important;background:#fff}
     e.target.value = '';
   });
 
-  /* ============ OCR ============ */
+  /* ============ OCR (Gemini Vision) ============ */
   async function doOCR(dataUrl){
     $('ocrContent').innerHTML = `<div class="ocr-scanning"><div class="spinner"></div><b>AI scanning...</b><br><small>5-10 seconds</small></div>`;
     $('ocrConfirmBtn').disabled = true;
@@ -2021,8 +2236,8 @@ Today: ${todayISO()}`;
       ['Notes', r.notes || '—']
     ];
     $('ocrContent').innerHTML = `
-      <div style="text-align:center;margin-bottom:12px"><i class="fas fa-check-circle" style="font-size:2rem;color:var(--success)"></i><div style="font-weight:700;margin-top:6px">Scan Complete!</div></div>
-      <img src="${r._photo}" style="width:100%;max-height:180px;object-fit:contain;border-radius:10px;border:1px solid var(--border);margin-bottom:12px;background:#f0f5f1">
+      <div style="text-align:center;margin-bottom:12px"><i class="fas fa-check-circle" style="font-size:2rem;color:var(--s)"></i><div style="font-weight:700;margin-top:6px">Scan Complete!</div></div>
+      <img src="${r._photo}" style="width:100%;max-height:180px;object-fit:contain;border-radius:10px;border:1px solid var(--b);margin-bottom:12px;background:#f0f5f1">
       <div class="ocr-result">
         ${rows.map(rr => `<div class="row"><span class="k">${rr[0]}</span><span class="v">${esc(String(rr[1]))}</span></div>`).join('')}
       </div>`;
@@ -2053,7 +2268,7 @@ Today: ${todayISO()}`;
     ocrExtracted = null;
   });
 
-  /* ============ ADD FLOW ============ */
+  /* ============ ADD ============ */
   $('optCamera').addEventListener('click', () => { currentPhotoData = null; startCamera(); openOv('cameraOverlay'); });
   $('optManual').addEventListener('click', () => openForm(null, null));
   $('optPayment').addEventListener('click', () => {
@@ -2063,9 +2278,10 @@ Today: ${todayISO()}`;
     showView('bills');
     setTimeout(() => openDetail(unpaid[0].id), 200);
   });
-  $('optAI').addEventListener('click', () => {
-    openChat();
-  });
+  $('optAI').addEventListener('click', openChat);
+  $('optReturn2').addEventListener('click', () => $('qaReturn').click());
+  $('optRecurring2').addEventListener('click', () => $('qaRecurring').click());
+  $('optCalendar2').addEventListener('click', () => $('qaCalendar').click());
 
   /* ============ AI CHAT ============ */
   function buildAppContext(){
@@ -2098,7 +2314,7 @@ Total Paid: ${fmtRs(tpaid)}
 Total Outstanding: ${fmtRs(tout)}
 Bills count: ${bills.length}
 Suppliers: ${suppliers.length}
-Overdue bills: ${over.length} (${fmtRs(over.reduce((s, b) => s + billRemaining(b), 0))})
+Overdue: ${over.length} (${fmtRs(over.reduce((s, b) => s + billRemaining(b), 0))})
 Due within 7 days: ${soon.length} (${fmtRs(soon.reduce((s, b) => s + billRemaining(b), 0))})
 
 SUPPLIERS:
@@ -2186,6 +2402,7 @@ Currency: PKR (Rs.)`;
     setTimeout(() => $('chatInput').focus(), 300);
   }
 
+  $('aiChatBtn').addEventListener('click', openChat);
   $('chatSendBtn').addEventListener('click', () => {
     const t = $('chatInput').value.trim();
     if (!t) return;
@@ -2201,7 +2418,316 @@ Currency: PKR (Rs.)`;
     sendChatMessage(b.dataset.q);
   });
 
-  /* ============ SEARCH/FILTER ============ */
+  /* ============ RECURRING ============ */
+  function processRecurring(){
+    const today = todayISO();
+    let generated = 0;
+    bills.forEach(b => {
+      if (b.isRecurring && b.recurNext && b.recurNext <= today){
+        const newBill = {
+          id: uid('bill'),
+          supplierId: b.supplierId,
+          supplierName: b.supplierName,
+          billNumber: '',
+          billDate: b.recurNext,
+          dueDate: '',
+          amount: b.amount,
+          tax: b.tax,
+          paymentType: b.paymentType,
+          category: b.category,
+          phone: b.phone,
+          bookedBy: b.bookedBy,
+          notes: 'Auto from recurring',
+          imageUrl: null,
+          attachments: [],
+          payments: [],
+          returnedAmount: 0,
+          returnedHistory: [],
+          isRecurring: false,
+          recurFreq: '',
+          recurNext: '',
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        };
+        bills.push(newBill);
+        const d = new Date(b.recurNext);
+        const f = b.recurFreq || 'monthly';
+        if (f === 'daily') d.setDate(d.getDate() + 1);
+        else if (f === 'weekly') d.setDate(d.getDate() + 7);
+        else if (f === 'monthly') d.setMonth(d.getMonth() + 1);
+        else if (f === 'quarterly') d.setMonth(d.getMonth() + 3);
+        else if (f === 'yearly') d.setFullYear(d.getFullYear() + 1);
+        b.recurNext = d.toISOString().split('T')[0];
+        b.updatedAt = Date.now();
+        generated++;
+      }
+    });
+    if (generated > 0){
+      saveBills();
+      logAudit(generated + ' recurring bill(s) auto-generated', 'bill');
+      setTimeout(() => toast(generated + ' recurring bill(s) generated', 3000), 800);
+    }
+  }
+
+  function renderRecurring(){
+    const rec = bills.filter(b => b.isRecurring);
+    if (rec.length === 0){
+      $('recurringContent').innerHTML = '<div class="empty"><i class="fas fa-arrows-rotate"></i><h3>No recurring bills</h3><p>Bill banate waqt "Recurring" checkbox lagayein</p></div>';
+      return;
+    }
+    $('recurringContent').innerHTML = rec.map(b => `
+      <div class="bill-card" data-rec="${b.id}" style="margin-bottom:8px">
+        <div class="bill-thumb"><i class="fas fa-arrows-rotate"></i></div>
+        <div class="bill-info">
+          <div class="name">${esc(b.supplierName)}</div>
+          <div class="meta"><span>${b.recurFreq || 'monthly'}</span><span>Next: ${fmtDate(b.recurNext)}</span></div>
+        </div>
+        <div class="bill-amount"><span class="amt">${hideAmt(fmtRs(billTotal(b)))}</span></div>
+      </div>
+    `).join('');
+    $('recurringContent').querySelectorAll('[data-rec]').forEach(el => {
+      el.addEventListener('click', () => {
+        closeOv('recurringOverlay');
+        openDetail(el.dataset.rec);
+      });
+    });
+  }
+
+  $('qaRecurring').addEventListener('click', () => {
+    renderRecurring();
+    openOv('recurringOverlay');
+  });
+
+  /* ============ RETURN ============ */
+  $('qaReturn').addEventListener('click', () => {
+    const sel = $('retBillSelect');
+    sel.innerHTML = '<option value="">-- Select bill --</option>' +
+      bills.map(b => `<option value="${b.id}">${esc(b.supplierName)} — ${fmtRs(billTotal(b))}</option>`).join('');
+    $('retAmount').value = '';
+    $('retDate').value = todayISO();
+    $('retNotes').value = '';
+    openOv('returnOverlay');
+  });
+
+  $('saveReturnBtn').addEventListener('click', () => {
+    const billId = $('retBillSelect').value;
+    if (!billId){ toast('Select bill', 2000, true); return; }
+    const amt = parseFloat($('retAmount').value) || 0;
+    if (amt <= 0){ toast('Amount required', 2000, true); return; }
+    const b = bills.find(x => x.id === billId);
+    if (!b) return;
+    const total = billTotal(b);
+    const paid = billPaid(b);
+    const available = total - paid;
+    if (amt > available + 0.01){
+      toast('Return > available ' + fmtRs(available), 3000, true);
+      return;
+    }
+    b.amount = Math.max(0, (Number(b.amount) || 0) - amt);
+    b.returnedAmount = (Number(b.returnedAmount) || 0) + amt;
+    b.returnedHistory = b.returnedHistory || [];
+    b.returnedHistory.push({
+      id: uid('ret'),
+      date: $('retDate').value || todayISO(),
+      amount: amt,
+      reason: $('retNotes').value.trim(),
+      createdAt: Date.now()
+    });
+    b.updatedAt = Date.now();
+    saveBills();
+    logAudit(`Return ${fmtRs(amt)} from ${b.supplierName}`, 'bill');
+    closeOv('returnOverlay');
+    renderBills();
+    renderKhaatas();
+    renderSummary();
+    toast('Return recorded!');
+  });
+
+  /* ============ CALENDAR ============ */
+  $('qaCalendar').addEventListener('click', () => {
+    calendarDate = new Date();
+    selectedCalDate = null;
+    renderCalendar();
+    openOv('calendarOverlay');
+  });
+  $('calPrev').addEventListener('click', () => { calendarDate.setMonth(calendarDate.getMonth() - 1); renderCalendar(); });
+  $('calNext').addEventListener('click', () => { calendarDate.setMonth(calendarDate.getMonth() + 1); renderCalendar(); });
+
+  function renderCalendar(){
+    const year = calendarDate.getFullYear();
+    const month = calendarDate.getMonth();
+    $('calMonth').textContent = calendarDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    const startDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = todayISO();
+    let html = '<div class="cal-day-label">S</div><div class="cal-day-label">M</div><div class="cal-day-label">T</div><div class="cal-day-label">W</div><div class="cal-day-label">T</div><div class="cal-day-label">F</div><div class="cal-day-label">S</div>';
+    for (let i = 0; i < startDay; i++) html += '<div class="cal-day empty"></div>';
+    for (let d = 1; d <= daysInMonth; d++){
+      const dateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+      const dayBills = bills.filter(b => (b.dueDate || b.billDate) === dateStr);
+      const hasOverdue = dayBills.some(overdue);
+      const hasPaid = dayBills.some(b => billStatus(b) === 'paid');
+      const isToday = dateStr === today;
+      const cls = ['cal-day'];
+      if (isToday) cls.push('today');
+      else if (hasOverdue) cls.push('has-overdue');
+      else if (dayBills.length > 0) cls.push('has-bills');
+      html += `<div class="${cls.join(' ')}" data-cal-date="${dateStr}">
+        <span>${d}</span>
+        ${dayBills.length > 0 ? `<div class="dot-row">${dayBills.slice(0, 3).map(b => `<div class="d ${overdue(b) ? 'red' : billStatus(b) === 'paid' ? 'green' : ''}"></div>`).join('')}</div>` : ''}
+      </div>`;
+    }
+    $('calendarGrid').innerHTML = html;
+    $('calendarGrid').querySelectorAll('[data-cal-date]').forEach(el => {
+      el.addEventListener('click', () => {
+        selectedCalDate = el.dataset.calDate;
+        renderCalDayDetails();
+      });
+    });
+    renderCalDayDetails();
+  }
+
+  function renderCalDayDetails(){
+    if (!selectedCalDate){
+      $('calDayDetails').innerHTML = '<p style="text-align:center;color:var(--m);font-size:.82rem">Kisi date pe tap karein</p>';
+      return;
+    }
+    const dayBills = bills.filter(b => (b.dueDate || b.billDate) === selectedCalDate);
+    if (dayBills.length === 0){
+      $('calDayDetails').innerHTML = `<p style="text-align:center;color:var(--m);font-size:.82rem">${fmtDate(selectedCalDate)} — no bills</p>`;
+      return;
+    }
+    $('calDayDetails').innerHTML = `
+      <div class="section-title"><i class="fas fa-list"></i> ${fmtDate(selectedCalDate)} (${dayBills.length})</div>
+      ${dayBills.map(b => `
+        <div class="bill-card" data-cal-bill="${b.id}" style="margin-bottom:8px">
+          <div class="bill-thumb"><i class="fas fa-file-invoice"></i></div>
+          <div class="bill-info"><div class="name">${esc(b.supplierName)}</div><div class="meta"><span class="badge ${billStatus(b)}">${billStatus(b)}</span></div></div>
+          <div class="bill-amount"><span class="amt">${hideAmt(fmtRs(billTotal(b)))}</span></div>
+        </div>
+      `).join('')}`;
+    $('calDayDetails').querySelectorAll('[data-cal-bill]').forEach(el => {
+      el.addEventListener('click', () => {
+        closeOv('calendarOverlay');
+        openDetail(el.dataset.calBill);
+      });
+    });
+  }
+
+  /* ============ ATTACHMENTS ============ */
+  function openAttachModal(billId){
+    currentAttachBillId = billId;
+    renderAttachGrid();
+    openOv('attachOverlay');
+  }
+
+  function renderAttachGrid(){
+    const b = bills.find(x => x.id === currentAttachBillId);
+    if (!b) return;
+    const atts = b.attachments || [];
+    $('attachGrid').innerHTML = atts.map(a => `
+      <div class="attach-item" data-att-view="${a.id}">
+        ${(a.type || '').startsWith('image') ? `<img src="${a.url}" alt="">` : `<i class="fas fa-file-pdf file-icon" style="color:var(--d)"></i>`}
+        <button class="del-btn" data-att-del="${a.id}"><i class="fas fa-times"></i></button>
+      </div>
+    `).join('');
+    $('attachGrid').querySelectorAll('[data-att-del]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const aid = btn.dataset.attDel;
+        askConfirm('Delete attachment?', 'File remove ho jayegi.', () => {
+          const bb = bills.find(x => x.id === currentAttachBillId);
+          if (!bb) return;
+          bb.attachments = (bb.attachments || []).filter(x => x.id !== aid);
+          bb.updatedAt = Date.now();
+          saveBills();
+          renderAttachGrid();
+          toast('Deleted');
+        }, 'Delete');
+      });
+    });
+    $('attachGrid').querySelectorAll('[data-att-view]').forEach(el => {
+      el.addEventListener('click', e => {
+        if (e.target.closest('[data-att-del]')) return;
+        const aid = el.dataset.attView;
+        const bb = bills.find(x => x.id === currentAttachBillId);
+        if (!bb) return;
+        const a = (bb.attachments || []).find(x => x.id === aid);
+        if (a && a.url) window.open(a.url, '_blank');
+      });
+    });
+  }
+
+  $('addAttachBtn2').addEventListener('click', () => $('attachInput').click());
+  $('attachInput').addEventListener('change', async e => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    const bb = bills.find(x => x.id === currentAttachBillId);
+    if (!bb) return;
+    bb.attachments = bb.attachments || [];
+    for (let i = 0; i < files.length; i++){
+      const f = files[i];
+      const reader = new FileReader();
+      await new Promise(res => {
+        reader.onload = async ev => {
+          const dataUrl = ev.target.result;
+          if (f.type && f.type.startsWith('image/')){
+            const url = await uploadCloudinary(dataUrl);
+            if (url){
+              bb.attachments.push({ id: uid('att'), url, type: f.type, name: f.name, addedAt: Date.now() });
+            }
+          } else {
+            bb.attachments.push({ id: uid('att'), url: dataUrl, type: f.type || 'application/octet-stream', name: f.name, addedAt: Date.now() });
+          }
+          res();
+        };
+        reader.readAsDataURL(f);
+      });
+    }
+    bb.updatedAt = Date.now();
+    saveBills();
+    renderAttachGrid();
+    toast('Attached!');
+    e.target.value = '';
+  });
+
+  /* ============ AUDIT ============ */
+  $('qaAudit').addEventListener('click', () => {
+    currentAuditFilter = 'all';
+    $$('[data-audit-filter]').forEach(x => x.classList.toggle('active', x.dataset.auditFilter === 'all'));
+    renderAudit();
+    openOv('auditOverlay');
+  });
+
+  $$('[data-audit-filter]').forEach(c => c.addEventListener('click', () => {
+    $$('[data-audit-filter]').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    currentAuditFilter = c.dataset.auditFilter;
+    renderAudit();
+  }));
+
+  function renderAudit(){
+    let filtered = auditLog.slice();
+    if (currentAuditFilter !== 'all') filtered = filtered.filter(l => l.type === currentAuditFilter);
+    if (filtered.length === 0){
+      $('auditContent').innerHTML = '<div class="empty"><i class="fas fa-history"></i><h3>No activity</h3></div>';
+      return;
+    }
+    const iconMap = { bill: 'fa-file-invoice', payment: 'fa-money-bill-transfer', supplier: 'fa-user', general: 'fa-info-circle' };
+    $('auditContent').innerHTML = filtered.slice(0, 200).map(l => {
+      let time = '—';
+      try { time = new Date(l.timestamp).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch(e){}
+      return `<div class="audit-item">
+        <div class="a-icon"><i class="fas ${iconMap[l.type] || 'fa-info-circle'}"></i></div>
+        <div class="a-content">
+          <div class="a-text">${esc(l.action)}</div>
+          <div class="a-time">${time}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ============ SEARCH / FILTER ============ */
   let _searchT;
   $('searchInput').addEventListener('input', e => {
     clearTimeout(_searchT);
@@ -2217,10 +2743,10 @@ Currency: PKR (Rs.)`;
     renderBills();
   }));
 
-  let _khataSearchT;
+  let _khataT;
   $('khataSearch').addEventListener('input', e => {
-    clearTimeout(_khataSearchT);
-    _khataSearchT = setTimeout(() => {
+    clearTimeout(_khataT);
+    _khataT = setTimeout(() => {
       khataSearch = e.target.value;
       renderKhaatas();
     }, 180);
@@ -2233,10 +2759,10 @@ Currency: PKR (Rs.)`;
 
     let html = '';
     if (overBills.length === 0 && soonBills.length === 0){
-      html = '<div class="empty"><i class="fas fa-check-circle" style="color:var(--success)"></i><h3>All clear!</h3><p>No overdue or due-soon bills</p></div>';
+      html = '<div class="empty"><i class="fas fa-check-circle" style="color:var(--s)"></i><h3>All clear!</h3><p>No overdue or due-soon bills</p></div>';
     } else {
       if (overBills.length){
-        html += `<div class="section-title"><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i> Overdue (${overBills.length})</div>`;
+        html += `<div class="section-title"><i class="fas fa-exclamation-triangle" style="color:var(--d)"></i> Overdue (${overBills.length})</div>`;
         html += overBills.map(b => {
           const d = daysUntilDue(b.dueDate);
           return `<div class="alert-card" style="cursor:pointer" data-bill="${b.id}">
@@ -2247,7 +2773,7 @@ Currency: PKR (Rs.)`;
         }).join('');
       }
       if (soonBills.length){
-        html += `<div class="section-title" style="margin-top:14px"><i class="fas fa-clock" style="color:var(--warning)"></i> Due Soon (${soonBills.length})</div>`;
+        html += `<div class="section-title" style="margin-top:14px"><i class="fas fa-clock" style="color:var(--w)"></i> Due Soon (${soonBills.length})</div>`;
         html += soonBills.map(b => {
           const d = daysUntilDue(b.dueDate);
           return `<div class="alert-card warning" style="cursor:pointer" data-bill="${b.id}">
@@ -2285,20 +2811,20 @@ Currency: PKR (Rs.)`;
     if (typeof cb === 'function') cb();
   });
 
-  /* ============ PDF / PRINT / SHARE ============ */
-  let _pdfLoading = null;
+  /* ============ PDF ============ */
+  let _pdfLoad = null;
   function loadPdf(){
     if (window.html2pdf) return Promise.resolve();
-    if (_pdfLoading) return _pdfLoading;
-    _pdfLoading = new Promise((resolve, reject) => {
+    if (_pdfLoad) return _pdfLoad;
+    _pdfLoad = new Promise((resolve, reject) => {
       const s = document.createElement('script');
       s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
       s.async = true;
       s.onload = () => resolve();
-      s.onerror = () => { _pdfLoading = null; reject(new Error('PDF fail')); };
+      s.onerror = () => { _pdfLoad = null; reject(new Error('PDF fail')); };
       document.head.appendChild(s);
     });
-    return _pdfLoading;
+    return _pdfLoad;
   }
 
   function buildBillHTML(b){
@@ -2419,7 +2945,7 @@ Currency: PKR (Rs.)`;
       document.body.appendChild(w);
       await html2pdf().set({
         margin: 0,
-        filename: `bill-${(b.supplierName || 'bill').replace(/\s+/g, '-').toLowerCase()}-${b.id.slice(-6)}.pdf`,
+        filename: 'bill-' + (b.supplierName || 'bill').replace(/\s+/g, '-').toLowerCase() + '-' + b.id.slice(-6) + '.pdf',
         image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { scale: 2, useCORS: true, backgroundColor: '#fff', logging: false },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -2450,12 +2976,12 @@ Currency: PKR (Rs.)`;
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       }).from(w.firstElementChild).outputPdf('blob');
       document.body.removeChild(w);
-      const file = new File([blob], `bill-${b.id.slice(-6)}.pdf`, { type: 'application/pdf' });
+      const file = new File([blob], 'bill-' + b.id.slice(-6) + '.pdf', { type: 'application/pdf' });
       if (navigator.canShare && navigator.canShare({ files: [file] })){
-        await navigator.share({ files: [file], title: `Bill - ${b.supplierName}`, text: `Bill from ${b.supplierName}` });
+        await navigator.share({ files: [file], title: 'Bill - ' + b.supplierName, text: 'Bill from ' + b.supplierName });
         toast('Shared!');
       } else {
-        const msg = `*Bill from ${b.supplierName}*\nAmount: ${fmtRs(billTotal(b))}\nPaid: ${fmtRs(billPaid(b))}\nRemaining: ${fmtRs(billRemaining(b))}`;
+        const msg = '*Bill from ' + b.supplierName + '*\nAmount: ' + fmtRs(billTotal(b)) + '\nPaid: ' + fmtRs(billPaid(b)) + '\nRemaining: ' + fmtRs(billRemaining(b));
         window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
       }
     } catch(e){ if (e.name !== 'AbortError') toast('Share error', 2000, true); }
@@ -2483,7 +3009,7 @@ Currency: PKR (Rs.)`;
       document.body.appendChild(w);
       await html2pdf().set({
         margin: 0,
-        filename: `khata-${s.name.replace(/\s+/g, '-').toLowerCase()}.pdf`,
+        filename: 'khata-' + s.name.replace(/\s+/g, '-').toLowerCase() + '.pdf',
         image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { scale: 2, useCORS: true, backgroundColor: '#fff', logging: false },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -2498,20 +3024,12 @@ Currency: PKR (Rs.)`;
     const s = suppliers.find(x => x.id === currentSupplierId);
     if (!s) return;
     const t = supplierTotals(s.id);
-    const msg = `*${s.name} — Khata*\n\nPurchases: ${fmtRs(t.totalPurchases)}\nPaid: ${fmtRs(t.totalPaid)}\n*Outstanding: ${fmtRs(t.outstanding)}*`;
+    const msg = '*' + s.name + ' — Khata*\n\nPurchases: ' + fmtRs(t.totalPurchases) + '\nPaid: ' + fmtRs(t.totalPaid) + '\n*Outstanding: ' + fmtRs(t.outstanding) + '*';
     window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
   });
 
   /* ============ SETTINGS ============ */
-  $('settingsBtn').addEventListener('click', async () => {
-    $('sShopName').value = settings.shopName || '';
-    $('sShopAddress').value = settings.shopAddress || '';
-    $('sShopPhone').value = settings.shopPhone || '';
-    $('sCloudName').value = settings.cloudName || '';
-    $('sCloudPreset').value = settings.cloudPreset || '';
-    $('sGeminiKey').value = settings.geminiKey || '';
-    $('hideAmountsToggle').checked = !!settings.hideAmounts;
-
+  async function updateFpUI(){
     const fpAvail = await fpAvailable();
     const cpBtn = $('changePinBtn');
     if (security.pinHash) cpBtn.innerHTML = '<i class="fas fa-key"></i> Change PIN';
@@ -2523,6 +3041,18 @@ Currency: PKR (Rs.)`;
     } else {
       fpRow.style.display = 'none';
     }
+  }
+
+  $('settingsBtn').addEventListener('click', async () => {
+    $('sShopName').value = settings.shopName || '';
+    $('sShopAddress').value = settings.shopAddress || '';
+    $('sShopPhone').value = settings.shopPhone || '';
+    $('sBudget').value = settings.monthlyBudget || '';
+    $('sCloudName').value = settings.cloudName || '';
+    $('sCloudPreset').value = settings.cloudPreset || '';
+    $('sGeminiKey').value = settings.geminiKey || '';
+    $('hideAmountsToggle').checked = !!settings.hideAmounts;
+    await updateFpUI();
     openOv('settingsOverlay');
   });
 
@@ -2530,7 +3060,9 @@ Currency: PKR (Rs.)`;
     settings.shopName = $('sShopName').value.trim();
     settings.shopAddress = $('sShopAddress').value.trim();
     settings.shopPhone = $('sShopPhone').value.trim();
+    settings.monthlyBudget = parseFloat($('sBudget').value) || 0;
     saveSettings();
+    renderBudgetCard();
     toast('Saved');
   });
   $('saveCloudBtn').addEventListener('click', () => {
@@ -2552,7 +3084,7 @@ Currency: PKR (Rs.)`;
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
     try {
-      const res = await fetch(`${GEMINI_ENDPOINT}${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(key)}`, {
+      const res = await fetch(GEMINI_ENDPOINT + GEMINI_MODEL + ':generateContent?key=' + encodeURIComponent(key), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ contents: [{ parts: [{ text: 'Say OK' }] }] })
@@ -2569,14 +3101,13 @@ Currency: PKR (Rs.)`;
     btn.disabled = false;
     btn.innerHTML = orig;
   });
-
   $('hideAmountsToggle').addEventListener('change', e => {
     settings.hideAmounts = e.target.checked;
     saveSettings();
     renderBills();
     renderKhaatas();
     renderSummary();
-    toast(settings.hideAmounts ? 'Amounts hidden' : 'Amounts visible');
+    toast(settings.hideAmounts ? 'Amounts hidden' : 'Visible');
   });
 
   $('changePinBtn').addEventListener('click', () => {
@@ -2610,12 +3141,12 @@ Currency: PKR (Rs.)`;
 
   /* ============ EXPORT / IMPORT ============ */
   $('exportDataBtn').addEventListener('click', () => {
-    const data = { bills, suppliers, categories, settings, auditLog, exportedAt: Date.now(), version: 6 };
+    const data = { bills, suppliers, categories, settings, auditLog, exportedAt: Date.now(), version: 7 };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `bills-backup-${todayISO()}.json`;
+    a.download = 'bills-backup-' + todayISO() + '.json';
     a.click();
     URL.revokeObjectURL(url);
     toast('Backup downloaded');
@@ -2629,9 +3160,14 @@ Currency: PKR (Rs.)`;
       try {
         const data = JSON.parse(ev.target.result);
         if (data.bills && Array.isArray(data.bills)){
-          askConfirm('Import?', `${data.bills.length} bills, ${data.suppliers ? data.suppliers.length : 0} suppliers`, () => {
+          askConfirm('Import?', data.bills.length + ' bills import honge.', () => {
             bills = data.bills;
-            bills.forEach(b => { if (!Array.isArray(b.payments)) b.payments = []; });
+            bills.forEach(b => {
+              if (!Array.isArray(b.payments)) b.payments = [];
+              if (!Array.isArray(b.attachments)) b.attachments = [];
+              if (typeof b.returnedAmount !== 'number') b.returnedAmount = 0;
+              if (typeof b.isRecurring !== 'boolean') b.isRecurring = false;
+            });
             if (Array.isArray(data.suppliers)) suppliers = data.suppliers;
             if (Array.isArray(data.categories)) categories = data.categories;
             if (Array.isArray(data.auditLog)) auditLog = data.auditLog;
@@ -2664,12 +3200,12 @@ Currency: PKR (Rs.)`;
         b.paymentType || '', b.category || '', (b.notes || '').replace(/,/g, ';')
       ]);
     });
-    const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+    const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
     const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `bills-${todayISO()}.csv`;
+    a.download = 'bills-' + todayISO() + '.csv';
     a.click();
     URL.revokeObjectURL(url);
     toast('CSV exported');
@@ -2680,15 +3216,15 @@ Currency: PKR (Rs.)`;
     const withPhoto = bills.filter(b => b.imageUrl).length;
     const totalAmt = bills.reduce((s, b) => s + billTotal(b), 0);
     alert(
-      `STORAGE INFO\n\nBILLS: ${bills.length} (${withPhoto} photos)\nSUPPLIERS: ${suppliers.length}\nTotal Purchases: ${fmtRs(totalAmt)}\n\nBills: ${(billSize / 1024).toFixed(1)} KB\nSuppliers: ${(supSize / 1024).toFixed(1)} KB`
+      'STORAGE INFO\n\nBILLS: ' + bills.length + ' (' + withPhoto + ' photos)\nSUPPLIERS: ' + suppliers.length + '\nTotal Purchases: ' + fmtRs(totalAmt) + '\n\nBills: ' + (billSize / 1024).toFixed(1) + ' KB\nSuppliers: ' + (supSize / 1024).toFixed(1) + ' KB'
     );
   });
   $('clearAllBtn').addEventListener('click', () => {
-    askConfirm('Clear ALL data?', 'Saara data delete ho jayega — bills, suppliers, settings. Ye undo nahi hoga!', () => {
+    askConfirm('Clear ALL data?', 'Saara data delete ho jayega. Ye undo nahi hoga!', () => {
       ['bm_bills_v3','bm_suppliers_v3','bm_settings_v3','bm_categories_v2','bm_audit_v1','bm_security_v5',
        'bm_bills_v2','bm_suppliers_v2','bm_settings_v2','bm_categories_v1',
        'bm_bills_cloud_v1','bm_khaatas_v1','bm_settings_cloud_v1','bm_security_v4','bm_security_v3',
-       'bm_migrated_v6','bm_current_biz','bm_businesses_v1','bm_recovery_v1_done'].forEach(k => {
+       'bm_migrated_v7','bm_current_biz','bm_businesses_v1','bm_recovery_v1_done'].forEach(k => {
         try { localStorage.removeItem(k); } catch(e){}
       });
       try { sessionStorage.removeItem(SESSION_KEY); } catch(e){}
@@ -3117,12 +3653,12 @@ Currency: PKR (Rs.)`;
 
   /* ============ INIT ============ */
   function init(){
-    migrateIfNeeded();
-
-    try { const s = localStorage.getItem(KEYS.security); if (s) security = Object.assign(security, JSON.parse(s)); } catch(e){}
-
+    migrateData();
     loadAll();
     populateCatSelect();
+
+    // Process any pending recurring bills
+    processRecurring();
 
     renderBills();
     renderKhaatas();
@@ -3136,10 +3672,10 @@ Currency: PKR (Rs.)`;
       try { prompted = localStorage.getItem(PROMPT_KEY) === 'yes'; } catch(e){}
       if (!prompted){
         setTimeout(() => {
-          const doSetup = confirm('PIN set karein app lock ke liye?\n\nAapki financial data secure rahegi.');
+          const doSetup = confirm('PIN set karein app lock ke liye?\n\nAapki data secure rahegi.');
           try { localStorage.setItem(PROMPT_KEY, 'yes'); } catch(e){}
           if (doSetup) showLock('setup');
-          else { setUnlocked(); toast('Welcome to Bills Manager Pro!'); }
+          else { setUnlocked(); toast('Welcome!'); }
         }, 500);
       } else {
         setUnlocked();
@@ -3151,7 +3687,6 @@ Currency: PKR (Rs.)`;
     }
   }
 
-  // Wait for DOM to be ready
   if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', init);
   } else {
