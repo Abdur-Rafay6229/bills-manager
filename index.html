@@ -111,10 +111,10 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .opt-icon.man{background:linear-gradient(135deg,#f59e0b,#d97706)}
 .opt-icon.pay{background:linear-gradient(135deg,#059669,#10b981)}
 .opt-icon.sup{background:linear-gradient(135deg,#4338ca,#6366f1)}
-.opt-icon.ai{background:linear-gradient(135deg,#7c3aed,#a855f7)}
+.opt-icon.cat{background:linear-gradient(135deg,#0891b2,#0e7490)}
 .opt-icon.ret{background:linear-gradient(135deg,#dc2626,#ef4444)}
 .opt-icon.rec{background:linear-gradient(135deg,#be185d,#ec4899)}
-.opt-icon.cal{background:linear-gradient(135deg,#0891b2,#0e7490)}
+.opt-icon.cal{background:linear-gradient(135deg,#7c3aed,#a855f7)}
 .opt-text h4{font-size:.82rem;font-weight:700}
 .opt-text p{font-size:.68rem;color:var(--m)}
 .khata-summary{background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:var(--shl)}
@@ -160,14 +160,6 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .chk-row{display:flex;align-items:center;gap:8px;padding:8px 0}
 .chk-row input{width:18px;height:18px}
 .chk-row label{font-size:.85rem;font-weight:600;text-transform:none;margin:0}
-.cam-area{background:#0d1a12;border-radius:14px;overflow:hidden;position:relative;width:100%;aspect-ratio:4/3;margin-bottom:12px;display:flex;align-items:center;justify-content:center}
-.cam-area video,.cam-area img{width:100%;height:100%;object-fit:cover;display:block}
-.cam-placeholder{color:#7a9a85;text-align:center;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.83rem}
-.cam-placeholder i{font-size:2.2rem;opacity:.6}
-.cam-controls{display:flex;gap:9px;justify-content:center;align-items:center;margin-bottom:12px;flex-wrap:wrap}
-.capture{background:var(--a);color:#fff;border:none;width:60px;height:60px;border-radius:50%;font-size:1.4rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(25,135,84,.35)}
-.capture:active{transform:scale(.94)}
-.capture:disabled{background:#b8cdb1;box-shadow:none}
 .btn{border:none;padding:.7rem 1rem;border-radius:11px;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:46px;white-space:nowrap}
 .btn:active{transform:scale(.97)}
 .btn-primary{background:var(--p);color:#fff}
@@ -235,34 +227,6 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .upload-progress.show{display:flex}
 .upload-box{background:#fff;border-radius:16px;padding:26px;text-align:center;max-width:280px;width:100%}
 .upload-box i{font-size:2.2rem;color:var(--a);display:block;margin-bottom:10px}
-.chat-container{display:flex;flex-direction:column;height:70vh;max-height:600px}
-.chat-messages{flex:1;overflow-y:auto;padding:12px;background:#f9fbf8;border-radius:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:10px}
-.chat-msg{max-width:85%;padding:10px 14px;border-radius:16px;font-size:.88rem;line-height:1.5;word-wrap:break-word}
-.chat-msg.user{align-self:flex-end;background:var(--p);color:#fff;border-bottom-right-radius:4px}
-.chat-msg.ai{align-self:flex-start;background:#fff;border:1px solid var(--b);border-bottom-left-radius:4px;box-shadow:var(--sh)}
-.chat-msg.error{align-self:flex-start;background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
-.chat-msg.loading{align-self:flex-start;background:#fff;border:1px solid var(--b);color:var(--m)}
-.chat-typing{display:inline-flex;gap:3px}
-.chat-typing span{width:6px;height:6px;background:var(--m);border-radius:50%;animation:typing 1.2s infinite}
-.chat-typing span:nth-child(2){animation-delay:.2s}
-.chat-typing span:nth-child(3){animation-delay:.4s}
-@keyframes typing{0%,60%,100%{opacity:.3}30%{opacity:1}}
-.chat-input-row{display:flex;gap:8px}
-.chat-input{flex:1;padding:.75rem .9rem;border:1.5px solid var(--b);border-radius:12px;font-size:.9rem;background:#fff}
-.chat-input:focus{outline:none;border-color:var(--pu)}
-.chat-send-btn{background:var(--pu);color:#fff;border:none;width:46px;height:46px;border-radius:12px;font-size:1rem;display:flex;align-items:center;justify-content:center}
-.chat-send-btn:disabled{background:#b8a8dd}
-.chat-quick{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px;scrollbar-width:none}
-.chat-quick::-webkit-scrollbar{display:none}
-.chat-quick-btn{flex-shrink:0;background:var(--pub);color:#5b21b6;border:1px solid #c4b5fd;padding:.4rem .8rem;border-radius:20px;font-size:.72rem;font-weight:600;white-space:nowrap}
-.ocr-scanning{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border-radius:16px;padding:20px;text-align:center;margin-bottom:12px}
-.ocr-scanning .spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;margin:0 auto 12px;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.ocr-result{background:#f0f7ec;border:1px solid var(--b);border-radius:12px;padding:14px;margin-bottom:12px}
-.ocr-result .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--b);font-size:.86rem}
-.ocr-result .row:last-child{border-bottom:none}
-.ocr-result .row .k{color:var(--m);font-weight:600}
-.ocr-result .row .v{font-weight:700;text-align:right}
 .calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;background:#fff;padding:10px 14px;border-radius:12px;border:1px solid var(--b)}
 .calendar-header .month-label{font-weight:800;color:var(--p);font-size:1rem}
 .calendar-header button{background:#f0f5f1;border:none;width:34px;height:34px;border-radius:50%;color:var(--p);font-size:.9rem}
@@ -282,14 +246,44 @@ input,select,textarea{font-family:inherit;font-size:16px}
 .attach-item img{width:100%;height:100%;object-fit:cover}
 .attach-item .file-icon{font-size:1.8rem;color:var(--m)}
 .attach-item .del-btn{position:absolute;top:3px;right:3px;background:rgba(255,255,255,.9);border:none;width:22px;height:22px;border-radius:50%;color:var(--d);font-size:.65rem;display:flex;align-items:center;justify-content:center}
-.attach-add{aspect-ratio:1;border:2px dashed var(--b);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:var(--m);font-size:.68rem;font-weight:600;background:#fafcf9}
-.attach-add i{font-size:1.3rem;color:var(--a)}
 .audit-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--b);font-size:.82rem}
 .audit-item:last-child{border-bottom:none}
 .audit-item .a-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f0f5f1;color:var(--p);font-size:.85rem;flex-shrink:0}
 .audit-item .a-content{flex:1}
 .audit-item .a-text{font-weight:600}
 .audit-item .a-time{color:var(--m);font-size:.7rem;margin-top:2px}
+
+/* ============ FULL SCREEN CAMERA ============ */
+.camera-fullscreen{position:fixed;inset:0;background:#000;z-index:20000;display:none;flex-direction:column}
+.camera-fullscreen.active{display:flex}
+.camera-top-bar{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;display:flex;justify-content:space-between;align-items:center;z-index:10;background:linear-gradient(180deg,rgba(0,0,0,.65),transparent)}
+.cam-icon-btn{background:rgba(0,0,0,.45);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:1.05rem;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.cam-icon-btn:active{transform:scale(.92)}
+.camera-view{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.camera-view video{width:100%;height:100%;object-fit:cover;transition:transform .2s ease-out;display:block}
+.cam-placeholder-2{color:#7a9a85;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.9rem;position:absolute;inset:0;justify-content:center}
+.cam-placeholder-2 i{font-size:2.4rem;opacity:.6}
+.camera-bottom-bar{position:absolute;bottom:0;left:0;right:0;padding:20px 16px calc(env(safe-area-inset-bottom) + 26px);display:flex;flex-direction:column;align-items:center;gap:18px;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);z-index:10}
+.zoom-controls{display:flex;gap:6px;background:rgba(0,0,0,.55);padding:5px;border-radius:30px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.zoom-btn{background:none;border:none;color:rgba(255,255,255,.7);padding:8px 16px;border-radius:20px;font-size:.85rem;font-weight:700;min-width:48px;transition:all .15s}
+.zoom-btn.active{background:#fff;color:#000}
+.zoom-btn:active{transform:scale(.94)}
+.cam-capture-btn{background:#fff;border:4px solid rgba(255,255,255,.35);width:78px;height:78px;border-radius:50%;font-size:1.7rem;color:#000;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px rgba(255,255,255,.15)}
+.cam-capture-btn:active{transform:scale(.92)}
+.cam-capture-btn:disabled{background:#666;color:#999;box-shadow:none}
+.cam-fallback-row{display:flex;gap:10px}
+.cam-error-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(220,38,38,.95);color:#fff;padding:14px 22px;border-radius:12px;font-size:.85rem;text-align:center;max-width:300px;display:none;z-index:20;line-height:1.5}
+
+/* ============ FULL SCREEN PHOTO VIEWER ============ */
+.photo-viewer-fullscreen{position:fixed;inset:0;background:#000;z-index:21000;display:none;flex-direction:column}
+.photo-viewer-fullscreen.active{display:flex}
+.viewer-top-bar{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;display:flex;justify-content:flex-end;z-index:10;background:linear-gradient(180deg,rgba(0,0,0,.65),transparent)}
+.viewer-image-wrap{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;touch-action:none}
+.viewer-image-wrap img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .2s ease-out;user-select:none;-webkit-user-select:none;pointer-events:none}
+.viewer-bottom-bar{position:absolute;bottom:0;left:0;right:0;padding:20px 16px calc(env(safe-area-inset-bottom) + 26px);display:flex;flex-direction:column;align-items:center;gap:14px;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);z-index:10}
+.viewer-action-row{display:flex;gap:10px;width:100%;max-width:420px}
+.viewer-action-row .btn{flex:1}
+
 #print-area{display:none}
 @media print{
 body>*:not(#print-area){display:none!important}
@@ -337,7 +331,6 @@ body{padding:0!important;background:#fff}
     <div class="app-title"><i class="fas fa-file-invoice-dollar"></i> <span>Bills Pro</span></div>
     <div class="header-actions">
       <button class="install-btn" id="installBtn"><i class="fas fa-download"></i> Install</button>
-      <button class="icon-btn" id="aiChatBtn"><i class="fas fa-robot"></i></button>
       <button class="icon-btn" id="notifBtn"><i class="fas fa-bell"></i><span class="dot" id="notifDot" style="display:none"></span></button>
       <button class="icon-btn" id="lockNowBtn"><i class="fas fa-lock"></i></button>
       <button class="icon-btn" id="settingsBtn"><i class="fas fa-cog"></i></button>
@@ -406,11 +399,11 @@ body{padding:0!important;background:#fff}
   <section class="view" id="view-add">
     <div class="section-title"><i class="fas fa-plus-circle"></i> Add New</div>
     <div class="add-options">
-      <button class="opt-card" id="optCamera"><div class="opt-icon cam"><i class="fas fa-camera"></i></div><div class="opt-text"><h4>Scan Bill</h4><p>AI OCR</p></div></button>
+      <button class="opt-card" id="optCamera"><div class="opt-icon cam"><i class="fas fa-camera"></i></div><div class="opt-text"><h4>Camera</h4><p>Photo लें</p></div></button>
       <button class="opt-card" id="optManual"><div class="opt-icon man"><i class="fas fa-pen-to-square"></i></div><div class="opt-text"><h4>New Bill</h4><p>Manually</p></div></button>
       <button class="opt-card" id="optPayment"><div class="opt-icon pay"><i class="fas fa-money-bill-transfer"></i></div><div class="opt-text"><h4>Payment</h4><p>Record</p></div></button>
       <button class="opt-card" id="optSupplier"><div class="opt-icon sup"><i class="fas fa-user-plus"></i></div><div class="opt-text"><h4>Supplier</h4><p>Add vendor</p></div></button>
-      <button class="opt-card" id="optAI"><div class="opt-icon ai"><i class="fas fa-robot"></i></div><div class="opt-text"><h4>AI Chat</h4><p>Ask anything</p></div></button>
+      <button class="opt-card" id="manageCatBtn"><div class="opt-icon cat"><i class="fas fa-tags"></i></div><div class="opt-text"><h4>Categories</h4><p>Manage</p></div></button>
       <button class="opt-card" id="optReturn2"><div class="opt-icon ret"><i class="fas fa-rotate-left"></i></div><div class="opt-text"><h4>Return</h4><p>Purchase return</p></div></button>
       <button class="opt-card" id="optRecurring2"><div class="opt-icon rec"><i class="fas fa-arrows-rotate"></i></div><div class="opt-text"><h4>Recurring</h4><p>Auto-repeat</p></div></button>
       <button class="opt-card" id="optCalendar2"><div class="opt-icon cal"><i class="fas fa-calendar"></i></div><div class="opt-text"><h4>Calendar</h4><p>Due dates</p></div></button>
@@ -440,37 +433,61 @@ body{padding:0!important;background:#fff}
   <button class="nav-btn" data-view="summary"><i class="fas fa-chart-simple"></i><span>Summary</span></button>
 </nav>
 
-<!-- CAMERA -->
-<div class="overlay" id="cameraOverlay"><div class="sheet">
-  <div class="sheet-header"><h2><i class="fas fa-camera"></i> Scan Bill</h2><button class="close-btn" data-close="cameraOverlay"><i class="fas fa-times"></i></button></div>
-  <div class="cam-area"><div class="cam-placeholder" id="camPlaceholder"><i class="fas fa-video"></i><span>Starting...</span></div><video id="camVideo" autoplay playsinline muted style="display:none"></video><img id="camPreview" style="display:none"></div>
-  <div class="cam-controls">
-    <button class="btn btn-outline btn-sm" id="camSwitch"><i class="fas fa-sync-alt"></i></button>
-    <button class="capture" id="camCapture" disabled><i class="fas fa-camera"></i></button>
-    <button class="btn btn-outline btn-sm" id="camRetake" style="display:none"><i class="fas fa-redo"></i></button>
-    <button class="btn btn-outline btn-sm" id="camFallback" style="display:none"><i class="fas fa-camera-retro"></i> Device</button>
-    <input type="file" id="camFallbackInput" accept="image/*" capture="environment" style="display:none">
+<!-- FULL SCREEN CAMERA -->
+<div class="camera-fullscreen" id="cameraOverlay">
+  <div class="camera-top-bar">
+    <button class="cam-icon-btn" id="camClose"><i class="fas fa-times"></i></button>
+    <button class="cam-icon-btn" id="camSwitch"><i class="fas fa-sync-alt"></i></button>
   </div>
-  <div id="camError" style="display:none;background:#fdeaea;color:#b34141;padding:9px;border-radius:10px;font-size:.83rem;text-align:center;margin-bottom:10px"></div>
-  <button class="btn btn-accent btn-block" id="camUseBtn" style="display:none"><i class="fas fa-check"></i> Use this photo</button>
-</div></div>
+  <div class="camera-view">
+    <div class="cam-placeholder-2" id="camPlaceholder">
+      <i class="fas fa-video"></i>
+      <span>Camera start ho raha hai...</span>
+    </div>
+    <video id="camVideo" autoplay playsinline muted style="display:none"></video>
+  </div>
+  <div class="camera-bottom-bar">
+    <div class="zoom-controls" id="zoomControls">
+      <button class="zoom-btn active" data-zoom="1">1x</button>
+      <button class="zoom-btn" data-zoom="2">2x</button>
+      <button class="zoom-btn" data-zoom="3">3x</button>
+    </div>
+    <button class="cam-capture-btn" id="camCapture" disabled><i class="fas fa-camera"></i></button>
+    <div class="cam-fallback-row">
+      <button class="btn btn-outline btn-sm" id="camFallback" style="display:none;background:rgba(255,255,255,.9)"><i class="fas fa-camera-retro"></i> Device camera</button>
+      <input type="file" id="camFallbackInput" accept="image/*" capture="environment" style="display:none">
+    </div>
+  </div>
+  <div class="cam-error-box" id="camError"></div>
+</div>
 
-<!-- OCR RESULT -->
-<div class="overlay" id="ocrOverlay"><div class="sheet">
-  <div class="sheet-header"><h2><i class="fas fa-magic"></i> AI Scan Result</h2><button class="close-btn" data-close="ocrOverlay"><i class="fas fa-times"></i></button></div>
-  <div id="ocrContent"></div>
-  <div class="btn-row">
-    <button class="btn btn-outline" id="ocrRetryBtn"><i class="fas fa-redo"></i> Retry</button>
-    <button class="btn btn-primary" id="ocrConfirmBtn" disabled><i class="fas fa-check"></i> Confirm</button>
+<!-- FULL SCREEN PHOTO VIEWER -->
+<div class="photo-viewer-fullscreen" id="photoViewer">
+  <div class="viewer-top-bar">
+    <button class="cam-icon-btn" id="viewerClose"><i class="fas fa-times"></i></button>
   </div>
-</div></div>
+  <div class="viewer-image-wrap" id="viewerImageWrap">
+    <img id="viewerImage" src="" alt="Bill photo">
+  </div>
+  <div class="viewer-bottom-bar">
+    <div class="zoom-controls">
+      <button class="zoom-btn active" data-viewer-zoom="1">1x</button>
+      <button class="zoom-btn" data-viewer-zoom="2">2x</button>
+      <button class="zoom-btn" data-viewer-zoom="3">3x</button>
+    </div>
+    <div class="viewer-action-row">
+      <button class="btn btn-outline" id="viewerRetake" style="background:#fff"><i class="fas fa-redo"></i> Retake</button>
+      <button class="btn btn-primary" id="viewerUse"><i class="fas fa-check"></i> Use Photo</button>
+    </div>
+  </div>
+</div>
 
 <!-- BILL FORM -->
 <div class="overlay" id="formOverlay"><div class="sheet">
   <div class="sheet-header"><h2 id="formTitle"><i class="fas fa-file-invoice"></i> Bill</h2><button class="close-btn" data-close="formOverlay"><i class="fas fa-times"></i></button></div>
   <form id="billForm" onsubmit="return false">
     <div id="formImagePreview" style="display:none;margin-bottom:10px">
-      <img id="formImage" style="width:100%;border-radius:12px;border:1px solid var(--b);max-height:160px;object-fit:contain;background:#f0f5f1">
+      <img id="formImage" style="width:100%;border-radius:12px;border:1px solid var(--b);max-height:200px;object-fit:contain;background:#f0f5f1;cursor:pointer">
       <button type="button" class="btn btn-outline btn-sm" style="margin-top:6px" id="removeImageBtn"><i class="fas fa-times"></i> Remove</button>
     </div>
     <div class="fg-row">
@@ -583,25 +600,6 @@ body{padding:0!important;background:#fff}
   <div id="catList"></div>
 </div></div>
 
-<!-- AI CHAT -->
-<div class="overlay" id="chatOverlay"><div class="sheet">
-  <div class="sheet-header"><h2><i class="fas fa-robot" style="color:#7c3aed"></i> AI Assistant</h2><button class="close-btn" data-close="chatOverlay"><i class="fas fa-times"></i></button></div>
-  <div class="chat-container">
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-quick" id="chatQuick">
-      <button class="chat-quick-btn" data-q="Is mahine ka total kharcha kitna hai?">This month?</button>
-      <button class="chat-quick-btn" data-q="Kitna outstanding baqaya hai?">Outstanding?</button>
-      <button class="chat-quick-btn" data-q="Kis supplier ko sabse zyada dena hai?">Top pending?</button>
-      <button class="chat-quick-btn" data-q="Agle 7 din mein kaunse bills due hain?">Due soon?</button>
-      <button class="chat-quick-btn" data-q="Is mahine kis category mein sabse zyada kharcha hua?">Top category?</button>
-    </div>
-    <div class="chat-input-row">
-      <input type="text" class="chat-input" id="chatInput" placeholder="Poochein kuch bhi...">
-      <button class="chat-send-btn" id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
-    </div>
-  </div>
-</div></div>
-
 <!-- RECURRING -->
 <div class="overlay" id="recurringOverlay"><div class="sheet">
   <div class="sheet-header"><h2><i class="fas fa-arrows-rotate"></i> Recurring Bills</h2><button class="close-btn" data-close="recurringOverlay"><i class="fas fa-times"></i></button></div>
@@ -690,15 +688,6 @@ body{padding:0!important;background:#fff}
   </div>
 
   <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--b)">
-    <div class="section-title" style="margin-top:0"><i class="fas fa-robot"></i> AI (Gemini)</div>
-    <div class="fg"><label>Gemini API Key</label><input type="password" id="sGeminiKey" placeholder="AIzaSy..."><small style="color:var(--m);font-size:.7rem;display:block;margin-top:4px">Free: aistudio.google.com</small></div>
-    <div class="fg-row">
-      <button class="btn btn-accent" id="saveAiKeyBtn"><i class="fas fa-save"></i> Save</button>
-      <button class="btn btn-outline" id="testAiBtn"><i class="fas fa-flask"></i> Test</button>
-    </div>
-  </div>
-
-  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--b)">
     <div class="section-title" style="margin-top:0"><i class="fas fa-cloud"></i> Cloudinary</div>
     <div class="fg"><label>Cloud Name</label><input type="text" id="sCloudName"></div>
     <div class="fg"><label>Upload Preset</label><input type="text" id="sCloudPreset"></div>
@@ -754,8 +743,6 @@ body{padding:0!important;background:#fff}
 
   const DEFAULT_CLOUD_NAME = 'qohsict0';
   const DEFAULT_UPLOAD_PRESET = 'bills_upload';
-  const GEMINI_MODEL = 'gemini-3.6-flash';
-  const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/';
 
   const $ = id => document.getElementById(id);
   const $$ = sel => document.querySelectorAll(sel);
@@ -785,7 +772,7 @@ body{padding:0!important;background:#fff}
   let auditLog = [];
   let settings = {
     shopName:'', shopAddress:'', shopPhone:'',
-    cloudName:'', cloudPreset:'', geminiKey:'',
+    cloudName:'', cloudPreset:'',
     hideAmounts: false, monthlyBudget: 0
   };
   let security = {
@@ -807,7 +794,14 @@ body{padding:0!important;background:#fff}
   let currentAuditFilter = 'all';
   let calendarDate = new Date();
   let selectedCalDate = null;
-  let ocrExtracted = null;
+
+  /* ============ CAMERA STATE ============ */
+  let camStream = null;
+  let camFacing = 'environment';
+  let currentZoom = 1;
+  let cssZoomApplied = false;
+  let capturedPhotoData = null;
+  let viewerZoom = 1;
 
   /* ============ HELPERS ============ */
   function uid(p){ return p + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,7); }
@@ -853,16 +847,11 @@ body{padding:0!important;background:#fff}
     try {
       if (localStorage.getItem(MIGRATION_FLAG) === 'yes') return;
 
-      // Check if new bills already exist
       const existingNew = localStorage.getItem(KEYS.bills);
       let newBillsArr = [];
-      if (existingNew){
-        try { newBillsArr = JSON.parse(existingNew) || []; } catch(e){}
-      }
+      if (existingNew){ try { newBillsArr = JSON.parse(existingNew) || []; } catch(e){} }
 
-      // If no new bills, migrate from old
       if (!Array.isArray(newBillsArr) || newBillsArr.length === 0){
-        // Try bm_bills_v2 first
         const v2 = localStorage.getItem('bm_bills_v2');
         if (v2){
           try {
@@ -894,7 +883,6 @@ body{padding:0!important;background:#fff}
           } catch(e){}
         }
 
-        // Try bm_bills_cloud_v1
         if (newBillsArr.length === 0){
           const v1 = localStorage.getItem('bm_bills_cloud_v1');
           if (v1){
@@ -927,7 +915,6 @@ body{padding:0!important;background:#fff}
           }
         }
 
-        // Try khaatas
         if (newBillsArr.length === 0){
           const kh = localStorage.getItem('bm_khaatas_v1');
           if (kh){
@@ -971,7 +958,6 @@ body{padding:0!important;background:#fff}
         }
       }
 
-      // Suppliers
       const existingSups = localStorage.getItem(KEYS.suppliers);
       let newSupsArr = [];
       if (existingSups){ try { newSupsArr = JSON.parse(existingSups) || []; } catch(e){} }
@@ -1000,7 +986,6 @@ body{padding:0!important;background:#fff}
         }
       }
 
-      // Settings
       if (!localStorage.getItem(KEYS.settings)){
         const v2 = localStorage.getItem('bm_settings_v2');
         const v1 = localStorage.getItem('bm_settings_cloud_v1');
@@ -1014,7 +999,6 @@ body{padding:0!important;background:#fff}
               shopPhone: s.shopPhone || '',
               cloudName: s.cloudName || DEFAULT_CLOUD_NAME,
               cloudPreset: s.cloudPreset || DEFAULT_UPLOAD_PRESET,
-              geminiKey: s.geminiKey || '',
               hideAmounts: !!s.hideAmounts,
               monthlyBudget: Number(s.monthlyBudget) || 0
             }));
@@ -1022,7 +1006,6 @@ body{padding:0!important;background:#fff}
         }
       }
 
-      // Security
       if (!localStorage.getItem(KEYS.security)){
         ['bm_security_v4', 'bm_security_v3'].forEach(k => {
           if (localStorage.getItem(KEYS.security)) return;
@@ -1038,9 +1021,7 @@ body{padding:0!important;background:#fff}
         });
       }
 
-      // Cleanup problematic flags
       localStorage.removeItem('bm_current_biz');
-
       localStorage.setItem(MIGRATION_FLAG, 'yes');
     } catch(e){ console.warn('Migration:', e); }
   }
@@ -1160,19 +1141,20 @@ body{padding:0!important;background:#fff}
   /* ============ OVERLAYS ============ */
   function openOv(id){ $(id).classList.add('active'); }
   function closeOv(id){ $(id).classList.remove('active'); }
+  function openFS(id){ $(id).classList.add('active'); }
+  function closeFS(id){ $(id).classList.remove('active'); }
+
   $$('[data-close]').forEach(b => b.addEventListener('click', () => {
     const id = b.dataset.close;
     closeOv(id);
-    if (id === 'cameraOverlay') stopCam();
   }));
-  ['cameraOverlay','formOverlay','detailOverlay','confirmOverlay','settingsOverlay','paymentOverlay',
-   'supplierOverlay','khataDetailOverlay','catOverlay','notifOverlay','chatOverlay','ocrOverlay',
+  ['formOverlay','detailOverlay','confirmOverlay','settingsOverlay','paymentOverlay',
+   'supplierOverlay','khataDetailOverlay','catOverlay','notifOverlay',
    'recurringOverlay','returnOverlay','calendarOverlay','attachOverlay','auditOverlay'].forEach(id => {
     const el = $(id);
     if (!el) return;
     el.addEventListener('click', e => {
       if (e.target.id === id){
-        if (id === 'cameraOverlay') stopCam();
         closeOv(id);
       }
     });
@@ -1439,7 +1421,7 @@ body{padding:0!important;background:#fff}
     const rets = b.returnedHistory || [];
 
     $('detailContent').innerHTML = `
-      ${b.imageUrl ? `<img src="${b.imageUrl}" style="width:100%;border-radius:12px;margin:12px 0;border:1px solid var(--b);background:#f0f5f1" decoding="async">` : ''}
+      ${b.imageUrl ? `<img src="${b.imageUrl}" style="width:100%;border-radius:12px;margin:12px 0;border:1px solid var(--b);background:#f0f5f1;cursor:pointer" decoding="async" data-view-photo="${esc(b.imageUrl)}">` : ''}
       <div style="background:#f0f7ec;border-radius:12px;padding:12px;margin-bottom:12px">
         <div style="font-size:.7rem;color:var(--m);font-weight:700;text-transform:uppercase;margin-bottom:4px">${esc(b.supplierName || 'Unknown')}</div>
         <div style="font-size:1.4rem;font-weight:800;color:var(--p);margin-bottom:6px">${hideAmt(fmtRs(total))}</div>
@@ -1519,6 +1501,13 @@ body{padding:0!important;background:#fff}
     });
     $('detailContent').querySelectorAll('[data-d-att]').forEach(el => {
       el.addEventListener('click', () => window.open(el.dataset.dAtt, '_blank'));
+    });
+    // View bill photo full screen
+    $('detailContent').querySelectorAll('[data-view-photo]').forEach(el => {
+      el.addEventListener('click', () => {
+        capturedPhotoData = el.dataset.viewPhoto;
+        openPhotoViewer(el.dataset.viewPhoto, true);
+      });
     });
 
     $('dMarkPaidBtn').style.display = (st === 'paid' || total === 0) ? 'none' : 'inline-flex';
@@ -1659,6 +1648,10 @@ body{padding:0!important;background:#fff}
     currentPhotoData = null;
     $('formImagePreview').style.display = 'none';
     $('formImage').src = '';
+  });
+  // Click preview to view full screen
+  $('formImage').addEventListener('click', () => {
+    if (currentPhotoData) openPhotoViewer(currentPhotoData, false);
   });
 
   $('fIsRecurring').addEventListener('change', e => {
@@ -2029,8 +2022,7 @@ body{padding:0!important;background:#fff}
       });
     });
   }
-    const _mcb = $('manageCatBtn');
-  if (_mcb) _mcb.addEventListener('click', () => { renderCatList(); openOv('catOverlay'); });
+  $('manageCatBtn').addEventListener('click', () => { renderCatList(); openOv('catOverlay'); });
   $('addCatBtn').addEventListener('click', () => {
     const c = $('newCatInput').value.trim();
     if (!c) return;
@@ -2042,10 +2034,7 @@ body{padding:0!important;background:#fff}
     toast('Added');
   });
 
-  /* ============ CAMERA ============ */
-  let camStream = null;
-  let camFacing = 'environment';
-
+  /* ============ CAMERA (FULL SCREEN) ============ */
   function stopCam(){
     if (camStream){
       try { camStream.getTracks().forEach(t => t.stop()); } catch(e){}
@@ -2054,33 +2043,43 @@ body{padding:0!important;background:#fff}
     const v = $('camVideo');
     if (v) v.srcObject = null;
   }
-  function camErr(m){ const b = $('camError'); b.textContent = m; b.style.display = 'block'; }
-  function camFallback(m){
-    camErr(m + ' — "Device" use karein');
-    $('camPlaceholder').style.display = 'flex';
-    $('camPlaceholder').innerHTML = '<i class="fas fa-camera-retro"></i><span>Fallback</span>';
+
+  function camErr(m){
+    const b = $('camError');
+    b.textContent = m;
+    b.style.display = 'block';
+  }
+
+  function camFallback(msg){
+    camErr(msg);
+    $('camPlaceholder').style.display = 'none';
+    $('camVideo').style.display = 'none';
     $('camCapture').disabled = true;
     $('camCapture').style.display = 'none';
     $('camSwitch').style.display = 'none';
     $('camFallback').style.display = 'inline-flex';
+    $('zoomControls').style.display = 'none';
   }
 
   async function startCamera(){
     stopCam();
     $('camError').style.display = 'none';
+    $('camError').textContent = '';
     $('camPlaceholder').style.display = 'flex';
-    $('camPlaceholder').innerHTML = '<i class="fas fa-video"></i><span>Starting...</span>';
+    $('camPlaceholder').innerHTML = '<i class="fas fa-video"></i><span>Camera start ho raha hai...</span>';
     $('camVideo').style.display = 'none';
-    $('camPreview').style.display = 'none';
     $('camCapture').style.display = 'flex';
     $('camCapture').disabled = true;
-    $('camSwitch').style.display = 'inline-flex';
-    $('camRetake').style.display = 'none';
+    $('camSwitch').style.display = 'flex';
     $('camFallback').style.display = 'none';
-    $('camUseBtn').style.display = 'none';
+    $('zoomControls').style.display = 'flex';
+    currentZoom = 1;
+    cssZoomApplied = false;
+    updateZoomUI();
+    $('camVideo').style.transform = 'scale(1)';
 
-    if (location.protocol === 'file:'){ camFallback('file:// blocked'); return; }
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ camFallback('Not supported'); return; }
+    if (location.protocol === 'file:'){ camFallback('file:// mein camera kaam nahi karta. HTTPS use karein.'); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ camFallback('Browser camera support nahi karta.'); return; }
     try {
       camStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { ideal: camFacing }, width: {ideal:1920}, height: {ideal:1440} },
@@ -2100,177 +2099,149 @@ body{padding:0!important;background:#fff}
     }
   }
 
+  function updateZoomUI(){
+    $$('.zoom-btn[data-zoom]').forEach(b => {
+      b.classList.toggle('active', Number(b.dataset.zoom) === currentZoom);
+    });
+  }
+
+  async function setCameraZoom(level){
+    currentZoom = level;
+    updateZoomUI();
+    if (!camStream) return;
+    const track = camStream.getVideoTracks()[0];
+    if (!track) return;
+
+    const caps = track.getCapabilities ? track.getCapabilities() : {};
+    if (caps.zoom){
+      try {
+        await track.applyConstraints({ advanced: [{ zoom: Math.min(caps.zoom.max, level) }] });
+        cssZoomApplied = false;
+        $('camVideo').style.transform = 'scale(1)';
+        return;
+      } catch(e){}
+    }
+    // Fallback: CSS scale
+    cssZoomApplied = true;
+    $('camVideo').style.transform = `scale(${level})`;
+  }
+
+  $$('.zoom-btn[data-zoom]').forEach(b => {
+    b.addEventListener('click', () => {
+      setCameraZoom(Number(b.dataset.zoom));
+    });
+  });
+
+  $('camClose').addEventListener('click', () => {
+    stopCam();
+    closeFS('cameraOverlay');
+  });
+
   $('camSwitch').addEventListener('click', () => {
     camFacing = camFacing === 'environment' ? 'user' : 'environment';
     startCamera();
   });
+
   $('camCapture').addEventListener('click', () => {
     if (!camStream) return;
     const v = $('camVideo');
     const w = v.videoWidth || 1280;
     const h = v.videoHeight || 960;
     const c = document.createElement('canvas');
-    c.width = w; c.height = h;
-    c.getContext('2d').drawImage(v, 0, 0, w, h);
-    currentPhotoData = c.toDataURL('image/jpeg', 0.92);
-    $('camPreview').src = currentPhotoData;
-    $('camPreview').style.display = 'block';
-    v.style.display = 'none';
-    $('camCapture').style.display = 'none';
-    $('camSwitch').style.display = 'none';
-    $('camRetake').style.display = 'inline-flex';
-    $('camUseBtn').style.display = 'inline-flex';
-    stopCam();
-  });
-  $('camRetake').addEventListener('click', () => {
-    currentPhotoData = null;
-    $('camPreview').style.display = 'none';
-    $('camUseBtn').style.display = 'none';
-    startCamera();
-  });
-  $('camUseBtn').addEventListener('click', async () => {
-    if (!currentPhotoData) return;
-    const key = (settings.geminiKey || '').trim();
-    if (key){
-      closeOv('cameraOverlay');
-      stopCam();
-      await doOCR(currentPhotoData);
+    const ctx = c.getContext('2d');
+
+    if (cssZoomApplied && currentZoom > 1){
+      const cropW = w / currentZoom;
+      const cropH = h / currentZoom;
+      const cropX = (w - cropW) / 2;
+      const cropY = (h - cropH) / 2;
+      c.width = Math.round(cropW);
+      c.height = Math.round(cropH);
+      ctx.drawImage(v, cropX, cropY, cropW, cropH, 0, 0, c.width, c.height);
     } else {
-      const p = currentPhotoData;
-      closeOv('cameraOverlay');
-      stopCam();
-      openForm(null, p);
+      c.width = w;
+      c.height = h;
+      ctx.drawImage(v, 0, 0, w, h);
     }
+
+    capturedPhotoData = c.toDataURL('image/jpeg', 0.92);
+    stopCam();
+    closeFS('cameraOverlay');
+    openPhotoViewer(capturedPhotoData, false);
   });
+
   $('camFallback').addEventListener('click', () => $('camFallbackInput').click());
   $('camFallbackInput').addEventListener('change', e => {
     const f = e.target.files && e.target.files[0];
     if (!f) return;
     const r = new FileReader();
-    r.onload = async ev => {
-      const dataUrl = ev.target.result;
-      const key = (settings.geminiKey || '').trim();
-      closeOv('cameraOverlay');
-      if (key) await doOCR(dataUrl);
-      else openForm(null, dataUrl);
+    r.onload = ev => {
+      closeFS('cameraOverlay');
+      capturedPhotoData = ev.target.result;
+      openPhotoViewer(capturedPhotoData, false);
     };
     r.readAsDataURL(f);
     e.target.value = '';
   });
 
-  /* ============ OCR (Gemini Vision) ============ */
-  async function doOCR(dataUrl){
-    $('ocrContent').innerHTML = `<div class="ocr-scanning"><div class="spinner"></div><b>AI scanning...</b><br><small>5-10 seconds</small></div>`;
-    $('ocrConfirmBtn').disabled = true;
-    $('ocrConfirmBtn').innerHTML = '<i class="fas fa-check"></i> Confirm';
-    openOv('ocrOverlay');
-
-    try {
-      const result = await ocrCallGemini(dataUrl);
-      ocrExtracted = result;
-      ocrExtracted._photo = dataUrl;
-      renderOcrResult(result);
-      $('ocrConfirmBtn').disabled = false;
-    } catch(e){
-      if (e.message === 'NO_KEY'){
-        $('ocrContent').innerHTML = '<div style="background:#fee2e2;color:#991b1b;padding:12px;border-radius:12px;font-size:.85rem">⚠️ Pehle Settings mein Gemini API Key daalein</div>';
-      } else {
-        $('ocrContent').innerHTML = '<div style="background:#fee2e2;color:#991b1b;padding:12px;border-radius:12px;font-size:.85rem">⚠️ ' + esc(e.message) + '</div>';
-      }
+  /* ============ PHOTO VIEWER (FULL SCREEN) ============ */
+  function openPhotoViewer(dataUrl, viewOnly){
+    $('viewerImage').src = dataUrl;
+    viewerZoom = 1;
+    applyViewerZoom();
+    // If viewOnly, hide retake/use buttons
+    if (viewOnly){
+      $('viewerRetake').style.display = 'none';
+      $('viewerUse').style.display = 'none';
+    } else {
+      $('viewerRetake').style.display = 'inline-flex';
+      $('viewerUse').style.display = 'inline-flex';
     }
+    openFS('photoViewer');
   }
 
-  async function ocrCallGemini(dataUrl){
-    const key = (settings.geminiKey || '').trim();
-    if (!key) throw new Error('NO_KEY');
-    const base64 = dataUrl.split(',')[1];
-    const mimeMatch = dataUrl.match(/^data:([^;]+);/);
-    const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
-
-    const prompt = `Extract data from this purchase bill image. Return ONLY JSON (no markdown):
-{"supplierName":"","billNumber":"","billDate":"YYYY-MM-DD","dueDate":"","amount":0,"tax":0,"totalAmount":0,"category":"","notes":""}
-If a field is unreadable use "" or 0. Amounts as plain numbers.
-Categories: Grocery, Vegetables, Fruits, Dairy, Meat, Bakery, Beverages, Electricity, Gas, Water, Internet, Mobile, Rent, Salaries, Transport, Maintenance, Taxes, Cosmetics, Household, Miscellaneous.
-Today: ${todayISO()}`;
-
-    const body = {
-      contents: [{
-        parts: [
-          { text: prompt },
-          { inline_data: { mime_type: mime, data: base64 } }
-        ]
-      }],
-      generationConfig: { temperature: 0.1, maxOutputTokens: 500 }
-    };
-
-    const res = await fetch(`${GEMINI_ENDPOINT}${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(key)}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+  function applyViewerZoom(){
+    const img = $('viewerImage');
+    img.style.transform = `scale(${viewerZoom})`;
+    $$('[data-viewer-zoom]').forEach(b => {
+      b.classList.toggle('active', Number(b.dataset.viewerZoom) === viewerZoom);
     });
-    if (!res.ok){
-      const err = await res.json().catch(() => ({}));
-      throw new Error((err.error && err.error.message) || ('HTTP ' + res.status));
-    }
-    const data = await res.json();
-    let text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts
-      ? data.candidates[0].content.parts.map(p => p.text || '').join('')
-      : '';
-    if (!text) throw new Error('Empty response');
-    text = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
-    const s = text.indexOf('{');
-    const e = text.lastIndexOf('}');
-    if (s === -1 || e === -1) throw new Error('No JSON found');
-    return JSON.parse(text.slice(s, e + 1));
   }
 
-  function renderOcrResult(r){
-    const rows = [
-      ['Supplier', r.supplierName || '—'],
-      ['Bill #', r.billNumber || '—'],
-      ['Bill Date', r.billDate || '—'],
-      ['Due Date', r.dueDate || '—'],
-      ['Subtotal', r.amount ? fmtRs(r.amount) : '—'],
-      ['Tax', r.tax ? fmtRs(r.tax) : '—'],
-      ['Total', r.totalAmount ? fmtRs(r.totalAmount) : '—'],
-      ['Category', r.category || '—'],
-      ['Notes', r.notes || '—']
-    ];
-    $('ocrContent').innerHTML = `
-      <div style="text-align:center;margin-bottom:12px"><i class="fas fa-check-circle" style="font-size:2rem;color:var(--s)"></i><div style="font-weight:700;margin-top:6px">Scan Complete!</div></div>
-      <img src="${r._photo}" style="width:100%;max-height:180px;object-fit:contain;border-radius:10px;border:1px solid var(--b);margin-bottom:12px;background:#f0f5f1">
-      <div class="ocr-result">
-        ${rows.map(rr => `<div class="row"><span class="k">${rr[0]}</span><span class="v">${esc(String(rr[1]))}</span></div>`).join('')}
-      </div>`;
-  }
-
-  $('ocrRetryBtn').addEventListener('click', () => {
-    closeOv('ocrOverlay');
-    ocrExtracted = null;
-    currentPhotoData = null;
-    startCamera();
-    openOv('cameraOverlay');
+  $$('[data-viewer-zoom]').forEach(b => {
+    b.addEventListener('click', () => {
+      viewerZoom = Number(b.dataset.viewerZoom);
+      applyViewerZoom();
+    });
   });
-  $('ocrConfirmBtn').addEventListener('click', () => {
-    if (!ocrExtracted) return;
-    const r = ocrExtracted;
-    closeOv('ocrOverlay');
-    currentPhotoData = r._photo;
-    openForm(null, r._photo, {
-      supplier: r.supplierName || '',
-      billNumber: r.billNumber || '',
-      billDate: r.billDate || todayISO(),
-      dueDate: r.dueDate || '',
-      amount: r.amount || r.totalAmount || '',
-      tax: r.tax || '',
-      category: r.category || '',
-      notes: r.notes || ''
-    });
-    ocrExtracted = null;
+
+  $('viewerClose').addEventListener('click', () => {
+    closeFS('photoViewer');
+    capturedPhotoData = null;
+  });
+
+  $('viewerRetake').addEventListener('click', () => {
+    closeFS('photoViewer');
+    capturedPhotoData = null;
+    startCamera();
+    openFS('cameraOverlay');
+  });
+
+  $('viewerUse').addEventListener('click', () => {
+    if (!capturedPhotoData) return;
+    const p = capturedPhotoData;
+    closeFS('photoViewer');
+    capturedPhotoData = null;
+    openForm(null, p);
   });
 
   /* ============ ADD ============ */
-  $('optCamera').addEventListener('click', () => { currentPhotoData = null; startCamera(); openOv('cameraOverlay'); });
+  $('optCamera').addEventListener('click', () => {
+    capturedPhotoData = null;
+    currentPhotoData = null;
+    openFS('cameraOverlay');
+    startCamera();
+  });
   $('optManual').addEventListener('click', () => openForm(null, null));
   $('optPayment').addEventListener('click', () => {
     const unpaid = bills.filter(b => billStatus(b) !== 'paid' && billTotal(b) > 0);
@@ -2279,145 +2250,9 @@ Today: ${todayISO()}`;
     showView('bills');
     setTimeout(() => openDetail(unpaid[0].id), 200);
   });
-  $('optAI').addEventListener('click', openChat);
   $('optReturn2').addEventListener('click', () => $('qaReturn').click());
   $('optRecurring2').addEventListener('click', () => $('qaRecurring').click());
   $('optCalendar2').addEventListener('click', () => $('qaCalendar').click());
-
-  /* ============ AI CHAT ============ */
-  function buildAppContext(){
-    const tp = bills.reduce((s, b) => s + billTotal(b), 0);
-    const tpaid = bills.reduce((s, b) => s + billPaid(b), 0);
-    const tout = bills.reduce((s, b) => s + billRemaining(b), 0);
-    const over = bills.filter(overdue);
-    const soon = bills.filter(dueSoon);
-
-    const supLines = suppliers.map(s => {
-      const t = supplierTotals(s.id);
-      if (t.billCount === 0) return null;
-      return `- ${s.name}: purchases ${fmtRs(t.totalPurchases)}, paid ${fmtRs(t.totalPaid)}, outstanding ${fmtRs(t.outstanding)} (${t.billCount} bills)`;
-    }).filter(Boolean).slice(0, 30).join('\n');
-
-    const recentLines = bills.slice().sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)).slice(0, 20).map(b =>
-      `- ${b.supplierName}: ${fmtRs(billTotal(b))} | paid ${fmtRs(billPaid(b))} | rem ${fmtRs(billRemaining(b))} | ${billStatus(b)}`
-    ).join('\n');
-
-    const catTotals = {};
-    bills.forEach(b => {
-      const c = b.category || 'Uncategorized';
-      catTotals[c] = (catTotals[c] || 0) + billTotal(b);
-    });
-    const catLines = Object.entries(catTotals).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([c, a]) => `- ${c}: ${fmtRs(a)}`).join('\n');
-
-    return `APP DATA:
-Total Purchases: ${fmtRs(tp)}
-Total Paid: ${fmtRs(tpaid)}
-Total Outstanding: ${fmtRs(tout)}
-Bills count: ${bills.length}
-Suppliers: ${suppliers.length}
-Overdue: ${over.length} (${fmtRs(over.reduce((s, b) => s + billRemaining(b), 0))})
-Due within 7 days: ${soon.length} (${fmtRs(soon.reduce((s, b) => s + billRemaining(b), 0))})
-
-SUPPLIERS:
-${supLines || '(none)'}
-
-RECENT BILLS:
-${recentLines || '(none)'}
-
-CATEGORIES:
-${catLines || '(none)'}
-
-Today: ${new Date().toLocaleDateString('en-GB')}
-Currency: PKR (Rs.)`;
-  }
-
-  async function sendChatMessage(text){
-    const msgs = $('chatMessages');
-    const userEl = document.createElement('div');
-    userEl.className = 'chat-msg user';
-    userEl.textContent = text;
-    msgs.appendChild(userEl);
-    msgs.scrollTop = msgs.scrollHeight;
-
-    const loadEl = document.createElement('div');
-    loadEl.className = 'chat-msg loading';
-    loadEl.innerHTML = '<span class="chat-typing"><span></span><span></span><span></span></span>';
-    msgs.appendChild(loadEl);
-    msgs.scrollTop = msgs.scrollHeight;
-
-    $('chatSendBtn').disabled = true;
-
-    try {
-      const key = (settings.geminiKey || '').trim();
-      if (!key) throw new Error('NO_KEY');
-      const ctx = buildAppContext();
-      const prompt = `USER: ${text}\n\n${ctx}`;
-      const body = {
-        contents: [{ parts: [{ text: prompt }] }],
-        systemInstruction: { parts: [{ text: 'You are a helpful assistant for a Pakistan shop owner. Answer ONLY from APP DATA. Use PKR format. Keep replies concise (2-4 lines). Roman Urdu/English mix OK. If info not in data, say "Ye info nahi hai".' }] },
-        generationConfig: { temperature: 0.4, maxOutputTokens: 700 }
-      };
-      const res = await fetch(`${GEMINI_ENDPOINT}${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(key)}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-      if (!res.ok){
-        const err = await res.json().catch(() => ({}));
-        throw new Error((err.error && err.error.message) || ('HTTP ' + res.status));
-      }
-      const data = await res.json();
-      const reply = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts
-        ? data.candidates[0].content.parts.map(p => p.text || '').join('')
-        : '';
-      if (!reply) throw new Error('Empty response');
-      loadEl.remove();
-      const aiEl = document.createElement('div');
-      aiEl.className = 'chat-msg ai';
-      aiEl.innerHTML = esc(reply).replace(/\n/g, '<br>');
-      msgs.appendChild(aiEl);
-    } catch(e){
-      loadEl.remove();
-      const errEl = document.createElement('div');
-      errEl.className = 'chat-msg error';
-      if (e.message === 'NO_KEY'){
-        errEl.innerHTML = '⚠️ Settings mein Gemini API Key daalein<br>Free: <b>aistudio.google.com</b>';
-      } else {
-        errEl.textContent = '⚠️ ' + e.message;
-      }
-      msgs.appendChild(errEl);
-    }
-    msgs.scrollTop = msgs.scrollHeight;
-    $('chatSendBtn').disabled = false;
-  }
-
-  function openChat(){
-    const msgs = $('chatMessages');
-    if (msgs.children.length === 0){
-      const el = document.createElement('div');
-      el.className = 'chat-msg ai';
-      el.innerHTML = '👋 Assalam-o-Alaikum!<br>Poochein:<br>• Is mahine ka kharcha?<br>• Kisko kitna dena hai?<br>• Overdue bills?';
-      msgs.appendChild(el);
-    }
-    openOv('chatOverlay');
-    setTimeout(() => $('chatInput').focus(), 300);
-  }
-
-  $('aiChatBtn').addEventListener('click', openChat);
-  $('chatSendBtn').addEventListener('click', () => {
-    const t = $('chatInput').value.trim();
-    if (!t) return;
-    $('chatInput').value = '';
-    sendChatMessage(t);
-  });
-  $('chatInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter'){ e.preventDefault(); $('chatSendBtn').click(); }
-  });
-  $('chatQuick').addEventListener('click', e => {
-    const b = e.target.closest('[data-q]');
-    if (!b) return;
-    sendChatMessage(b.dataset.q);
-  });
 
   /* ============ RECURRING ============ */
   function processRecurring(){
@@ -3051,7 +2886,6 @@ Currency: PKR (Rs.)`;
     $('sBudget').value = settings.monthlyBudget || '';
     $('sCloudName').value = settings.cloudName || '';
     $('sCloudPreset').value = settings.cloudPreset || '';
-    $('sGeminiKey').value = settings.geminiKey || '';
     $('hideAmountsToggle').checked = !!settings.hideAmounts;
     await updateFpUI();
     openOv('settingsOverlay');
@@ -3071,36 +2905,6 @@ Currency: PKR (Rs.)`;
     settings.cloudPreset = $('sCloudPreset').value.trim();
     saveSettings();
     toast('Cloud saved!');
-  });
-  $('saveAiKeyBtn').addEventListener('click', () => {
-    settings.geminiKey = $('sGeminiKey').value.trim();
-    saveSettings();
-    toast('AI key saved!');
-  });
-  $('testAiBtn').addEventListener('click', async () => {
-    const key = $('sGeminiKey').value.trim();
-    if (!key){ toast('Key daalein', 2000, true); return; }
-    const btn = $('testAiBtn');
-    const orig = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-    try {
-      const res = await fetch(GEMINI_ENDPOINT + GEMINI_MODEL + ':generateContent?key=' + encodeURIComponent(key), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: 'Say OK' }] }] })
-      });
-      const data = await res.json();
-      if (res.ok && data.candidates){
-        settings.geminiKey = key;
-        saveSettings();
-        toast('AI working! ✓');
-      } else {
-        toast('Key galat hai', 2500, true);
-      }
-    } catch(e){ toast('Network error', 2000, true); }
-    btn.disabled = false;
-    btn.innerHTML = orig;
   });
   $('hideAmountsToggle').addEventListener('change', e => {
     settings.hideAmounts = e.target.checked;
@@ -3142,7 +2946,7 @@ Currency: PKR (Rs.)`;
 
   /* ============ EXPORT / IMPORT ============ */
   $('exportDataBtn').addEventListener('click', () => {
-    const data = { bills, suppliers, categories, settings, auditLog, exportedAt: Date.now(), version: 7 };
+    const data = { bills, suppliers, categories, settings, auditLog, exportedAt: Date.now(), version: 8 };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -3658,7 +3462,6 @@ Currency: PKR (Rs.)`;
     loadAll();
     populateCatSelect();
 
-    // Process any pending recurring bills
     processRecurring();
 
     renderBills();
